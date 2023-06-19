@@ -21,6 +21,7 @@ Try to run ```Cmake``` while in /build/, and you will see that it generates seve
 ## Once you've run CMake once...
 i.e. you have a CMake Cache folder.
 You can run ```cmake``` or ```ccmake``` or ```cmake_gui``` on the build directory and won't need to provide the source again.
+
 ccmake and cmake_gui are both gui-based CMake options that let you set project configuration.
 
 ## Create variables
@@ -80,14 +81,17 @@ Targets are things that get compiled and:
    * Properties associated with them
    * Relationships between them
 
-Two main types of targets: executables and libraries
+Two main types of targets: executables and libraries.
+
 Commands: ```add_executable(...)```, ```add_library(...)```
 
 Libraries can be aliased, similar to typedefs/using in C++:
 ```add_library(<name> ALIAS <target>)```
 
 Imported libraries - things that aren't built as part of this project
+
 Interface libraries - allow you to create a name to collect a bunch of properties that aren't associated with any .lib, .dll, .a etc. file
+
 Object libraries - not seen too often; they are used to create a list of object files but then don't link them, then you can take that list into another ```add_library``` or ```add_executable``` and it's there that they will be linked. You may need them if you run into issues with the order of linking objects. Behave mostly like libraries. 
 
 Looking at this line:
