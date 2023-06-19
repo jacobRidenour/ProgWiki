@@ -1,0 +1,47 @@
+# Compiled 
+*.exe
+[Bb]in*/
+
+# VS Code Files/Folders
+.vscode*/
+
+# VS Files/Folders
+*.exe.recipe
+*.idb
+*.ilk
+*.iobj
+*.ipdb
+*.lastbuildstate
+*.log
+*.obj
+*.pdb
+*.sln
+*.tlog
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+.vs*/
+[Dd]ebug*/
+[Rr]elease*/
+x64*/
+x86*/
+
+# Rust Files/Folders
+.cargo-lock
+.rustc_info.json
+*.d
+*.fingerprint*/
+*.lock
+*.toml
+CACHEDIR.TAG
+[Dd]eps*/
+[Ee]xamples*/
+[Ii]ncremental*/
+[Tt]arget*/
+
+# Multiple Categories
+[Bb]uild*/ 
+## Build Directory for Rust projects, VS C/++ projects, CMake projects
+
+# Other
+[Ii]mageAnalysis*/
