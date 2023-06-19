@@ -1,5 +1,5 @@
 # C++ Setup
-Visual Studio uses its own compiler ```cl.exe```. I Recommend VS for any larger projects in C/C++ due to the fine-grained control for different Platforms/Configurations.
+Visual Studio uses its own compiler ```cl.exe```. I Recommend VS/CMake for any larger projects in C/C++ due to the fine-grained control for different Platforms/Configurations.
 For convenience I recommend adding ```C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\bin\Hostx64\x64``` to your PATH.
 
 ## Build with your IDE
@@ -53,7 +53,7 @@ Some useful default settings for your projects. Some of these may already be set
 ### Including Additional Files and Linking Libraries
 If you just want to include additional files from within the same directory as the .cpp file with your main() function, simply ```#include "localfile.hpp"```. This section focuses on external libraries and setting things up with the project in ```/BoostDemo/```.
 
-Boost has a lot of useful libraries, and plenty of them are header only (i.e. you don't need to compile it). Many things from Boost have ended up in the C++ Standard. Word of warning, setting this up is a little bit less streamlined if you're using VSCode.
+Boost has a lot of useful libraries, and plenty of them are header only (i.e. you don't need to compile them). Word of warning, setting this up is a little bit less streamlined if you're using VSCode.
 1. Get [Boost](https://www.boost.org/) and extract it.
 2. Copy /boost_1_82_0/ to a directory of your choice (I did C:\.include). We are going to build it to practice not only adding include directories but also statically linked libraries (.lib or .a files).
 Open Git Bash:
