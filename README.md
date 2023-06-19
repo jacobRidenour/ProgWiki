@@ -1,6 +1,6 @@
 # CodingPractice
 Learning basics of C/C++, Python, Rust.
-Goal: this code and documentation is helpful to others wanting to learn.
+Goal: this code and documentation helps others wanting to learn.
 
 ## Things to Get and Why
 1. Get [Visual Studio](https://visualstudio.microsoft.com/vs/) and [Visual Studio Code](https://code.visualstudio.com/). VS is especially good for C/C++ projects, VSCode is good for many other languages.
@@ -28,11 +28,15 @@ See C++/README_C++.md
 Download/run rustup from rust-lang.org
 VSCode: Get Rust Extension Pack
 Create your project:
-```cd Rust/project
+```
+cd Rust/project
 cargo new <project-name>
-code .```
+code .
+```
 
 Build/run your project:
-```cargo build
-cargo run```
+```
+cargo build
+cargo run
+```
 
