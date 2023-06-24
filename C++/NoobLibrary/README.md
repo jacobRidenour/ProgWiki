@@ -57,6 +57,7 @@ Iterator end()
 ```
 
 class BSTNode - node of an Indexed Binary Search Tree
+
 class IndexedBST - indexed Binary Search Tree. Includes printing and (basic) balancing.
 ```
 IndexedBST()
@@ -92,6 +93,7 @@ Iterator end()
 ```
 
 class TrieNode - node of a Trie
+
 class Trie - classic character-node based tree structure
 ```
 Trie()
