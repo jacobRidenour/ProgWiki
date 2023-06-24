@@ -3,6 +3,7 @@
 [Bb]in*/
 
 # VS Code Files/Folders
+CppProperties.json
 .vscode*/
 
 # VS Files/Folders
@@ -47,3 +48,5 @@ CACHEDIR.TAG
 [Ii]mageAnalysis*/
 [Rr]oomBuilder*/
 RNGtable.txt
+out.txt
+random_output.txt
