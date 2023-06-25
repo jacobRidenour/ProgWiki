@@ -13,6 +13,7 @@ int main() {
     //Stream manipulation examples
     //stream_manip_demo();
 
+
     //FileIO examples
     fileio_demo();    
 
@@ -64,8 +65,7 @@ void fileio_demo() {
     //Read only the numbers and display the numbers found
     //Assumption: numbers are separated by tabs and newlines
     //Recommended: random_numbers.txt
-    //WARNING: not working properly yet
-    fileio::process_file<int, float, double, long>();
+    fileio::process_file<int, float, double, long long>();
 
     //Call readFileToString, check current directory
     //std::cout << read_file_to_string("io demo.txt");

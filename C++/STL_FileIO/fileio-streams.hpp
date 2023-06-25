@@ -14,6 +14,7 @@
 
 /* Defines */
 using string = std::string;
+using uint = unsigned int;
 
 namespace stringHelper {
     bool checkIfNumberContainsE(const std::string& number) {
@@ -41,18 +42,30 @@ namespace stringHelper {
         return std::regex_match(str, pattern);
     }
 
-    //Issues with this one
     int expToInteger(const std::string& number) {
-        size_t posE = number.find('e');
+        size_t posE = number.find('E');
         if (posE == std::string::npos)
-            posE = number.find('E');
+            posE = number.find('e');
         if (posE != std::string::npos) {
             std::string exponent = number.substr(posE + 1);
-            if (exponent[0] == '+' || exponent[0] == '-')
+            if (!exponent.empty() && (exponent[0] == '+' || exponent[0] == '-'))
                 exponent = exponent.substr(1);  // Ignore the sign
-            return std::stoi(exponent);
+
+            // Check if the exponent is a valid integer
+            for (char ch : exponent) {
+                if (!std::isdigit(ch))
+                    return -1; // Return -1 if the exponent contains non-digit characters
+            }
+
+            try {
+                return std::stoi(exponent);
+            }
+            catch (const std::invalid_argument&) {
+                // Handle the case when conversion fails
+                std::cout << "Invalid exponent: " << exponent << std::endl;
+            }
         }
-        return 0;
+        return -1; // Return -1 when 'E' or 'e' is not found or when the exponent is invalid
     }
 
     template <typename T>
@@ -96,7 +109,7 @@ namespace fileio {
         std::vector<int> ints;
         std::vector<float> floats;
         std::vector<double> doubles;
-        std::vector<long> longs;
+        std::vector<long long> longs;
     };
 
     //Helper functions for process_file()
@@ -104,6 +117,12 @@ namespace fileio {
         int count = 0;
         outputFile << "Ints (" << separatedNumbers.ints.size() << ")\n----------------\n";
         for (const auto& num : separatedNumbers.ints) {
+            outputFile << num << "\n";
+            count++;
+        }
+
+        outputFile << "\nLong Longs (" << separatedNumbers.longs.size() << ")\n----------------\n";
+        for (const auto& num : separatedNumbers.longs) {
             outputFile << num << "\n";
             count++;
         }
@@ -120,15 +139,10 @@ namespace fileio {
             count++;
         }
 
-        outputFile << "\nLongs (" << separatedNumbers.longs.size() << ")\n----------------\n";
-        for (const auto& num : separatedNumbers.longs) {
-            outputFile << num << "\n";
-            count++;
-        }
-
-        outputFile << "Total numbers found: " << count << "\n\n";
+        outputFile << "\nTotal numbers found: " << count << "\n\n";
     }
 
+    //Read a text file with garbage data and numbers, extract the numbers and separate them into ints, long longs, floats, doubles
     template<typename T, typename U, typename V, typename W>
     void process_file() {
         namespace fs = std::filesystem;
@@ -157,13 +171,13 @@ namespace fileio {
             std::string number;
             while (iss >> number) {
                 // Skip non-numeric entries
-                if (stringHelper::isNumeric(number)) {
+                if (!stringHelper::isNumeric(number)) {
                     continue;
                 }
 
 
                 bool isInt = false;
-                bool isLong = false;
+                bool isLongLong = false;
                 bool isFloat = false;
                 bool isDouble = false;
 
@@ -175,7 +189,8 @@ namespace fileio {
                 if (containsDot && containsE) {
                     currentLength += stringHelper::numCharsBeforeE(number) - 1;
                     std::string exp = number.substr(stringHelper::numCharsBeforeE(number), std::string::npos);
-                    currentLength += stringHelper::expToInteger(exp);
+                    int exp_int = stringHelper::expToInteger(exp);
+                    if (exp_int != -1) currentLength += exp_int;
                 }
                 else if (containsDot && !containsE) {
                     currentLength += static_cast<int>(number.size()) - 1;
@@ -183,7 +198,8 @@ namespace fileio {
                 else if (!containsDot && containsE) {
                     currentLength += stringHelper::numCharsBeforeE(number);
                     std::string exp = number.substr(stringHelper::numCharsBeforeE(number), std::string::npos);
-                    currentLength += stringHelper::expToInteger(exp);
+                    int exp_int = stringHelper::expToInteger(exp);
+                    if (exp_int != -1) currentLength += exp_int;
                 }
 
                 if (!containsDot) {
@@ -191,7 +207,7 @@ namespace fileio {
                         isInt = true;
                     }
                     else {
-                        isLong = true;
+                        isLongLong = true;
                     }
                 }
                 else {
@@ -211,12 +227,12 @@ namespace fileio {
                         // Failed to convert to int
                     }
                 }
-                else if (isLong) {
+                else if (isLongLong) {
                     try {
                         separatedNumbers.longs.push_back(std::stoll(number));
                     }
                     catch (...) {
-                        // Failed to convert to long
+                        // Failed to convert to long long
                     }
                 }
                 else if (isFloat) {
