@@ -14,8 +14,8 @@ For convenience I recommend adding ```C:\Program Files\Microsoft Visual Studio\2
 Some useful default settings for your projects. Some of these may already be set by default.
 * Project -> Properties -> Configuration: All Configurations
     * Configuration Properties -> General:
-        * Output Directory: $(SolutionDir)$(ProjectName)\build\$(Platform)\$(Configuration)\
-        * Intermediate Directory: $(SolutionDir)$(ProjectName)\build\ints\$(Platform)\$(Configuration)\
+        * Output Directory: ```$(SolutionDir)$(ProjectName)\build\$(Platform)\$(Configuration)\```
+        * Intermediate Directory: ```$(SolutionDir)$(ProjectName)\build\ints\$(Platform)\$(Configuration)\```
         * C++ Language Standard: ISO C++ 20 Standard
         * C Language Standard: ISO C17 (2018) Standard
     * Configuration Properties -> Advanced
@@ -36,7 +36,7 @@ Some useful default settings for your projects. Some of these may already be set
         * -> Preprocessor -> Preprocessor Definitions -> <Edit...>
             * Add: _DEBUG
 * Project -> Properties -> Configuration: Release 
-    * Configuration PrRoperties -> Advanced:
+    * Configuration Properties -> Advanced:
         * Use Debug Libaries: No
     * Configuration Properties -> C/C++
         * -> General -> Warning Level: Level3 (/W3)
