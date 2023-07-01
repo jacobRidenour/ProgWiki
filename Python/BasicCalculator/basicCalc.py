@@ -13,29 +13,29 @@ while(validInput == False):
         validInput = True
     else:
         op = input("Enter an operation: ")
-        op = int(op) #cast back to int so we don't treat str as int if invalid input more than once
+        op = int(op) # cast back to int so we don't treat str as int if invalid input more than once
 
-#Having op as a str and checking == "+", "-", etc. would also work
+# Having op as a str and checking == "+", "-", etc. would also work
 if(op == 1):
-    #add
+    # add
     result = float(num1) + float(num2)
     print(num1 + " + " + num2 + " = " + str(result))
 elif(op == 2):
-    #subtract
+    # subtract
     result = float(num1) - float(num2)
     print(num1 + " - " + num2 + " = " + str(result))
 elif(op == 3):
-    #multiply
+    # multiply
     result = float(num1) * float(num2)
     print(num1 + " * " + num2 + " = " + str(result))
 elif(op == 4):
-    #divide
+    # divide
     result = float(num1) / float(num2)
     print(num1 + " / " + num2 + " = " + str(result))
     result = int(result)
     print(num1 + " / " + num2 + " = " + str(result) + " (integer division)")
 else:
-    #mod
+    # mod
     result = float(num1) % float(num2)
     print(num1 + " % " + num2 + " = " + str(result))
     

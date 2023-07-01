@@ -1,4 +1,4 @@
-# Compiled 
+# Binary Files
 *.exe
 [Bb]in*/
 
@@ -27,7 +27,7 @@ CppProperties.json
 x64*/
 x86*/
 
-# Rust Files/Folders
+# Rust
 .cargo-lock
 .rustc_info.json
 *.d
@@ -39,6 +39,11 @@ CACHEDIR.TAG
 [Ee]xamples*/
 [Ii]ncremental*/
 [Tt]arget*/
+
+# Python
+__pycache__*/
+[Vv]env*/
+.[Vv]env*/
 
 # Multiple Categories
 [Bb]uild*/ 

@@ -1,13 +1,16 @@
 # CodingPractice
 Learning basics of C/C++, Python, Rust.
-Goal: this code and documentation helps others wanting to learn.
+I hope that the code and documentation here helps others wanting to learn.
 
 ## Things to Get and Why
-1. Get [Visual Studio](https://visualstudio.microsoft.com/vs/) and [Visual Studio Code](https://code.visualstudio.com/). VS is especially good for C/C++ projects, VSCode is good for many other languages.
-2. Get [Git](https://github.com/git-guides/install-git); quickly get various open-source projects on GitHub, version control on your own projects. VSCode and VS2022 both have great support for Git.
-3. Get [Make](https://gnuwin32.sourceforge.net/packages/make.htm) and add ```/GnuWin32/bin``` to your PATH. It's one option to build C/C++ projects; not strictly necessary but nice to have if you want to learn the basics of Makefiles.
-4. Get [MinGW-w64](https://winlibs.com/) and add ```/mingw64/bin``` to your PATH. It's another option to build C/C++ projects (our own or others); probably the preferred option if we're not using Visual Studio.
-5. Get [CMake](https://cmake.org/download/) and add ```/cmake/bin``` to your PATH if it's not there after installation. It's a great way to keep build files separate from source files and make building C/C++ projects less painful, especially if we're outside the Visual Studio environment. For more details on how to set it up, see ```/C++/BoostDemo/Cmake-Notes.md```.
+3-6 are mostly C/C++ oriented.
+
+1. Get [Git](https://github.com/git-guides/install-git). It's great to quickly get various open-source projects on GitHub, and do proper version control on your own projects. VSCode has great support for Git, and Visual Studio's is getting better.
+2. Get [Visual Studio Code](https://code.visualstudio.com/). Great code editor and works as an IDE for a number of languages.
+3. Get [Visual Studio](https://visualstudio.microsoft.com/vs/). VS is especially good for C/C++ projects, also supports several other popular languages.
+4. Get [Make](https://gnuwin32.sourceforge.net/packages/make.htm) and add ```/GnuWin32/bin``` to your PATH. It's a build automation tool for C/C++ projects from makefiles; not strictly necessary but nice to have if you want to learn the basics of Makefiles.
+5. Get [MinGW-w64](https://winlibs.com/) and add ```/mingw64/bin``` to your PATH. It's an environment to build C/C++ projects (our own or others); probably the preferred option if we're not using Visual Studio. Comes with a port of GCC, GNU Binutils, and some tools for using the Windows API.
+6. Get [CMake](https://cmake.org/download/) and add ```/cmake/bin``` to your PATH if it's not there after installation. It's a great cross-platform, open-source build automation tool, getting things ready to be built by the compiler of your choice. It can make building large C/C++ projects less painful, especially if we're outside the Visual Studio environment. For more details on how to set it up, see ```/C++/BoostDemo/Cmake-Notes.md```.
 
 ## VS/Code Setup
 **VSCode**
@@ -23,18 +26,33 @@ See C++/README_C++.md
 
 ## Python Setup
 
+Download and install [Python](https://www.python.org/downloads/).
+* During the installation, be sure to check "Add Python to PATH".
+* Visual Studio natively supports Python projects.
+* In VSCode, get the Python Extension Pack from the Marketplace, or minimally Python, Python Indent, and Python Environment Manager.
+
+Make sure you can run python and pip from the command line and they're up to date. In a command prompt of your choice:
+```
+python --version
+python -m pip --version
+python -m pip install --upgrade pip setuptools wheel
+```
+
+Any python packages/wheels you install are added to your global environment by default. While convenient this can lead to problems if you have multiple versions of the same package, or conflicts between packages. As such, it's good practice to do your Python development in a virtual environment
 
 ## Rust Setup
-Download/run rustup from rust-lang.org
-VSCode: Get Rust Extension Pack
-Create your project:
+Download and install [rustup-init](https://www.rust-lang.org/tools/install)
+* In VSCode, get the Rust Extension Pack from the Marketplace.
+
+In a command prompt of your choice...
+1. Create your project:
 ```
 cd Rust/project
 cargo new <project-name>
 code .
 ```
 
-Build/run your project:
+2. Build/run your project:
 ```
 cargo build
 cargo run
