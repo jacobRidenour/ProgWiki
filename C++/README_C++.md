@@ -1,6 +1,7 @@
 # C++ Setup
+
 Visual Studio uses its own compiler ```cl.exe```. I Recommend VS/CMake for any larger projects in C/C++ due to the fine-grained control for different Platforms/Configurations.
-For convenience I recommend adding ```C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\bin\Hostx64\x64``` to your PATH.
+For convenience I recommend adding ```C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.34.31933\bin\Hostx64\x64``` to your PATH. This will let you call ```cl``` from any terminal.
 
 ## Build with your IDE
 
@@ -49,6 +50,8 @@ Some useful default settings for your projects. Some of these may already be set
         * -> General -> Treat Linker Warnings As Errors: Yes (/WX)
         * -> Optimization -> References: Yes (/OPT:REF)
         * -> Optimization -> Enable COMDAT Folding: Yes (/OPT:ICF)
+
+You probably don't want to have to set these every time you create a new project. You don't have to! Under Project -> Export Template you can create a template out of your project's settings (e.g. "My Console Template"), and when you create a new project, "My Console Template" will be an available option.
 
 ### Including Additional Files and Linking Libraries
 If you just want to include additional files from within the same directory as the .cpp file with your main() function, simply ```#include "localfile.hpp"```. This section focuses on external libraries and setting things up with the project in ```/BoostDemo/```.
@@ -182,6 +185,6 @@ release: boost-demo.cpp
 ```
 Breaking down the anatomy; Makefiles are powerful but can become messy with complicated projects.
 
-CXX refers to the compiler, the flags are specific flags you want to use for specific builds. The other variables (for libraries to link) are for convenience, and so if you need to add more libraries, you only need to edit a single line. Just running "make" will run the first target (debug). The Makefile included in ```/BoostDemo/``` has a more generic implementation that can be usaed with other similarly structured projects.
+CXX refers to the compiler, the flags are specific flags you want to use for specific builds. The other variables (for libraries to link) are for convenience, and so if you need to add more libraries, you only need to edit a single line. Just running "make" will run the first target (debug). The Makefile included in ```/BoostDemo/``` has a more generic implementation that can be used with other similarly structured projects.
 
-Creating Makefiles manually can quickly become messy, I recommend learning the basics of CMake to streamline the process and save you from some headaches.
+Creating Makefiles manually can quickly become messy, I recommend learning the basics of CMake to prevent future headaches.
