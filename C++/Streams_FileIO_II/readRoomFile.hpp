@@ -46,20 +46,20 @@ public:
 
         size_t areaLength;
         if (!inFile.read(reinterpret_cast<char*>(&areaLength), sizeof(size_t))) {
-            return false; // Return false if unable to read area length
+            return false; 
         }
-        area.resize(areaLength + 1); // +1 to include null terminator
+        area.resize(areaLength + 1); // Include null-terminator
         if (!inFile.read(&area[0], areaLength + 1)) {
-            return false; // Return false if unable to read area data
+            return false;
         }
 
         size_t nameLength;
         if (!inFile.read(reinterpret_cast<char*>(&nameLength), sizeof(size_t))) {
-            return false; // Return false if unable to read name length
+            return false;
         }
-        name.resize(nameLength + 1); // +1 to include null terminator
+        name.resize(nameLength + 1);
         if (!inFile.read(&name[0], nameLength + 1)) {
-            return false; // Return false if unable to read name data
+            return false; 
         }
     }
 };
