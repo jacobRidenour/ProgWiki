@@ -1,11 +1,11 @@
 # CodingPractice
 This repository is meant to catalog my learning/experimentation with different (small) topics in various languages and documentation.
 
-Learning basics of different languages. So far:
+In progress:
 * C++
 * Python
 
-Planned:
+More in the future:
 * Rust
 
 ## Things to Install
