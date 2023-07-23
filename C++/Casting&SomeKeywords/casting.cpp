@@ -38,6 +38,7 @@ int main() {
     std::cout << "value of void* to mol created with reinterpret_cast of &mol: " << void_ptr_mol << "\n";
     std::cout << "value of int* to mol created with reinterpret_cast of void* to mol: " << *int_ptr_mol << "\n\n";
     /* Reinterpret Cast */
+	// Performed at compile time; does not change value of object to which its operand points
     // Low-level reinterpretation of pointers or data types. Use sparingly.
     // Only use it when you need to perform reinterpretation between unrelated types,
     // like pointer -> integer conversions or other non-standard conversions

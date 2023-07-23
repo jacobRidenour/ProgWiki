@@ -1,0 +1,84 @@
+Brinstar 0 Morph Ball Room
+Brinstar 1 Brinstar Ball Cannon Room
+Brinstar 2 Taco Tank Room
+Brinstar 3 Main Shaft
+Brinstar 4 Pre-Long Beam
+Brinstar 5 Long Beam
+Brinstar 6 Blue-Gold Connector
+Brinstar 7 Gold Shaft
+Brinstar 8 Kraid Elevator
+Brinstar 9 G2 Hallway
+Brinstar 10 G2
+Brinstar 11 Tourian Elevator
+Brinstar 12 Alpha Missiles
+Brinstar 13 Pre-Hive Acid Pits
+Brinstar 14 Hive Connector West
+Brinstar 15 Hive Room
+Brinstar 16 Hive Connector East
+Brinstar 17 Pre-Ice Hint
+Brinstar 18 Ice Beam Hint
+Brinstar 19 Alpha E-Tank
+Brinstar 20 East Shaft
+Brinstar 21 Gold Missile Room
+Brinstar 22 Varia Climb
+Brinstar 23 Pre-Varia
+Brinstar 24 Pre-Bombs
+Brinstar 25 Bombs
+Brinstar 26 Norfair Elevatorg
+Brinstar 27 Varia Suit
+Brinstar 28 Gold Tubes
+Brinstar 29 Gold-Blue Missiles
+Brinstar 30 Bombs Hint
+Brinstar 31 Pre-Bombs Connector
+Brinstar 32 Brinstar Map
+Brinstar 33 Save: Bombs
+Brinstar 34 Save: Gold Shaft
+Brinstar 35 Long Beam Escape Connector
+Brinstar 36 Save: First
+Brinstar 37 Hi-Jump Hint
+Brinstar 38 Wave Beam Hint
+Brinstar 39 Save: Varia
+Brinstar 40 Blue-Gold Missiles
+Brinstar 41 Brinstar Supers
+Kraid 0 Kraid Entrance
+Kraid 1 Acid Worm Pool (South)
+Kraid 2 Acid Worm Entry Ball Cannon
+Kraid 3 Acid Worm Pool (North)
+Kraid 4 Zipline
+Kraid 5 Acid Worm
+Kraid 6 Acid Worm Escape Ball Cannon
+Kraid 7 Double Baristutes
+Kraid 8 Acid Worm Skip Room
+Kraid 9 Speedjump E-Tank
+Kraid 10 Cleanup Zipline Missile
+Kraid 11 Sidehopper Party
+Kraid 12 Acid Pool
+Kraid 13 Kraid Pre-Map 
+Kraid 14 Kraid Exit Puzzle Left
+Kraid 15 Kraid Exit Puzzle Center
+Kraid 16 Kraid Exit Puzzle Right
+Kraid 17 Acid Falls
+Kraid 18 Pre-Kraid Farm
+Kraid 19 Pre-Kraid Hallway
+Kraid 20 Save: Pre-Kraid
+Kraid 21 Boring Room
+Kraid 22 5 Sidehopper Frenzy
+Kraid 23 Look Down
+Kraid 24 Fake Acid Shaft Connector
+Kraid 25 Pre-Space Jump
+Kraid 26 Fake Acid Shaft
+Kraid 27 Kraid Escape Shaft
+Kraid 28 Pre-Kraid
+Kraid 29 Kraid Gadora
+Kraid 30 Kraid (Alive)
+Kraid 31 Save: Kraid Entry
+Kraid 32 Save: Space Jump
+Kraid 33 Space Jump
+Kraid 34 Speed Booster
+Kraid 35 Kraid Map Room
+Kraid 36 Save: Kraid Shaft
+Kraid 37 Kraid (Dead)
+Kraid 38 Acid Worm Missiles
+Kraid 39 Save: Acid Worm
+Kraid 40 Acid Worm Connector
+Kraid 41 Kraid-Norfair Hallway
