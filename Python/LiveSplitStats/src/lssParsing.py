@@ -47,12 +47,12 @@ def get_gold_id(segment_history, gold_time):
         return gold_time_id
 
 # retrieves the number from <Time id="number"> where <RealTime> is largest, also returns <RealTime>
-def get_worst_time(element):
+def get_worst_time(segment_history):
     worst_time = '00:00:00'
-    worst_time_id = None
+    worst_time_id = -1
     
-    if element is not None:
-        times = element.findall('Time')
+    if segment_history is not None:
+        times = segment_history.findall('Time')
         for time in times:
             real_time = get_real_time(time)
             if real_time > worst_time:
@@ -60,6 +60,32 @@ def get_worst_time(element):
                 worst_time_id = time.get('id')
                 
     return [worst_time_id, worst_time]
+
+# retrieves the number from <Time id="number"> where <RealTime> is smallest, also returns <RealTime>
+def get_best_time(segment_history):
+    best_time = '99:99:99'
+    best_time_id = -1
+    
+    if segment_history is not None:
+        times = segment_history.findall('Time')
+        for time in times:
+            real_time = get_real_time(time)
+            if real_time < best_time:
+                best_time = real_time
+                best_time_id = time.get('id')
+                
+    return [best_time_id, best_time]
+
+# return total time spend on a given segment
+def get_segment_sum(element):
+    total = 0.0
+    
+    if element is not None:
+        times = element.findall('Time')
+        for time in times:
+            real_time_seconds = time_to_seconds(get_real_time(time))
+            total += real_time_seconds
+    return total
 
 # convert .lss <RealTime> to seconds
 def time_to_seconds(time_str):
@@ -101,6 +127,36 @@ def get_average_time(segment_history):
     average_in_seconds = total / count
     return seconds_to_time(average_in_seconds)
 
+# calculate the median time for a segment
+def get_median_time(segment_history):
+    if segment_history is None:
+        return ''
+
+    times = segment_history.findall('Time')
+    time_list = []
+
+    for time in times:
+        real_time = get_real_time(time)
+        if real_time:
+            time_list.append(time_to_seconds(real_time))
+
+    if not time_list:
+        return ''
+
+    time_list.sort()
+    n = len(time_list)
+
+    # even number of times
+    if n % 2 == 0:
+        middle1 = time_list[n // 2 - 1]
+        middle2 = time_list[n // 2]
+        median_in_seconds = (middle1 + middle2) / 2
+    # odd number of times
+    else:
+        median_in_seconds = time_list[n // 2]
+
+    return seconds_to_time(median_in_seconds)
+
 # calculate standard deviation for a segment
 def get_std_dev(segment_history):
     if segment_history is None or not segment_history.findall('Time'):
@@ -123,6 +179,34 @@ def get_std_dev(segment_history):
     
     return seconds_to_time(std_dev_seconds)
 
+# count number of above average runs
+def get_above_average_rate(segment_history):
+    if segment_history is None:
+        return 0
+    
+    average_time = get_average_time(segment_history)
+    if not average_time:
+        return 0
+    
+    above_average_count = 0
+    times = segment_history.findall('Time')
+    
+    for time in times:
+        real_time = get_real_time(time)
+        if real_time:
+            time_seconds = time_to_seconds(real_time)
+            if time_seconds < time_to_seconds(average_time):
+                above_average_count += 1
+    
+    segment_count = 0
+    for _ in segment_history.findall("Time"):
+        segment_count += 1
+    
+    #'{:.2f}%'.format(decent)
+    
+    decent = (above_average_count / segment_count)*100
+    
+    return '{:.2f}%'.format(decent)
 
 # find the attempt that matches a given time (used for golds/worst segments currently)
 def get_attempt_date(attempt_id, root):
@@ -137,3 +221,23 @@ def get_attempt_date(attempt_id, root):
     else:
         return ''
 
+# simple - looks at number of completed segments vs. attempts
+def get_percent_finished(attempts, segment_history):
+    completed_segments = len(segment_history.findall('Time'))
+    if completed_segments == 0:
+        return '? %'
+    finished_percent = ((completed_segments/attempts))*100
+    return '{:.2f}%'.format(finished_percent)
+
+def convert_to_dictionary(segment_history_element):
+    time_dict = {}
+    
+    # Iterate through the Time elements in the SegmentHistory
+    for time_element in segment_history_element.findall("Time"):
+        time_id = int(time_element.get("id"))  # Get the value of the id attribute
+        real_time = get_real_time(time_element)  # Assuming you have a function to get RealTime
+        
+        # Add the entry to the dictionary
+        time_dict[time_id] = real_time
+    
+    return time_dict
