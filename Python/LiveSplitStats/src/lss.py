@@ -1,10 +1,12 @@
+# Imports
 from dataclasses import dataclass, field
 
 @dataclass
 class segment_stats:
     average: str = ''
     stdev: str = ''
-    percent_above_average: str = ''
+    decent_rate: str = ''
+    finished_rate: str = ''
     median: str = ''
     improvement_over_time: str = ''
 
@@ -12,7 +14,8 @@ class segment_stats:
 class segment_time:
     time: str = ''
     id: str = ''
-    date_time: list = field(default_factory=list)
+    run_date: str = ''
+    run_time: str = ''
 
 @dataclass
 class segment_data:
@@ -21,7 +24,6 @@ class segment_data:
     segment_pb: segment_time = field(default_factory=segment_time)
     segment_gold: segment_time = field(default_factory=segment_time)
     segment_worst: segment_time = field(default_factory=segment_time)
-    completion_pct: str = ''
     stats: segment_stats = field(default_factory=segment_stats)       
         
 @dataclass
@@ -42,9 +44,6 @@ class lss:
     
     # sum of best, total playtime
     sob: str = ''
+    total_runtime: str = ''
     total_playtime: str = ''
-    
-
-# def calc_completed(runs_started, runs_finished):
-#     return '{:.2f}%'.format(runs_started/runs_finished*100)
     
