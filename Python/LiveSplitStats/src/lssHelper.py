@@ -78,6 +78,19 @@ def get_total_playtime(attempt_history):
         
     return seconds_to_time(total_time)
 
+# get time and ID for all finished runs
+def get_finished_runs(attempt_history):
+    finished_runs = {}
+    
+    for attempt in attempt_history:
+        attempt_id = attempt.get('id')
+        real_time = get_real_time(attempt)
+        
+        if real_time != '':
+            finished_runs[attempt_id] = real_time
+            
+    return finished_runs
+
 #-----------------------------------
 # <SegmentHistory> utility functions
 #-----------------------------------

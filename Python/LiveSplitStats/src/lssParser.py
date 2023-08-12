@@ -25,6 +25,7 @@ def read_lss_file(root):
     split_file.runs_started = count_attempts(root)
     split_file.runs_finished = count_runs_finished(root)
     split_file.total_playtime = get_total_playtime(root.find('AttemptHistory'))
+    split_file.finished_run_times = get_finished_runs(root.find('AttemptHistory'))
     
     # variables to track sum of best and total splits time
     sum_of_best = 0.0
@@ -76,6 +77,13 @@ def read_lss_file(root):
         # associates time id="number" with RealTime
         segment_history = make_dictionary(segment.find('SegmentHistory'))
         
+        # remove times that don't have a RealTime component
+        empty_keys = [key for key, value in segment_history.items() if not value]
+        for key in empty_keys:
+            segment_history.pop(key)
+        
+        current_segment.segment_history = segment_history
+        
         # update sum of best and total runtime
         sum_of_best += time_to_seconds(current_segment.segment_gold.time)
         total_runtime += get_segment_sum(segment_history)
@@ -92,6 +100,12 @@ def read_lss_file(root):
         else:
             current_segment.segment_gold.run_date = '?'
             current_segment.segment_gold.run_time = '?'
+        
+        current_segment.possible_time_save = seconds_to_time(time_to_seconds(current_segment.segment_pb) - time_to_seconds(current_segment.segment_gold.time))
+        
+        # handle the case where the split was skipped in PB
+        if time_to_seconds(current_segment.possible_time_save) > time_to_seconds(current_segment.segment_pb):
+            current_segment.possible_time_save = seconds_to_time(0)
         
         # find the worst segment info (must be found manually)
         worst_segment_info = get_worst_time(segment_history)

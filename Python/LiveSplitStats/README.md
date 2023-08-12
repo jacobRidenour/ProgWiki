@@ -37,6 +37,13 @@ Other information
 * Total playtime (includes runs that reset before first segment was finished)
 
 Graphs
+* Line graph: segment duration over time for each segment
+* Bar graph: standard deviation for each segment
+* Bar graph: percentage of above average segments
+* Bar graph: possible time save in PB
+* Line graph: Run duration over time
+
+# Ideas scratchpad
 * Represent PB as a line, show:
     * Split time for each
     * Duration of each segment
@@ -46,3 +53,11 @@ Graphs
 * Seconds of improvement (pie chart of worst-best for each segment)
 * CSV export
     * Parsed segment information (time in seconds)
+
+# Dependencies
+
+matplotlib
+
+Installation:
+
+```pip install matplotlib```
