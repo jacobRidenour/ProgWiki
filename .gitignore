@@ -41,9 +41,23 @@ CACHEDIR.TAG
 [Tt]arget*/
 
 # Python
+*.pyc
 __pycache__*/
 [Vv]env*/
 .[Vv]env*/
+
+# React
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+node_modules
+bower_components
+*.sublime*
+psd
+thumb
+sketch
 
 # Multiple Categories
 [Bb]uild*/ 
