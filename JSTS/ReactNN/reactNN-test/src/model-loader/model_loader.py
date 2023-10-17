@@ -18,10 +18,19 @@ def get_model_folders(directory):
     return model_folders
 
 
-def load_models(models):
-    loaded_models = []
-    for model in models:
-        loaded_models.append(tf.saved_model.load(model))
+def load_models(model_folders, base_directory):
+    loaded_models = {}
+    for folder in model_folders:
+        model_path = os.path.join(base_directory, folder)
+
+        # disable eager execution (?)
+        tf.compat.v1.disable_eager_execution()
+
+        # loaded_model = tf.saved_model.load(model_path)
+        loaded_model = tf.compat.v1.train.import_meta_graph(
+            os.path.join(model_path, f'{folder}.meta'))
+
+        loaded_models[folder] = loaded_model
 
     return loaded_models
 
@@ -33,20 +42,9 @@ if __name__ == '__main__':
     directory = os.path.join(cwd, 'models')
     model_subfolders = get_model_folders(directory)
 
-    # Assumption/requirement: model name is of type .pb and has the same name as the parent folder
-    # model_names = []
-    # for folder in model_subfolders:
-    #     model_names.append(folder + '.pb')
-
-    # Create list of models with the full path to each stored in a list.
-    models = []
-    for i in range(len(model_subfolders)):
-        models.append(os.path.join(
-            # directory, model_subfolders[i], model_names[i]))
-            directory, model_subfolders[i]))
-
-    found_models = load_models(models)
+    found_models = load_models(model_subfolders, directory)
     print(f'Successfully loaded {len(found_models)} model(s)')
 
-    # for folder in model_subfolders:
-    #    print(folder)
+    # You can access the loaded models using their folder names as keys
+    for folder, model in found_models.items():
+        print(f"Loaded model from folder '{folder}'")

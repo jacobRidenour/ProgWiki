@@ -42,6 +42,15 @@ Run the server locally:
 
 The server will by default run at `http://localhost:$(port)`
 
+# Dependencies
+
+1. Express: `npm install express --save-dev`
+2. // Update vite.config.ts to include node.js backend
+3. Run Vite Development Server & Server script (open 2 terminals):
+
+- Terminal 1: `npm run dev`
+- Terminal 2: `node server.js`
+
 # File/Folder Structure
 
 - node_modules - third party libraries like React and other tools - should never have to touch this
