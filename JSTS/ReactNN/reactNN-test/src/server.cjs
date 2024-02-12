@@ -1,7 +1,7 @@
 const express = require('express');
 const { exec } = require('child_process');
 const app = express();
-const port = 3001; // You can choose any port you like
+const port = 3001;
 
 app.get('/execute-python-script', (req, res) => {
   exec('python model-loader/model_loader.py', (error, stdout, stderr) => {

@@ -1,0 +1,8 @@
+project MonthYear is
+   for Main use ("MonthYear.adb");
+   for Object_Dir use ".objs";
+
+   package Compiler is
+      for Default_Switches ("Ada") use ("-g");
+   end Compiler;
+end MonthYear;
