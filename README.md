@@ -79,11 +79,6 @@ cargo build
 cargo run
 ```
 
-
-## Ada Setup
-
-Follow the instructions on [this page](https://github.com/AdaCore/ada_language_server/wiki/Getting-Started). Or alternately use the [online Ada compiler](https://www.tutorialspoint.com/compile_ada_online.php) at tutorialspoint.
-
 ## Ruby Setup
 
 Install Ruby from their [website](https://rubyinstaller.org/downloads/) and get the Ruby extension pack for VS Code.
