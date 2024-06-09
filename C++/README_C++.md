@@ -9,6 +9,7 @@ For convenience I recommend adding ```C:\Program Files\Microsoft Visual Studio\2
 * Get C/C++ Extension Pack
 * Settings (Ctrl+,) -> Extensions -> C/C++ -> c_cpp_runner
     * Cpp Standard: c++20
+        * Note your compiler may not yet support all of the latest features yet; change if needed
     * C Standard: c17
 
 **VS2022**
@@ -58,21 +59,31 @@ If you just want to include additional files from within the same directory as t
 
 Boost has a lot of useful libraries, and plenty of them are header only (i.e. you don't need to compile them). Word of warning, setting this up is a little bit less streamlined if you're using VSCode.
 1. Get [Boost](https://www.boost.org/) and extract it.
-2. Copy /boost_1_82_0/ to a directory of your choice (I did C:\.include). We are going to build it to practice not only adding include directories but also statically linked libraries (.lib or .a files).
+2. Copy /boost_1_82_0/ to a directory of your choice (I did C:\\.include). We are going to build it to practice not only adding include directories but also statically linked libraries (.lib or .a files).
 Open Git Bash:
 ```cd /c/.include/boost_1_82_0/```
 
 If you will be building with Visual Studio:
-```
+```bash
 ./bootstrap
 ./b2
 ```
-If you will be building with g++/Visual Studio Code (Assumption: you have Mingw-w64):
-```
+If you will be building with g++/Visual Studio Code (Assumption: you have Mingw-w64 or similar):
+```bash
 ./bootstrap mingw
 ./b2 toolset=gcc
 ```
+
+Some additional parameters for b2 that may be useful:
+```bash
+-j{number} # number of jobs for compiling
+link={static|shared} # set if b2 is creating static or shared libraries
+runtime-link={static|shared} # set if b2 is using static or shared versions of C/++ runtimes 
+```
+
 Note that you can use the MSVC compiler in Visual Studio Code, but we're not going to for the sake of learning.
+
+Once it's done, b2's output should tell you where to add the include directory and libraries directory.
 
 (Optional) Copy (cp) or Move (mv) the library files (.lib for MSVC, .a for mingw) into a single directory for convenience. FYI you can paste into a Bash terminal using Mouse3.
 ```
