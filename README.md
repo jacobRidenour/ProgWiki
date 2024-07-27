@@ -3,7 +3,12 @@ This repository is meant to catalog my learning & experimentation with various (
 
 Setup instructions for my fallible memory and to ease things for others.
 
-Instructions are applicable to both Windows and Linux unless otherwise specified. Information presented in whatever order makes sense to the author.
+## Topics
+
+| Syntax                                                                                                                                                                                                                                                                        | How to |     |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --- |
+| <ul><br>    <li>Definition of true/false</li><br>    <li>if/else, do/while, for</li><br>    <li>switch/case</li><br>    <li>break, continue, goto</li><br>    <li>Iterate over iterable type</li><br>    <li>Iterate over a range (inclusive vs. exclusive)</li><br></ul><br> |        |     |
+
 
 ## Recommended Applications
 1. [Git](https://github.com/git-guides/install-git). Download code repositories, and version control your projects. Comes with git bash.
