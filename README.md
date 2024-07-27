@@ -1,41 +1,47 @@
 # CodingPractice
+This repository is meant to catalog my learning & experimentation with various (small) topics and documentation of them in various languages.
 
-This repository is meant to catalog my learning/experimentation with different (small) topics in various languages and documentation.
+Setup instructions for my fallible memory and to ease things for others.
 
-Languages include:
+Instructions are applicable to both Windows and Linux unless otherwise specified. Information presented in whatever order makes sense to the author.
 
-- C++
-- Python
-- JavaScript/TypeScript
-
-More later:
-
-- Rust
-
-## Things to Install
-
-1. Get [Git](https://github.com/git-guides/install-git). It's great to quickly get various open-source projects on GitHub, and do proper version control on your own projects. VSCode has great support for Git, and Visual Studio's is getting better.
-2. Get [Visual Studio Code](https://code.visualstudio.com/). Great code editor and can be finagled into being an IDE for a number of languages.
-3. Get [Visual Studio](https://visualstudio.microsoft.com/vs/). VS is especially good for C/C++ projects, also supports several other popular languages such as Python, Visual Basic, C#, and F#.
+## Recommended Applications
+1. [Git](https://github.com/git-guides/install-git). Download code repositories, and version control your projects. Comes with git bash.
+2. [Visual Studio Code](https://code.visualstudio.com/). Snappy code editor. Can be molded into somewhat of an IDE for a number of languages. Git integration and search capabilities are excellent. 
+   - [Code - OSS](https://github.com/microsoft/vscode) if on Linux and your package manager's only option is a Flatpak.
+3. [Visual Studio](https://visualstudio.microsoft.com/vs/) (Windows only). Top tier support for C++, C#, .NET. Integrated profiler. Built-in debugger works on *any* Windows executable. .NET UI designer tools.
 
 ## VS/Code Setup
+Change Terminal to Bash:
 
-**VSCode**
+| VSCode                                                             | VS2022 (Windows only)                                                             |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| Command Palette (Ctrl+Shift+P)<br>Terminal: Select Default Profile | Tools -> Options -> Environment -> Terminal -> Add;<br>Arguments: `--login -i -l` |
+## C/C++ Essentials
+See the [C README](C/README_C.md) for additional information on C, and the [C++ README](C++/README_C++.md) for additional information on C++.
 
-- Change terminal to Git Bash (Ctrl+Shift+P) Terminal: Select Default Profile
-- Build shortcut: Ctrl+Shift+B
+### Windows
 
-**VS2022**
+| Program                                                    | Add to PATH     | Rationale                                                                                                          |
+| ---------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------ |
+| [Make](https://gnuwin32.sourceforge.net/packages/make.htm) | `/GnuWin32/bin` | Build automation tool. May be necessary to build dependencies.                                                     |
+| [MinGW-w64](https://winlibs.com/)                          | `/mingw64/bin`  | Development environment for Windows apps, with ports of `gcc`, `gdb`, and more.                                    |
+| [CMake](https://cmake.org/download/)                       | `/cmake/bin`    | Build system generator; creates build files (like Makefiles, Visual Studio projects) in a compiler-independent way |
 
-- Tools -> Options -> Environment -> Terminal -> Add; for Bash, set arguments `--login -i -l`
+Primer on Makefiles: \[[1](https://avikdas.com/2019/11/18/makefiles-from-the-ground-up.html)\] \[[2](https://avikdas.com/2019/12/16/makefiles-for-c-cpp-projects.html)\]
 
-## C/C++ Setup
+### Linux
 
-See C++/README_C++.md for more information.
+| Program  | Rationale                                             |
+| -------- | ----------------------------------------------------- |
+| gcc      | GNU compiler collection; C/C++ compilers (gcc, g++)   |
+| gdb      | GNU debugger (supports C/C++ among others)            |
+| make     | See above                                             |
+| binutils | Tools such as the linker, assembler, and binary tools |
+| valgrind | Memory debugging, memory leak detection               |
+| cmake    | See above                                             |
 
-1. Get [Make](https://gnuwin32.sourceforge.net/packages/make.htm) and add `/GnuWin32/bin` to your PATH. It's a build automation tool for C/C++ projects from makefiles; not strictly necessary but nice to have if you want to learn the basics of Makefiles.
-2. Get [MinGW-w64](https://winlibs.com/) and add `/mingw64/bin` to your PATH. It's an environment to build C/C++ projects (our own or others); probably the preferred option if we're not using Visual Studio. Comes with a port of GCC, GNU Binutils, and some tools for using the Windows API.
-3. Get [CMake](https://cmake.org/download/) and add `/cmake/bin` to your PATH if it's not there after installation. It's a great cross-platform, open-source build automation tool, getting things ready to be built by the compiler of your choice. It can make building large C/C++ projects less painful, especially if we're outside the Visual Studio environment. For more details on how to set it up, see `/C++/BoostDemo/Cmake-Notes.md`.
+TODO: ninja? vcpkg?
 
 ## Python Setup
 
@@ -56,29 +62,6 @@ python -m pip --version
 python -m pip install --upgrade pip setuptools wheel
 ```
 
-## Rust Setup
-
-Download and install [rustup-init](https://www.rust-lang.org/tools/install)
-
-- In VSCode, get the Rust Extension Pack from the Marketplace.
-
-In a command prompt of your choice...
-
-1. Create your project:
-
-```
-cd Rust/project
-cargo new <project-name>
-code .
-```
-
-2. Build/run your project:
-
-```
-cargo build
-cargo run
-```
-
-## Ruby Setup
-
-Install Ruby from their [website](https://rubyinstaller.org/downloads/) and get the Ruby extension pack for VS Code.
+// Ruby
+// JSTS?
+// Rust

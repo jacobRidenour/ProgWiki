@@ -30,7 +30,7 @@ add_subdirectory(folder1)
 add_subdirectory(folder2)
 
 # Create the DLL target; link static libs to it & necessary Boost libraries to it
-# Add dummy.cpp file to appease CMake
+# TODO: fix dummy approach, produces empty DLL :) 
 add_library(MyProjectDLL SHARED dummy.cpp)
 target_link_libraries(MyProjectDLL PRIVATE
     Folder1Lib Folder2Lib

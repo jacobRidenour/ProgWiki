@@ -1,6 +1,39 @@
-# Binary Files
+# Binaries
 *.exe
 [Bb]in*/
+[Bb]uild*/ 
+
+# Python
+*.pyc
+__pycache__*/
+[Vv]env*/
+.[Vv]env*/
+
+# Rust
+.cargo-lock
+.rustc_info.json
+*.d
+*.fingerprint*/
+*.lock
+*.toml
+CACHEDIR.TAG
+[Dd]eps*/
+[Ee]xamples*/
+[Ii]ncremental*/
+[Tt]arget*/
+
+# React
+.DS_*
+*.log
+logs
+**/*.backup.*
+**/*.back.*
+node_modules
+bower_components
+*.sublime*
+psd
+thumb
+sketch
 
 # VS Code Files/Folders
 CppProperties.json
@@ -27,46 +60,7 @@ CppProperties.json
 x64*/
 x86*/
 
-# Rust
-.cargo-lock
-.rustc_info.json
-*.d
-*.fingerprint*/
-*.lock
-*.toml
-CACHEDIR.TAG
-[Dd]eps*/
-[Ee]xamples*/
-[Ii]ncremental*/
-[Tt]arget*/
-
-# Python
-*.pyc
-__pycache__*/
-[Vv]env*/
-.[Vv]env*/
-
-# React
-.DS_*
-*.log
-logs
-**/*.backup.*
-**/*.back.*
-node_modules
-bower_components
-*.sublime*
-psd
-thumb
-sketch
-
-# Multiple Categories
-[Bb]uild*/ 
-## Build Directory for Rust projects, VS C/++ projects, CMake projects
-
 # Other
-[Ii]mageAnalysis*/
-[Rr]oomBuilder*/
-RNGtable.txt
-out.txt
-random_output.txt
-database.db
+.vs/
+.obsidian/
+

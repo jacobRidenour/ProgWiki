@@ -1,3 +1,8 @@
+# C++
+
+The C++ programming language features ahead of time (AOT) compilation, and supports imperative, object-oriented, functional, procedural, and generic programming.
+
+
 # C++ Setup
 
 Visual Studio uses its own compiler ```cl.exe```. I Recommend VS/CMake for any larger projects in C/C++ due to the fine-grained control for different Platforms/Configurations.

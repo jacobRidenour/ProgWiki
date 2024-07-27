@@ -1,4 +1,6 @@
-#include <iostream> //<> = in standard library
+#include <iostream> /* #includes -> <brackets> replaces directive with entire contents of header
+                                    "quotes" replaces directive with entire contents of source file
+                                      */
 
 int main() {
     std::cout << "Hello World" << std::endl; //cout = character out [to the screen]
