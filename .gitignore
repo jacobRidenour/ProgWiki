@@ -2,6 +2,7 @@
 *.exe
 [Bb]in*/
 [Bb]uild*/ 
+a.out
 
 # Python
 *.pyc

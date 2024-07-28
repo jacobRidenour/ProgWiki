@@ -5,9 +5,107 @@ Setup instructions for my fallible memory and to ease things for others.
 
 ## Topics
 
-| Syntax                                                                                                                                                                                                                                                                        | How to |     |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | --- |
-| <ul><br>    <li>Definition of true/false</li><br>    <li>if/else, do/while, for</li><br>    <li>switch/case</li><br>    <li>break, continue, goto</li><br>    <li>Iterate over iterable type</li><br>    <li>Iterate over a range (inclusive vs. exclusive)</li><br></ul><br> |        |     |
+<table>
+  <tr>
+    <td valign="top">
+      <strong>Operators</strong>
+      <ul>
+        <li>Math operators (+ - * / % sqrt **)</li>
+        <li>Increment/decrement (++ --)</li>
+        <li>Bitwise operators (& | ~ !)</li>
+        <li>Compound operators</li>
+        <li>Logic operators (&gt; &lt; ==)</li>
+        <li>Operator precedence</li>
+      </ul>
+    </td>
+    <td valign="top">
+      <strong>Type system</strong>
+      <ul>
+        <li>Numeric types</li>
+        <li>Records</li>
+        <li>Qualifiers (const, static)</li>
+        <li>Pointers, references</li>
+        <li>Type conversion & casting</li>
+        <li>Copying/cloning</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <strong>Conditionals</strong>
+      <ul>
+        <li>Definition of true/false</li>
+        <li>if/else, do/while, for</li>
+        <li>switch/case</li>
+        <li>break, continue, goto</li>
+        <li>Iterate over iterable type</li>
+        <li>Iterate oveompilation
+        <li>Dictionaries/Maps, Sets, Tuples</li>
+        <li>Arrays/vectors, linked lists</li>
+        <li>Multidimensional arrays</li>
+        <li>Hash tables, hash maps</li>
+        <li>Stacks, queues, deques</li>
+        <li>Graphs, Trees</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <td valign="top">
+      <strong>Strings/Files</strong>
+      <ul>
+         <li>Strings (print/format, concat, case, sort, split)</li>
+         <li>Write to/read from the console, file, binary file</li>
+         <li>Traverse the file system</li>
+         <li>Prase JSON, XML, CSV</li>
+         <li>Regular expressions</li>
+         <li>Built-in/common logging techniques</li>
+         <li>Date & time recording, manipulation, formatting</li>
+      </ul>
+    </td>
+    <td valign="top">
+      <strong>Functions, Objects, Memory</strong>
+      <ul>
+         <li>Passing & returning semantics</li>
+         <li>Error handling (try-catch, return values)</li>
+         <li>Abstract classes</li>
+         <li>Inheritance and polymorphism</li>
+         <li>Access specifiers and visibility</li>
+         <li>Keywords otherwise not covered</li>
+         <li>Operator overloading</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <strong>Multithreading</strong>
+      <ul>
+         <li>Threading/multiprocessing syntax</li>
+         <li>Conditions, mutexes, synchronization</li>
+      </ul>
+    </td>
+    <td valign="top">
+      <strong>Networking</strong>
+      <ul>
+         <li>Send HTTP requests, handle responses</li>
+         <li>Basic Socket programming</li>
+      </ul>
+    </td>
+  </tr>
+</table>
+
+<strong>Language External</strong>
+<ul>
+   <li>Language features</li>
+   <li>Creating a Binary</li>
+   <li>VS/Code setup</li>
+   <li>Build systems</li>
+   <li>External Libraries</li>
+   <li>Using the Debugger</li>
+   <li>Virtual environments</li>
+</ul>
 
 
 ## Recommended Applications
@@ -67,6 +165,8 @@ python -m pip --version
 python -m pip install --upgrade pip setuptools wheel
 ```
 
+// C++
+// Python
 // Ruby
-// JSTS?
+// JS/TS
 // Rust

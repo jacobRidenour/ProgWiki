@@ -4,13 +4,14 @@ The C programming language features ahead of time (AOT) compilation, and support
 
 Function parameters are passed by value (copied), except for arrays, which are passed as pointers.
 
-## Creating a binary
+C has been standardized since 1989. The content in this folder will reflect C from ANSI C (1989) up through the features included in the 2017 standard, C17.
+
+## Creating a Binary
 
 There are 3 main programs involved in creating a binary, such as an executable, from C source code. They are the preprocessor, the compiler, and the linker. When we build a C program, all three of these steps occur sequentially by default.
 
 Any references to compiler flags here are referring to the GNU C compiler `gcc`.
-
-![Medium-level overview of gcc's compilation process for C.](.img/c-compilation-process.png)
+![Compilation process for C.](__images/c-compilation-process.png)
 
 ### Preprocessor
 ---
@@ -58,9 +59,7 @@ Another common usage is for functions that are defined in different headers on d
 #endif
 ```
 
-A reference for predefined compiler macros can be found [here](https://github.com/cpredef/predef). `__MSC_VER` is commonly used in projects that may be compiled with Visual Studio's compiler, `cl`.
-
-Conditional compilation is commonly used to provoke different behavior only if doing a Debug build, relative to a Release (optimized) build:
+It can also be used to provoke different behavior only if doing a Debug build, relative to a Release (optimized) build:
 
 ```C
 int sum(int a, int b) {
@@ -131,5 +130,11 @@ Some symbols that are used may be defined in existing library files. If they are
 
 The final addresses of the blocks (code, data) in object files are not known at generation time, so they usually assume an address base of 0. The linker relocates and adjusts these addresses to avoid overlaps.
 
+## VS/Code Setup
 
+## Build Systems
+
+## External Libraries
+
+## Using the Debugger
 
