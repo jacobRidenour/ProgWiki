@@ -6,6 +6,16 @@ Function parameters are passed by value (copied), except for arrays, which are p
 
 C has been standardized since 1989. The content in this folder will reflect C from ANSI C (1989) up through the features included in the 2017 standard, C17.
 
+There are 3 related categories of behavior to watch out for with C (and C++) that can cause unintuitive bugs (definitions adapted from [here](https://stackoverflow.com/questions/2397984/undefined-unspecified-and-implementation-defined-behavior) and [here](https://en.cppreference.com/w/c/language/behavior)):
+
+* **Implementation-defined behavior**: behavior, for a well-formed program construct and correct data, that depends on the implementation and that each implementation documents
+   * Examples: order of operand evaluation for the operator `+`. The size of `int`. In-memory order of the bits in a byte (endianness)
+* **Undefined behavior**: behavior for which \[the standard\] imposes no requirements
+   * Examples: dereferencing a `NULL` pointer, modifying a string literal, indexing outside the boundaries of an array, division by 0
+* **Unspecified behavior**: behavior, for a well-formed program construct and correct data, that depends on the implementation; in C, the standard provides 2 or more possibilities and imposes no prescription on which is chosen
+   * Examples: order of evaluation for function arguments
+
+
 ## Creating a Binary
 
 There are 3 main programs involved in creating a binary, such as an executable, from C source code. They are the preprocessor, the compiler, and the linker. When we build a C program, all three of these steps occur sequentially by default.
@@ -129,6 +139,87 @@ The linker's first job is symbol resolution. Each symbol (i.e. function, variabl
 Some symbols that are used may be defined in existing library files. If they are static libraries, the referenced symbols are copied directly into the output binary. Resolution of some symbols may be deferred until runtime (dynamic linking); in this case, the binary will contain undefined symbols, plus a list of libraries that contain definitions for these symbols.
 
 The final addresses of the blocks (code, data) in object files are not known at generation time, so they usually assume an address base of 0. The linker relocates and adjusts these addresses to avoid overlaps.
+
+## Operator Precedence & Associativity
+
+Original (and possibly more up to date) reference: [cppreference: C Operator Precedence](https://en.cppreference.com/w/c/language/operator_precedence)
+
+
+| Precedence | Operator | Description | Associativity |
+| ---------- | -------- | ----------- | ------------- |
+| 1  | `++` `--`<br>`()`<br>`[]`<br>`.`<br>`->`<br>`(type){list}` | Postfix increment/decrement<br>Function call<br>Array subscripting<br>Struct/union member access<br>Struct/union member access thru pointer<br>Compound literal<sub>(C99)</sub> | Left-to-Right |
+| 2  | `++` `--`<br>`+` `-`<br>`!` `~`<br>`(type)`<br>`*`<br>`&`<br>`sizeof`<br>`_Alignof` | Prefix increment/decrement<br>Unary plus/minus<br>Logical NOT/bitwise NOT<br>Cast<br>Dereferebce<br>Address-of<br>Size-of<br>Alignment requirement<sub>(C11)</sub> | Right-to-left |
+| 3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12 | `*` `/` `%`<br>`+` `-`<br>`<<` `>>`<br>`<` `<=` `>` `>=`<br>`==` `!=`<br>`&`<br>`^`<br>`\|`<br>`&&`<br>`\|\|` | Multiplication, division, remainder<br>Addition, subtraction<br>Bitwise left/right shift<br>Relational operators < ≤ > ≥<br>Relational = ≠<br>Bitwise AND<br>Bitwise XOR<br>Bitwise OR<br>Logical AND<br>Logical OR | Left-to-right |
+| 13 | `?:` | Ternary conditional | Right-to-Left |
+| 14 | `=`<br>`+=` `-=`<br> `*=` `/=` `%=`<br>`<<=` `>>=`<br>`&=` `^=` `\|=` | Assignment<br>Compound Assignment<br><br><br><br> | Right-to-Left |
+| 15 | `,` | Comma | Left-to-right |
+
+Gotcha: notice that logical AND is given higher precedence than logical OR; this probably originates from the operations * and +, but to be accurate boolean algebra, they should be given equal precedence.
+
+## Expressions
+
+Expressions have 2 independent properties: a [Type](https://en.cppreference.com/w/c/language/type) and a [Value](https://en.cppreference.com/w/c/language/value_category).
+
+### Types
+
+* Unspecified type: `void`
+* Basic types
+  * `char`
+  * Signed integers
+    * Standard: `signed char`, `short`, `int`, `long`
+       * `long long`<sub>(C99)</sub>
+    * Bit-precise<sub>(C23)</sub>: `_BitInt(N)` (includes sign bit)
+  * Unsigned integers
+    * Standard: `_Bool`<sub>(C99)</sub>, `unsigned char`, `unsigned short`, `unsigned int`, `unsigned long`
+      * `unsigned long long`<sub>(C99)</sub>
+  * Floating-point types
+    * real types: `float`, `double`, `long double`
+    * real decimal types<sub>(C23)</sub>: `_Decimal32`, `_Decimal64`, `_Decimal128`
+    * complex types<sub>(C99)</sub>: `float _Complex`, `double _Complex`, `long double _Complex`
+    * imaginary types<sub>(C99)</sub>: `float _Imaginary`, `double _Imaginary`, `long double _Imaginary`
+  * Enumerations (originally int only, any integral type as of C23)
+  * Derived types
+    * Aggregate types
+      * Array types
+      * Structure (`struct`) types
+    * `union` types
+    * Function Types
+    * Pointer types
+    * Atomic types<sub>(C11)</sub>
+
+### Values
+
+* **lvalue**
+  * So-called because these were on the left-hand side of the assignment operator in CPL; not necessarily true in C.
+  * Any expression with an object type (non-function type) besides void.
+    * Behavior undefined if an lvalue is not an object type when evaluated
+  * Examples
+    * Identifiers
+      * Includes function named parameters, if they were declared as designated objects and not functions/enums
+    * String literals
+    * Compound literals<sub>(C99)</sub>
+    * `(expression)` if `expression` is an lvalue
+    * Result of operators `->`, `[]`
+    * Result of dereference `*` on pointer to object
+    * Result of `.` if left-hand argument is an lvalue
+  * Contexts
+    * Left-hand operand of compound/assignment operators
+    * Left-hand operand of `.` operator
+    * Operand of `&` if the lvalue isn't a bit-field or declared a register
+* **rvalue**
+  * Aka non-lvalue object expressions; values with no object identity or storage location. No address can be taken.
+  * Examples
+    * integer, char, floating-point constants
+    * Operators which don't return lvalues, including:
+      * Function calls, casts
+      * Dot operator used on non-lvalue struct/union
+      * Results of arithmetic, relational, logical, bitwise operators
+      * Results of increment/decrement operators<sup>†</sup>
+      * Results of assignment operators<sup>†</sup>
+      * Results of conditional operators<sup>†</sup>
+      * Conditional operator, comma operator<sup>†</sup>
+      * Address-of operator, even after dereferencing
+* **function designator** - function declarations used in any context besides with the address-of operator
 
 ## VS/Code Setup
 

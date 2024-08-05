@@ -112,7 +112,9 @@ Setup instructions for my fallible memory and to ease things for others.
 1. [Git](https://github.com/git-guides/install-git). Download code repositories, and version control your projects. Comes with git bash.
 2. [Visual Studio Code](https://code.visualstudio.com/). Snappy code editor. Can be molded into somewhat of an IDE for a number of languages. Git integration and search capabilities are excellent. 
    - [Code - OSS](https://github.com/microsoft/vscode) if on Linux and your package manager's only option is a Flatpak.
-3. [Visual Studio](https://visualstudio.microsoft.com/vs/) (Windows only). Top tier support for C++, C#, .NET. Integrated profiler. Built-in debugger works on *any* Windows executable. .NET UI designer tools.
+3. [Visual Studio](https://visualstudio.microsoft.com/vs/) (Windows only). Top tier support for C++, C#, .NET. Integrated profiler. Built-in debugger works on *any* Windows executable<sup>†</sup>; .NET UI designer tools.
+
+<sup>† Seriously!</sup>
 
 ## VS/Code Setup
 Change Terminal to Bash:
