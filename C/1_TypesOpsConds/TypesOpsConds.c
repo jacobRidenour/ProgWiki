@@ -46,8 +46,7 @@ void types() {
     // Your results will vary depending on the implementation used for
     // compilation.
     printf("------------------------------------------------\n");
-    printf("short, short int, signed short, signed short int\n");    printf("int64_t    %zu (%zu bits)  %d to %d\n", sizeof(int64_t), 64*sizeof(int64_t), INT64_MIN, INT64_MAX);
-    printf("uint64_t   %zu (%zu bits)     0 to %u\n\n", sizeof(uint64_t), 64*sizeof(uint64_t), UINT64_MAX);
+    printf("short, short int, signed short, signed short int\n");
     printf("Minimum size: 2 bytes (16 bits)\n");
     printf("Actual size:  %zu bytes (%zu bits)\n", sizeof(short), 8*sizeof(short));
     printf("[Range]:      %d to %d\n", SHRT_MIN, SHRT_MAX);
@@ -90,8 +89,7 @@ void types() {
     printf("Actual size:  %zu bytes (%zu bits)\n", sizeof(unsigned long long), 8*sizeof(unsigned long long));
     printf("[Range]:      0 to %llu\n\n", ULLONG_MAX);
 
-    // Floating types only have their minimum limits specified, b    printf("int64_t    %zu (%zu bits)  %d to %d\n", sizeof(int64_t), 64*sizeof(int64_t), INT64_MIN, INT64_MAX);
-    printf("uint64_t   %zu (%zu bits)     0 to %u\n\n", sizeof(uint64_t), 64*sizeof(uint64_t), UINT64_MAX);ut
+    // Floating types only have their minimum limits specified, but
     // implementations may define them in <float.h>
     printf("----------------------------------------------------------------\n");
     printf("float (IEEE 754 single-precision floating-point number)*\n");
@@ -105,9 +103,14 @@ void types() {
     printf("long double (IEEE 754 extended-precision floating-point number)*\n");
     printf("Size:  %zu bytes (%zu bits)\n", sizeof(long double), 8*sizeof(long double));
     printf("[Range]:      %Le to %Le\n", LDBL_MIN, LDBL_MAX);
-    printf("*Usually. Extended is usually 80 bits, with padding to 96 or 128.\n\n");
+    printf("*Usually. Extended is usually 80 bits, with padding to 96 or 128.\n");
 
-    // Complex types were added in C99: float _Complex, doubstatements
+    // Complex types were added in C99: float _Complex, double _Complex, long double _Complex
+    // Imaginary types were addedin C11: float _Imaginary, double _Imaginary, long double _Imaginary
+    // Found in <complex.h>
+
+    fixed_width_integers();
+}
 
 #include <inttypes.h> // fixed-width integer types also available in <stdint.h>
 
@@ -131,15 +134,15 @@ void fixed_width_integers() {
     printf("int32_t    %zu (%zu bits)  %d to %d\n", sizeof(int32_t), 32*sizeof(int32_t), INT32_MIN, INT32_MAX);
     printf("uint32_t   %zu (%zu bits)     0 to %u\n\n", sizeof(uint32_t), 32*sizeof(uint32_t), UINT32_MAX);
 
-    printf("int64_t    %zu (%zu bits)  %d to %d\n", sizeof(int64_t), 64*sizeof(int64_t), INT64_MIN, INT64_MAX);
-    printf("uint64_t   %zu (%zu bits)     0 to %u\n\n", sizeof(uint64_t), 64*sizeof(uint64_t), UINT64_MAX);
+    printf("int64_t    %zu (%zu bits)  %ld to %ld\n", sizeof(int64_t), 64*sizeof(int64_t), INT64_MIN, INT64_MAX);
+    printf("uint64_t   %zu (%zu bits)     0 to %lu\n\n", sizeof(uint64_t), 64*sizeof(uint64_t), UINT64_MAX);
 
     maths();
 }
 
 #include <math.h> // Common math operations outside the usual operators
 //#include <stdlib.h> // abs found in here, along with others
-// Need to add -lm flag if using math.h functions
+// Need to add -lm flag if using math.h functions (-LinkMath)
 
 // Introduce variable declaration and arithmetic in C
 void maths() {
@@ -187,7 +190,7 @@ void maths() {
     // Casting (explicitly converting one type to another) is done by putting
     // the name of the type in parentheses behind the value.
     my_int = (int) div_result_2;
-    printf("Conversion of %lf to int: %d\n", div_result_2, my_int);
+    printf("Conversion of %lf to int: %d\n\n", div_result_2, my_int);
 
     // TODO: determine if/how to show off floats vs. doubles (precision) - common gotchas   
 
@@ -221,7 +224,7 @@ void statements() {
     // A line with only a semicolon is a null statement
     x = 4;
 
-    // Selection Statements
+    // Selection Statements - if, if-else, switch
     if(x) {
         printf("if(x) condition satisfied");
         printf("\n");
@@ -245,7 +248,44 @@ void statements() {
     }
 
 
-    // Iteration Statements
+    // switch
+    int day = 3;  
+
+    printf("The day number is: %d\n", day);
+
+    switch(day) {
+        case 1:
+            printf("Sunday\n");
+            break; 
+        case 2:
+            printf("Monday\n");
+            break;
+        case 3:
+            printf("Tuesday\n");
+            break;
+        case 4:
+            printf("Wednesday\n");
+            break;
+        case 5:
+            printf("Thursday\n");
+            break;
+        case 6:
+            printf("Friday\n");
+            break;
+        case 7:
+            printf("Saturday\n");
+            break;
+        default:
+            printf("Invalid day\n");
+            break;
+    }
+
+    // Without a break (exit) following a matched case, the checks for matches continue. 
+    // The default block is a catch-all, usually for the default or error handling.
+
+
+    // Iteration Statements - while, do-while, for
+    
 
 
     // Jump Statements

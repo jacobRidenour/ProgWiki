@@ -5,6 +5,8 @@ Setup instructions for my fallible memory and to ease things for others.
 
 ## Topics
 
+
+
 <table>
   <tr>
     <td valign="top">
@@ -38,8 +40,12 @@ Setup instructions for my fallible memory and to ease things for others.
         <li>if/else, do/while, for</li>
         <li>switch/case</li>
         <li>break, continue, goto</li>
+      </ul>
+    </td>
+    <td valign="top">
+      <strong>Data Structures</strong>
+      <ul>
         <li>Iterate over iterable type</li>
-        <li>Iterate oveompilation
         <li>Dictionaries/Maps, Sets, Tuples</li>
         <li>Arrays/vectors, linked lists</li>
         <li>Multidimensional arrays</li>
@@ -109,7 +115,7 @@ Setup instructions for my fallible memory and to ease things for others.
 
 
 ## Recommended Applications
-1. [Git](https://github.com/git-guides/install-git). Download code repositories, and version control your projects. Comes with git bash.
+1. [Git](https://github.com/git-guides/install-git). Download code repositories, and version control your projects. Comes with git bash (Windows).
 2. [Visual Studio Code](https://code.visualstudio.com/). Snappy code editor. Can be molded into somewhat of an IDE for a number of languages. Git integration and search capabilities are excellent. 
    - [Code - OSS](https://github.com/microsoft/vscode) if on Linux and your package manager's only option is a Flatpak.
 3. [Visual Studio](https://visualstudio.microsoft.com/vs/) (Windows only). Top tier support for C++, C#, .NET. Integrated profiler. Built-in debugger works on *any* Windows executable<sup>†</sup>; .NET UI designer tools.

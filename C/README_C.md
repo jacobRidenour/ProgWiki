@@ -221,6 +221,46 @@ Expressions have 2 independent properties: a [Type](https://en.cppreference.com/
       * Address-of operator, even after dereferencing
 * **function designator** - function declarations used in any context besides with the address-of operator
 
+## 
+
+## Storage Access Specifiers (?)
+
+static, auto, others...
+
+## Attribute Specifier Sequence
+
+// https://en.cppreference.com/w/c/language/attributes
+
+// Definitions, show some good examples
+
+Attributes are used to add extra information (metadata) to various language entities - functions, expressions, statements, and others, especially when no definitions of the function are available. They are commonly used to enhance warnings, enforce expected behavior, and provide additional information that can improve optimization. They have been common compiler extensions for a long time but weren't officially part of the language until C23, perhaps inspired by C++, where they were adopted with the C++11 standard. Several are defined by the language; they may be namespaced using the same syntax as found in C++ (for compatibility, clarity, and teaching purposes).
+
+**Standard Attributes**<sub>(C23)</sub>
+
+| Attribute | Signifies |
+| --------- | --------- |
+| `[[deprecated]]`<br>`[[deprecated]]("reason")` | this name/entity can be used, but is discouraged for `"reason"` |
+| `[[fallthrough]]` | the fall-through from the previous `case x:` is intentional |
+| `[[nodiscard]]`<br>`[[nodiscard]]("reason")` | the compiler should issue a warning if the return value is discarded |
+| `[[maybe_unused]]` | the compiler should not warn about unused entities, if found |
+| `[[noreturn]]` | the function does not return |
+| `[[unsequenced]]` | the function is stateless, effectless, idempotent, and independent; less strict than `[[gcc::const]]` |
+| `[[reproducible]]` | the function is effectless and idempotent; stricter than `[[gcc::pure]]` |
+
+### Details on unsequenced and reproducible
+
+**Effectless** - the function has no observable side effects (i.e., only modifies local variables and the contents of passed-in parameters).
+
+**Idempotent** - the function produces the same result when called multiple times in a row
+
+**Stateless** - the function's `static` or `thread_local` variables must be `const`, and cannot be `volatile`.
+
+**Independent** - the function won't change global state, won't change any state via pointer parameters, and sees the same values for global variables.
+
+## Other keywords
+
+e.g. constexpr
+
 ## VS/Code Setup
 
 ## Build Systems
