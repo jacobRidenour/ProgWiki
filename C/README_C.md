@@ -247,7 +247,19 @@ Type qualifiers may be combined. For instance, if you have hardware that writes 
 
 ## Memory Layout
 
+This section is generally applicable to other compiled languages; specifics may differ depending on language and operating system. The memory of an executable is divided into multiple named segments, with varying purposes.
 
+| Segment | Data | Characteristics | Notes | 
+| ------- | ---- | --------------- | ----- |
+| Text Segment | machine code instructions | read-only, executable ||
+| Data Segment | initialized global variables<br>initialized static variables | read-write | statically allocated data |
+| BSS Segment | uninitialized global variables<br>uninitialized static variables | often initialized to 0 | statically allocated data;<br>stands for Block Started by Symbol |
+| Stack Segment | stack frames | fixed size (sometimes adjustable);<br>now non-executable by default (security) ||
+| Heap Segment | explicitly requested memory | whatever is requested; size/lifetime determined at runtime | dynamically allocated data |
+
+Stack frames contain the function prologue/epilogue, parameters, local variables, and return address. 
+
+The text of string literals is usually in the Text segment or a Read-Only-Data segment; varies by platform.
 
 ## Memory Management
 

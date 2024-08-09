@@ -177,3 +177,5 @@ python -m pip install --upgrade pip setuptools wheel
 // Ruby
 // JS/TS
 // Rust
+
+// git clear ignored files: git rm -r --cached . && git add . && git commit -am "Remove ignored files"

@@ -7,20 +7,19 @@
 // line. Traditionally, declarations (along with one-liner definitions) are 
 // found in header (.h) files, and definitions are found in .c files.
 void types(); // equivalent to void types(void);
+void maths(); void pointers(); void arrays();
 void operators();
 void statements();
-void maths();
-void static_demo();
-void storage_class_specifiers();
+void storage_class_specifiers(); void static_demo();
 
 // Example of a function definition. After the (parameters), the entire function
 // is contained between brackets {}.
 int main(int argc, char* argv[]) {
     // Each statement (usually a line) ends with a semicolon.
-    types();
-    operators();
-    statements();
-    storage_class_specifiers();
+    /*types();*/ maths(); pointers(); arrays();
+    //operators();
+    //statements();
+    //storage_class_specifiers();
 }
 
 #include <limits.h> // Typically all of your #includes go at the top. limits.h
@@ -292,12 +291,11 @@ void static_demo() {
     printf("This function has been called %d times.\n", called++);
 }
 
-// Introduce storage-class specifiers
+// Introduce storage-class specifiers (just static for now)
 void storage_class_specifiers() {
     for(int i = 0; i < 3; ++i) static_demo();
     printf("\n");
 }
-
 
 #include <math.h> // Common math operations outside the usual operators
 //#include <stdlib.h> // abs found in here, along with others
@@ -340,7 +338,7 @@ void maths() {
     // *This is not guaranteed in C89
     int my_int = 4;
     int div_result = my_int / 3;
-    printf("Division of 4/3 = %d", div_result);
+    printf("Division of 4/3 = %d\n", div_result);
     // Adding a .0 to one operand causes the result to return a double
     // (No warning for casting to float)
     float div_result_2 = my_int / 3.0;
@@ -362,6 +360,29 @@ void maths() {
     // Notice ceil(x) always goes towards 0 in terms of magnitude
     printf("ceil(%.2f) = %.2f; floor(%.2f) = %.2f\n", my_float, ceil(my_float), my_float, floor(my_float));
     printf("fabs(%.2f) = %.2f; pow(%.2f, 2) = %.2f\n\n", my_float, fabs(my_float), my_float, pow(my_float, 2));
+}
+
+#include <stddef.h>
+
+// Introduce pointers, Dos and Don'ts, gotchas
+void pointers() {
+    // Pointers hold a memory address. They are declared with a * next to the type.
+    // Whitespace doesn't matter, an int pointer would be declared int* x or int * x or int *x.
+    // Whatever you do just please be consistent!
+    int x = 10;
+    int* ptr = &x; // Do: initialize pointers when declared
+
+    // If you want access to the value stored at the address held by the pointer, 
+    // you must use the dereference operator (e.g. *x). Before doing anything with
+    // a pointer, it's best practice to make sure that the pointer isn't null (more
+    // important if memory is being allocated).
+    if(ptr != NULL) {
+        printf("ptr was not null!");
+    }
+}
+
+void arrays() {
+
 }
 
 
