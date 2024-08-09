@@ -140,22 +140,6 @@ Some symbols that are used may be defined in existing library files. If they are
 
 The final addresses of the blocks (code, data) in object files are not known at generation time, so they usually assume an address base of 0. The linker relocates and adjusts these addresses to avoid overlaps.
 
-## Operator Precedence & Associativity
-
-Original (and possibly more up to date) reference: [cppreference: C Operator Precedence](https://en.cppreference.com/w/c/language/operator_precedence)
-
-
-| Precedence | Operator | Description | Associativity |
-| ---------- | -------- | ----------- | ------------- |
-| 1  | `++` `--`<br>`()`<br>`[]`<br>`.`<br>`->`<br>`(type){list}` | Postfix increment/decrement<br>Function call<br>Array subscripting<br>Struct/union member access<br>Struct/union member access thru pointer<br>Compound literal<sub>(C99)</sub> | Left-to-Right |
-| 2  | `++` `--`<br>`+` `-`<br>`!` `~`<br>`(type)`<br>`*`<br>`&`<br>`sizeof`<br>`_Alignof` | Prefix increment/decrement<br>Unary plus/minus<br>Logical NOT/bitwise NOT<br>Cast<br>Dereferebce<br>Address-of<br>Size-of<br>Alignment requirement<sub>(C11)</sub> | Right-to-left |
-| 3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12 | `*` `/` `%`<br>`+` `-`<br>`<<` `>>`<br>`<` `<=` `>` `>=`<br>`==` `!=`<br>`&`<br>`^`<br>`\|`<br>`&&`<br>`\|\|` | Multiplication, division, remainder<br>Addition, subtraction<br>Bitwise left/right shift<br>Relational operators < ≤ > ≥<br>Relational = ≠<br>Bitwise AND<br>Bitwise XOR<br>Bitwise OR<br>Logical AND<br>Logical OR | Left-to-right |
-| 13 | `?:` | Ternary conditional | Right-to-Left |
-| 14 | `=`<br>`+=` `-=`<br> `*=` `/=` `%=`<br>`<<=` `>>=`<br>`&=` `^=` `\|=` | Assignment<br>Compound Assignment<br><br><br><br> | Right-to-Left |
-| 15 | `,` | Comma | Left-to-right |
-
-Gotcha: notice that logical AND is given higher precedence than logical OR; this probably originates from the operations * and +, but to be accurate boolean algebra, they should be given equal precedence.
-
 ## Expressions
 
 Expressions have 2 independent properties: a [Type](https://en.cppreference.com/w/c/language/type) and a [Value](https://en.cppreference.com/w/c/language/value_category).
@@ -221,17 +205,54 @@ Expressions have 2 independent properties: a [Type](https://en.cppreference.com/
       * Address-of operator, even after dereferencing
 * **function designator** - function declarations used in any context besides with the address-of operator
 
-## 
+## Operator Precedence & Associativity
 
-## Storage Access Specifiers (?)
+Original (and possibly more up to date) reference: [cppreference: C Operator Precedence](https://en.cppreference.com/w/c/language/operator_precedence)
 
-static, auto, others...
+
+| Precedence | Operator | Description | Associativity |
+| ---------- | -------- | ----------- | ------------- |
+| 1  | `++` `--`<br>`()`<br>`[]`<br>`.`<br>`->`<br>`(type){list}` | Postfix increment/decrement<br>Function call<br>Array subscripting<br>Struct/union member access<br>Struct/union member access thru pointer<br>Compound literal<sub>(C99)</sub> | Left-to-Right |
+| 2  | `++` `--`<br>`+` `-`<br>`!` `~`<br>`(type)`<br>`*`<br>`&`<br>`sizeof`<br>`_Alignof` | Prefix increment/decrement<br>Unary plus/minus<br>Logical NOT/bitwise NOT<br>Cast<br>Dereferebce<br>Address-of<br>Size-of<br>Alignment requirement<sub>(C11)</sub> | Right-to-left |
+| 3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12 | `*` `/` `%`<br>`+` `-`<br>`<<` `>>`<br>`<` `<=` `>` `>=`<br>`==` `!=`<br>`&`<br>`^`<br>`\|`<br>`&&`<br>`\|\|` | Multiplication, division, remainder<br>Addition, subtraction<br>Bitwise left/right shift<br>Relational operators < ≤ > ≥<br>Relational = ≠<br>Bitwise AND<br>Bitwise XOR<br>Bitwise OR<br>Logical AND<br>Logical OR | Left-to-right |
+| 13 | `?:` | Ternary conditional | Right-to-Left |
+| 14 | `=`<br>`+=` `-=`<br> `*=` `/=` `%=`<br>`<<=` `>>=`<br>`&=` `^=` `\|=` | Assignment<br>Compound Assignment<br><br><br><br> | Right-to-Left |
+| 15 | `,` | Comma | Left-to-right |
+
+Gotcha: notice that logical AND is given higher precedence than logical OR; this probably originates from the operations * and +, but to be accurate boolean algebra, they should be given equal precedence.
+
+## Storage-Class Specifiers
+
+Storage duration and linkage type specifier, used with types and functions
+
+| Specifier | Storage Duration | Linkage | Scope | Lifetime | Notes | 
+| --------- | ---------------- | ------- | ----- | -------- | ----- |
+| `auto` | automatic | none | block | block execution | rarely used explicitly;<br>`auto` can also be used for type inference<sub>(C23)</sub> |
+| `register` | automatic | none | block | block execution | address cannot be taken & can't use `alignas`;<br>hints to compiler that variable will be used heavily but (at least in `gcc`) has 0 effect on code generation |
+| `static` | static | internal<br><sub>unless at block scope</sub> | file or block | program execution | value initialized only once, prior to `main()` |
+| `extern` | static | external<br><sub>unless already declared internal</sub> | file or block | program execution | |
+| `thread_local` | thread | static | none | thread | formerly known as `_Thread_local`;<br>each thread gets a copy of this object. |
+
+File scope variables that are `const` but not `extern` have external linkage (default); internal linkage in C++.
+
+## Type Qualifiers
+
+| Qualifier | Effect | Notes | 
+| --------- | ------ | ----- |
+| `const`| the variable may not be modified | applies to lvalue expressions only;<br>struct/union members inherit the qualifier |
+| `volatile` | compiler will not cache the value of the variable | useful when the variable may be modified by hardware or another thread;<br>the compiler will not optimize anything associated with this variable  |
+| `restrict`<sub>(C99)</sub> | this pointer is the only one that accesses the underlying object | applies to lvalue expressions only;<br>may only be used on a pointer-to an object type, or n-dimensional array<sub>(C23)</sub>;<br>worth considering for preventing [load-hit-stores](https://en.wikipedia.org/wiki/Load-Hit-Store) |
+
+Type qualifiers may be combined. For instance, if you have hardware that writes to a variable, but your program should never modify it, you might declare it `const volatile`.
+
+## Memory Layout
+
+
+
+## Memory Management
+
 
 ## Attribute Specifier Sequence
-
-// https://en.cppreference.com/w/c/language/attributes
-
-// Definitions, show some good examples
 
 Attributes are used to add extra information (metadata) to various language entities - functions, expressions, statements, and others, especially when no definitions of the function are available. They are commonly used to enhance warnings, enforce expected behavior, and provide additional information that can improve optimization. They have been common compiler extensions for a long time but weren't officially part of the language until C23, perhaps inspired by C++, where they were adopted with the C++11 standard. Several are defined by the language; they may be namespaced using the same syntax as found in C++ (for compatibility, clarity, and teaching purposes).
 

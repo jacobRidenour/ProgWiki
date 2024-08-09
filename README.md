@@ -1,11 +1,9 @@
 # CodingPractice
-This repository is meant to catalog my learning & experimentation with various (small) topics and documentation of them in various languages.
+This repository is meant to catalog my learning & experimentation with various (small) topics and documentation of them in various languages. Starting out writing the C versions; such background is referenced by other language READMEs/comments.
 
 Setup instructions for my fallible memory and to ease things for others.
 
 ## Topics
-
-
 
 <table>
   <tr>
@@ -128,6 +126,7 @@ Change Terminal to Bash:
 | VSCode                                                             | VS2022 (Windows only)                                                             |
 | ------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
 | Command Palette (Ctrl+Shift+P)<br>Terminal: Select Default Profile | Tools -> Options -> Environment -> Terminal -> Add;<br>Arguments: `--login -i -l` |
+
 ## C/C++ Essentials
 See the [C README](C/README_C.md) for additional information on C, and the [C++ README](C++/README_C++.md) for additional information on C++.
 

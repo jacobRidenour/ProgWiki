@@ -7,21 +7,26 @@
 // line. Traditionally, declarations (along with one-liner definitions) are 
 // found in header (.h) files, and definitions are found in .c files.
 void types(); // equivalent to void types(void);
-void fixed_width_integers(); 
-void maths();
+void operators();
 void statements();
+void maths();
+void static_demo();
+void storage_class_specifiers();
 
 // Example of a function definition. After the (parameters), the entire function
 // is contained between brackets {}.
 int main(int argc, char* argv[]) {
     // Each statement (usually a line) ends with a semicolon.
     types();
+    operators();
+    statements();
+    storage_class_specifiers();
 }
 
 #include <limits.h> // Typically all of your #includes go at the top. limits.h
                     // contains the *_MIN and *_MAX macros used for integral types.
 #include <float.h>
-
+#include <inttypes.h> // fixed-width integer types also available in <stdint.h>
 
 // Introduce C's Type system
 void types() {
@@ -65,10 +70,7 @@ void types() {
     printf("unsigned, unsigned int\n");
     printf("Minimum size: 2 bytes (16 bits)\n");
     printf("Actual size:  %zu bytes (%zu bits)\n", sizeof(unsigned), 8*sizeof(unsigned));
-    printf("[Range]:      0 to %u\n\n", UINT_MAX);
-
-    printf("----------------------------------------------------------------\n");
-    printf("long, long int, signed long, signed long int\n");
+    printf("[Range]: uses g int, signed long, signed long int\n");
     printf("Minimum size: 4 bytes (32 bits)\n");
     printf("Actual size:  %zu bytes (%zu bits)\n", sizeof(long), 8*sizeof(long));
     printf("[Range]:      %ld to %ld\n", LONG_MIN, LONG_MAX);
@@ -109,12 +111,6 @@ void types() {
     // Imaginary types were addedin C11: float _Imaginary, double _Imaginary, long double _Imaginary
     // Found in <complex.h>
 
-    fixed_width_integers();
-}
-
-#include <inttypes.h> // fixed-width integer types also available in <stdint.h>
-
-void fixed_width_integers() {
     // Fixed-width integer types were added in C99, meant especially for
     // portability on embedded systems. Outside of exact-width variants,
     // least-width, fastest, pointer, and maximum-width variants are also
@@ -136,9 +132,172 @@ void fixed_width_integers() {
 
     printf("int64_t    %zu (%zu bits)  %ld to %ld\n", sizeof(int64_t), 64*sizeof(int64_t), INT64_MIN, INT64_MAX);
     printf("uint64_t   %zu (%zu bits)     0 to %lu\n\n", sizeof(uint64_t), 64*sizeof(uint64_t), UINT64_MAX);
-
-    maths();
 }
+
+// Show off operator precedence/associativity
+void operators() {
+    // Demonstration of operator precedence for comparison of different languages
+
+    int x = 5;
+    float y = 4.4;
+    int z = 16;
+
+    printf("x = %d, y = %.2lf, z = %d\n", x, y, z);
+    printf("Result = y + x %% z++ * -sizeof y > x ? x : y\n");
+    int result = y + x % z++ * -sizeof y > x ? x : y;
+    printf("Result = %d\n\n", result);
+    printf("x = %d, y = %.2lf, z = %d\n", x, y, z);
+}
+
+// Introduce statements
+void statements() {
+    int x = 1;
+
+    // Compound Statements (aka blocks) - enclosed by braces
+    if(x) {
+        printf("if(x) block entered");
+        printf("\n");
+    }
+    // Blocks create scopes; local variables that are declared here are not accessible
+    // before or after the enclosing braces. Variables in C have block scope in most cases,
+    // with some exceptions like extern variables and global variables.
+
+    // Expression Statements
+    // Most statements are expressions (assignments, function calls)
+    // A line with only a semicolon is a null statement
+    x = 4;
+
+    // *******************************************************************
+    // Definition Of True: scalar; 0 is false, everything else is true
+    // Applies to the controlling expressiom for all selection statements*
+    // *for loops are unique
+    // *******************************************************************
+    // A bool type (_Bool) was added in C99 in <stdbool.h>; may be useful 
+    // for additional type safety; under the hood, they are macros with true
+    // defined as 1 and false defined as 0.
+
+    // Selection Statement - if, if-else
+    if(x) {
+        printf("if(x) condition satisfied");
+        printf("\n");
+    }
+    else printf("if(1) condition not satisfied\n");
+
+    // For conditionals/loops, only one following line is executed if not
+    // part of a block (enclosed with {braces}). As a result, there is no
+    // "elif" in C; else { if {} } is equivalent to else if {}
+    if(!x) {
+        printf("if(!x) condition satisfied\n");
+    }
+    else {
+        if (x) {
+            printf("else { if (x) } condition satisfied\n");
+        }
+    }
+
+    if(!x);
+    else if (x) {
+        printf("else if (x) condition satisfied\n");
+    }
+
+    // Selection Statement - switch
+    int day = 3;  
+
+    printf("\nThe day number is: %d, which corresponds to ", day);
+
+    switch(day) {
+        case 1:
+            printf("Sunday\n");
+            break; 
+        case 2:
+            printf("Monday\n");
+            break;
+        case 3:
+            printf("Tuesday\n");
+            break;
+        case 4:
+            printf("Wednesday\n");
+            break;
+        case 5:
+            printf("Thursday\n");
+            break;
+        case 6:
+            printf("Friday\n");
+            break;
+        case 7:
+            printf("Saturday\n");
+            break;
+        default:
+            printf("Invalid day\n");
+            break;
+    }
+    // Without a break (exit) following a matched case, the checks for matches continue. 
+    // The default block is a catch-all, usually for the default or error handling.
+
+    // Iteration Statements - while, do-while
+    int i = 10;
+    while(i > 0) {
+        if(i == 10) printf("i is %d ", i);
+        printf("...%d", i);
+        i--;
+    }
+    // The expression for while() is checked once per iteration. It may not even
+    // run once, like an if statement.
+
+    // You can guarantee that a loop runs at least once with a do-while loop,
+    // wherein the loop body executes once, and then the condition is checked.
+    do {
+        i += 10;
+    } while(i < 10);
+    printf("\ni is %d\n\n", i);
+
+    // Iteration Statements - for
+    // for( init-clause ; cond-expression ; iteration-expression ) loop body
+    // init-clause is evaluated once; it can be an expression, or declaration(C99)
+    // cond-expression is evaluated before the loop body; exit if result is 0
+    // iteration-expression evaluated after the loop body, then control is tranferred
+    // back to cond-expression
+    // *******************************************************************
+    // The for loop expressions are all optional!
+    // *******************************************************************
+
+    // Jump Statements - break, continue
+    // continue - jump to the next iteration - aka, goto the last line of the loop body
+    // break - escape the enclosing loop - aka, goto the statement immediately after the loop
+    
+    int outer_sum = 0;
+    int inner_sum = 0;
+
+    for(int h = 0; h < 10; ++h) {
+        if(h == 4) continue;
+        outer_sum += 1;
+        for(int j = 0; j < 10; ++j) {
+            if(j==2) break;
+            inner_sum += 1;
+        }
+    }
+    printf("Outer sum: %d\nInner sum: %d\n", outer_sum, inner_sum);
+
+    // Jump Statement - goto
+    // goto label; a label is an identifier followed by a colon
+    // Unconditional jump. Labels have function scope.
+    goto tricky; // We haven't defined tricky yet! But this is fine due to function scope.
+    outer_sum = 0;
+    tricky:
+        printf("Outer sum is %d\n\n", outer_sum);
+}
+
+void static_demo() {
+    static int called = 1;
+    printf("This function has been called %d times.\n", called++);
+}
+
+// Introduce storage-class specifiers
+void storage_class_specifiers() {
+    for(int i = 0; i < 3; ++i) static_demo();
+    printf("\n");
+}
+
 
 #include <math.h> // Common math operations outside the usual operators
 //#include <stdlib.h> // abs found in here, along with others
@@ -194,7 +353,7 @@ void maths() {
 
     // TODO: determine if/how to show off floats vs. doubles (precision) - common gotchas   
 
-    // Increment and decrement operators are also available
+    // Increment and decrement operatouses rs are also available
     // Before the variable == pre(in/de)crement -> variable changes BEFORE evaluation
     // After the variable == post(in/de)crement -> variable changes AFTER evaluation
 
@@ -202,94 +361,9 @@ void maths() {
     float my_float = -6.34;
     // Notice ceil(x) always goes towards 0 in terms of magnitude
     printf("ceil(%.2f) = %.2f; floor(%.2f) = %.2f\n", my_float, ceil(my_float), my_float, floor(my_float));
-    printf("fabs(%.2f) = %.2f; pow(%.2f, 2) = %.2f\n", my_float, fabs(my_float), my_float, pow(my_float, 2));
-
-    statements();
+    printf("fabs(%.2f) = %.2f; pow(%.2f, 2) = %.2f\n\n", my_float, fabs(my_float), my_float, pow(my_float, 2));
 }
 
-// Introduce logical operators and conditionals in C
-void statements() {
-    int x = 1;
-
-    // Compound Statements (aka blocks) - enclosed by braces
-    if(x) {
-        printf("if(x) block entered");
-        printf("\n");
-    }
-    // Blocks create scopes; local variables that are declard here are not accessible
-    // before or after the enclosing braces.
-
-    // Expression Statements
-    // Most statements are expressions (assignments, function calls)
-    // A line with only a semicolon is a null statement
-    x = 4;
-
-    // Selection Statements - if, if-else, switch
-    if(x) {
-        printf("if(x) condition satisfied");
-        printf("\n");
-    }
-    else printf("if(1) condition not satisfied\n");
-    // For conditionals/loops, only one following line is executed if not
-    // part of a block (enclosed with {braces}). As a result, there is no
-    // "elif" in C; else { if {} } is equivalent to else if {}
-    if(!x) {
-        printf("if(!x) condition satisfied\n");
-    }
-    else {
-        if (x) {
-            printf("else { if (x) } condition satisfied\n");
-        }
-    }
-
-    if(!x);
-    else if (x) {
-        printf("else if (x) condition satisfied\n");
-    }
-
-
-    // switch
-    int day = 3;  
-
-    printf("The day number is: %d\n", day);
-
-    switch(day) {
-        case 1:
-            printf("Sunday\n");
-            break; 
-        case 2:
-            printf("Monday\n");
-            break;
-        case 3:
-            printf("Tuesday\n");
-            break;
-        case 4:
-            printf("Wednesday\n");
-            break;
-        case 5:
-            printf("Thursday\n");
-            break;
-        case 6:
-            printf("Friday\n");
-            break;
-        case 7:
-            printf("Saturday\n");
-            break;
-        default:
-            printf("Invalid day\n");
-            break;
-    }
-
-    // Without a break (exit) following a matched case, the checks for matches continue. 
-    // The default block is a catch-all, usually for the default or error handling.
-
-
-    // Iteration Statements - while, do-while, for
-    
-
-
-    // Jump Statements
-}
 
 // arrays are not pointers stuff
 // https://www.c-faq.com/aryptr/index.html

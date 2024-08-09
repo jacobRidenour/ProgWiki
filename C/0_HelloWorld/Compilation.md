@@ -11,3 +11,4 @@ What the flags mean:
 `-Wall` - enable all warnings (e.g. unused variables)
 `-Werror` - treat warnings as errors
 `-Wcast-align=strict` - 
+`Wpedantic` - 
