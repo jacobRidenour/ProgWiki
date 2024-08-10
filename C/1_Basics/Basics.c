@@ -377,8 +377,14 @@ void pointers() {
     // a pointer, it's best practice to make sure that the pointer isn't null (more
     // important if memory is being allocated).
     if(ptr != NULL) {
-        printf("ptr was not null!");
+        printf("The value held at %p is %d\n", ptr, *ptr);
     }
+    else fprintf(stderr, "Error: ptr is NULL.\n");
+
+    // Don't: try to dereference an uninitialized pointer!
+    int* badPtr;
+    printf("%d\n", *badPtr);
+
 }
 
 void arrays() {
