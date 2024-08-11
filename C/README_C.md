@@ -365,7 +365,7 @@ Attributes are used to add extra information (metadata) to various language enti
 
 ## Assertions
 
-`static_assert`, formerly `_Static_assert`<sub>(C11)</sub>; statically assert an expression to be true (!= 0) at compile time. Fail with an optional message otherwise.
+`static_assert`, formerly `_Static_assert`<sub>(C11)</sub>; statically assert an expression to be true (!= 0) at compile time. Fail with an optional message otherwise. Useful for checking some problems before runtime; doesn't cause bloat or performance differences in the resulting executable.
 
 ```C
 static_assert(2+2==4, "2+2 is not 4!");
@@ -373,16 +373,54 @@ static_assert(2+2==4, "2+2 is not 4!");
 
 ## VS Code Setup
 
+Note: these instructions also apply to C++ development.
+
+**Extensions**:
+* [C/C++ by Microsoft](vscode:extension/ms-vscode.cpptools)
+
+Generate a default `c_cpp_properties.json` by opening the command palette (`Ctrl+Shift+P`) and searching C/C++: Edit Configurations (UI). It will appear in `${workspaceFolder}/.vscode`
+
+The default will try to find your compiler (`compilerPath`), set the `c/cpp` standards, and set the `includePath` to include all files in your workspace. They may not be properly detected, in which case you'll want to make some adjustments.
+
+The [official documentation](https://code.visualstudio.com/docs/languages/cpp) has additional setup and usage details.
+
 ### Windows
 
+The extension first searches for the Visual Studio compiler `cl`, and it should automatically find the necessary header files. If it's not detected you may need to add it yourself:
 
+```JSON
+"compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/{year}/BuildTools/VC/Tools/MSVC/{14.xx}/bin/Hostx64/x64/cl.exe",
+```
+
+If you are instead using MinGW-w64, it might look something like this:
+
+```JSON
+"compilerPath": "C:/MinGW-w64/mingw64/bin/gcc.exe",
+```
 
 ### Linux
 
+Compiler path should be detected automatically. Make adjustments if using a non-standard location for your compiler.
 
 ## Build Systems
+
+Note: these details also apply to C++ development.
+
+Perhaps due to its age or complexity, there are a lot of build systems available for C/C++. For any reasonably-sized project, build system generators are a popular approach easing the build and installation process across multiple machines/platforms.
+
+| Build System Generator | Supported Build Systems | Pros | Cons | Notes |
+| ---------------------- | ---- | ---- | ----- |
+| CMake | Make, Ninja, Visual Studio, Qt Creator | Widely used;<br>Domain-specific scripting language | Can be verbose;<br>Turnkey cross-platform development is tricky;<br>Version is important | Great for large projects;<br>Documentation is hit or miss. |
+| Meson | Ninja, Visual Studio | Speed from Ninja backend;<br>Python-like syntax | Still growing in popularity ||
+
+| Build System | Best for... | Overview | Notes |
+| ------------ | ----------- | -------- | ----- |
+| MSBuild | Windows environments | XML-based project files | Most useful on a Windows environment |
+| Make | Small-medium projects | Target-oriented tasks | Can use on Windows;<br>Often cumbersome with large projects;<br>Can be used to automate other tasks besides building software |
+| Ninja | Need fast, incremental builds | Recommended to use with build system generators | Originally developed by Google as a replacement for Make |
 
 ## External Libraries
 
 ## Using the Debugger
+
 

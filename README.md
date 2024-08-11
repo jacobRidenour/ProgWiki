@@ -123,17 +123,17 @@ Setup instructions for my fallible memory and to ease things for others.
 ## VS/Code Setup
 Change Terminal to Bash:
 
-| VSCode                                                             | VS2022 (Windows only)                                                             |
-| ------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
+| VSCode | VS2022 (Windows only) |
+| ------ | --------------------- |
 | Command Palette (Ctrl+Shift+P)<br>Terminal: Select Default Profile | Tools -> Options -> Environment -> Terminal -> Add;<br>Arguments: `--login -i -l` |
 
 ## C/C++ Essentials
-See the [C README](C/README_C.md) for additional information on C, and the [C++ README](C++/README_C++.md) for additional information on C++.
+See the [C README](C/README_C.md) for additional information on C and C++ setup.
 
 ### Windows
 
-| Program                                                    | Add to PATH     | Rationale                                                                                                          |
-| ---------------------------------------------------------- | --------------- | ------------------------------------------------------------------------------------------------------------------ |
+| Program | Add to PATH | Rationale |
+| ------- | ----------- | --------- |
 | [Make](https://gnuwin32.sourceforge.net/packages/make.htm) | `/GnuWin32/bin` | Build automation tool. May be necessary to build dependencies.                                                     |
 | [MinGW-w64](https://winlibs.com/)                          | `/mingw64/bin`  | Development environment for Windows apps, with ports of `gcc`, `gdb`, and more.                                    |
 | [CMake](https://cmake.org/download/)                       | `/cmake/bin`    | Build system generator; creates build files (like Makefiles, Visual Studio projects) in a compiler-independent way |
@@ -151,7 +151,7 @@ Primer on Makefiles: \[[1](https://avikdas.com/2019/11/18/makefiles-from-the-gro
 | valgrind | Memory debugging, memory leak detection               |
 | cmake    | See above                                             |
 
-TODO: ninja? vcpkg?
+For C/C++ this repository focuses on the Make, CMake, and MSBuild build systems.
 
 ## Python Setup
 
