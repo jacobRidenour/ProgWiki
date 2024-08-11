@@ -171,6 +171,8 @@ Expressions have 2 independent properties: a [Type](https://en.cppreference.com/
     * Pointer types
     * Atomic types<sub>(C11)</sub>
 
+Types may be aliased using `typedef type alias` and scoped as desired.
+
 ### Values
 
 * **lvalue**
@@ -221,6 +223,8 @@ Original (and possibly more up to date) reference: [cppreference: C Operator Pre
 
 Gotcha: notice that logical AND is given higher precedence than logical OR; this probably originates from the operations * and +, but to be accurate boolean algebra, they should be given equal precedence.
 
+`typeof` operators (`typeof` and `typof_unqual`) were added in C23. They provide the type name representing the type of the operand (a type or expression, like `sizeof`), not including any implicit conversions. It functions very similarly to `decltype` in C++ (but with a different name for compatibility's sake).
+
 ## Storage-Class Specifiers
 
 Storage duration and linkage type specifier, used with types and functions
@@ -232,6 +236,7 @@ Storage duration and linkage type specifier, used with types and functions
 | `static` | static | internal<br><sub>unless at block scope</sub> | file or block | program execution | value initialized only once, prior to `main()` |
 | `extern` | static | external<br><sub>unless already declared internal</sub> | file or block | program execution | |
 | `thread_local` | thread | static | none | thread | formerly known as `_Thread_local`;<br>each thread gets a copy of this object. |
+| `constexpr`<sub>(C23)</sub> | static | same as declaration | block execution | N/A | specifies that object should be available during compilation;<br>object may not be modified at all during runtime;<br>may not be used with pointers, variably-modified types, or `_Atomic`, `volatile`, or `restrict` types |
 
 File scope variables that are `const` but not `extern` have external linkage (default); internal linkage in C++.
 
@@ -239,11 +244,17 @@ File scope variables that are `const` but not `extern` have external linkage (de
 
 | Qualifier | Effect | Notes | 
 | --------- | ------ | ----- |
+| `_Atomic`| the variable may be modified concurrently by multiple threads | size, alignment, and object representation may differ relative to other qualifiers |
 | `const`| the variable may not be modified | applies to lvalue expressions only;<br>struct/union members inherit the qualifier |
 | `volatile` | compiler will not cache the value of the variable | useful when the variable may be modified by hardware or another thread;<br>the compiler will not optimize anything associated with this variable  |
 | `restrict`<sub>(C99)</sub> | this pointer is the only one that accesses the underlying object | applies to lvalue expressions only;<br>may only be used on a pointer-to an object type, or n-dimensional array<sub>(C23)</sub>;<br>worth considering for preventing [load-hit-stores](https://en.wikipedia.org/wiki/Load-Hit-Store) |
 
 Type qualifiers may be combined. For instance, if you have hardware that writes to a variable, but your program should never modify it, you might declare it `const volatile`.
+
+## Alignment
+
+
+
 
 ## Memory Layout
 
@@ -263,6 +274,49 @@ The text of string literals is usually in the Text segment or a Read-Only-Data s
 
 ## Memory Management
 
+Memory for stack variables (statically allocated) is taken care of by the compiler.
+
+The programmer is responsible for managing the memory of heap variables (dynamically allocated). Generally, heap variables should be used cautiously, such as for variables where the lifetime should last beyond the current function. Free their memory within the same scope or function wherever possible; barring that, the same file (especially if your program is part of a library).
+
+TODO: fill out more. Examples?
+
+
+### Checking for Memory Leaks / Memory Corruption
+
+#### Windows
+
+TODO: fill out more. Using Visual Studio's debugger.
+
+#### Linux
+
+`valgrind` is a powerful set of memory debugging tools. It can help find leaks, use-after-frees, and more. It is useful for finding where memory-related bugs are occuring, with more information beyond the `Segmentation fault` message that is typically provided on crash. Sample usage:
+
+```bash
+valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose ./a.out
+```
+
+Keep in mind your program may run **much** slower under memcheck depending on the flags you have set, and use much more memory.
+
+| Flag | Usage | Notes |
+| ---- | ----- | ----- |
+| `--leak-check=full` | Detailed check for memory leaks |  |
+| `--show-leak-kinds=all` | Report all types of memory leaks | definite, indirect, possible, reachable |
+| `--track-origins=yes` | Find origins of uninitialized values | Can be very useful, but very slow |
+| `--verbose` | More verbose output | Can repeat for more verbosity |
+| `--log-file=your-log-file` | Write output to log file |  |
+
+Ideally, you'll see something like this upon success:
+
+```
+HEAP SUMMARY:
+    in use at exit: 0 bytes in 0 blocks
+  total heap usage: n allocs, n frees, x bytes allocated
+ 
+All heap blocks were freed -- no leaks are possible
+ 
+ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+```
 
 ## Attribute Specifier Sequence
 
@@ -290,9 +344,7 @@ Attributes are used to add extra information (metadata) to various language enti
 
 **Independent** - the function won't change global state, won't change any state via pointer parameters, and sees the same values for global variables.
 
-## Other keywords
-
-e.g. constexpr
+## Assertions
 
 ## VS/Code Setup
 

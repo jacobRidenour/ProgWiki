@@ -592,6 +592,26 @@ void memory() {
     // they are no longer needed and where to free them can be difficult.
     free(nums);
     free(muns);
+
+    // calloc - "clean alloc" - separate how many elements from the size of your type;
+    // initializes each element to 0.
+    nums = calloc(array_size, sizeof(int));
+    if(nums == NULL) {
+        fprintf(stderr, "Failed to allocate memory for nums\n");
+        exit(1);
+    }
+
+    // realloc - "reallocate" - free the memory pointed to by the pointer, reallocate
+    // a new chunk of memory for the given number of bytes, and return the result.
+    // realloc will retain the data in the original pointer where it can; truncates
+    // for smaller block sizes. If it fails, it will return NULL and the original
+    // pointer will be lost.
+    nums = realloc(nums, sizeof *nums * (array_size/2));
+    if(nums == NULL) {
+        fprintf(stderr, "Failed to allocate memory for nums\n");
+        exit(1);
+    }
+    free(nums);
 }
 
 
