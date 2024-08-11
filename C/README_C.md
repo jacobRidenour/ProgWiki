@@ -174,7 +174,7 @@ Expressions have 2 independent properties: a [Type](https://en.cppreference.com/
 ### Values
 
 * **lvalue**
-  * So-called because these were on the left-hand side of the assignment operator in CPL; not necessarily true in C.
+  * So-called because these were on the left-hand side of the assignment operator in CPL; not necessarily true in C. Something that has a **l**ocation in memory.
   * Any expression with an object type (non-function type) besides void.
     * Behavior undefined if an lvalue is not an object type when evaluated
   * Examples

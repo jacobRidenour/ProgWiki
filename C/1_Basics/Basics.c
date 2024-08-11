@@ -11,15 +11,17 @@ void maths(); void pointers(); void arrays();
 void operators();
 void statements();
 void storage_class_specifiers(); void static_demo();
+void memory();
 
 // Example of a function definition. After the (parameters), the entire function
 // is contained between brackets {}.
 int main(int argc, char* argv[]) {
     // Each statement (usually a line) ends with a semicolon.
-    /*types();*/ maths(); pointers(); arrays();
+    /*types(); maths(); pointers(); arrays(); */
     //operators();
     //statements();
     //storage_class_specifiers();
+    memory();
 }
 
 #include <limits.h> // Typically all of your #includes go at the top. limits.h
@@ -366,33 +368,230 @@ void maths() {
 
 // Introduce pointers, Dos and Don'ts, gotchas
 void pointers() {
-    // Pointers hold a memory address. They are declared with a * next to the type.
-    // Whitespace doesn't matter, an int pointer would be declared int* x or int * x or int *x.
-    // Whatever you do just please be consistent!
+    // Declare a pointer with typename* identifier. Some prefer typename *identifier
+    // or even type * identifier. Just be consistent with your project's practices.
     int x = 10;
-    int* ptr = &x; // Do: initialize pointers when declared
+    printf("x is %d\n", x);
 
-    // If you want access to the value stored at the address held by the pointer, 
-    // you must use the dereference operator (e.g. *x). Before doing anything with
-    // a pointer, it's best practice to make sure that the pointer isn't null (more
-    // important if memory is being allocated).
+    // What the heck is a pointer anyway? Pointers are just memory addresses!
+    // Retrieve what's held at the memory address (the value) with the *dereference operator.
+    int* ptr = &x; // Do: initialize pointers when declared
+    printf("Created int* that points to x.\n");
+
+    // Good practice to check that a pointer isn't NULL... usually 
     if(ptr != NULL) {
-        printf("The value held at %p is %d\n", ptr, *ptr);
+        printf("The value held at %p is %d\n", (void*) ptr, *ptr);
+        // Need explicit cast to void* when using %p
     }
     else fprintf(stderr, "Error: ptr is NULL.\n");
 
     // Don't: try to dereference an uninitialized pointer!
-    int* badPtr;
-    printf("%d\n", *badPtr);
+    //int* badPtr;             // warning: unused variable
+    //printf("%d\n", *badPtr); // error: badPtr is used uninitialized
 
+    // Since our pointer ptr has the address of x, we can modify x without
+    // using the variable x at all.
+    *ptr = 20;
+    printf("The value held at %p is %d\n", (void*) ptr, *ptr);
+    printf("x is %d\n", x); // x was changed to 20
+    // We can pass our local variable ptr into further functions if we want and
+    // modify it as we please. But ptr's lifetime only exists until the end of 
+    // this function. If this function were to return the int* ptr that points
+    // to a local variable, it will no longer be pointing to any valid data.
+    // This is an example of a dangling pointer.
+
+    // In other words, if we're going to keep adding on to the stack with more
+    // functions, ptr's lifetime hasn't ended. But as soon as this function,
+    // pointers(), is popped off the stack, ptr will not hold a valid memory
+    // location (since x's address is no longer in use)
+
+    // We can create pointers to pointers (as nested as you want)
+    int** ptrToPtr = &ptr;
+
+    if (ptrToPtr != NULL && *ptrToPtr != NULL) {
+        printf("Value accessed via ptrToPtr: %d\n\n", **ptrToPtr);
+    }
+
+    // Pointers are a way to get around C using pass-by-value for functions
 }
 
 void arrays() {
+    // Arrays are a contiguous block of memory, a sequence of objects with 
+    // the same type. An array's size is (usually) fixed.
+    
+    // Some content here derived from Arrays are not pointers:
+    // https://www.c-faq.com/aryptr/index.html
+    // It is often useful to think of arrays as simply pointers, and keep
+    // in mind the differences when relevant. Remember that C is more or 
+    // less an abstraction of Asssembly language :) 
+    
+    // Arrays may have a constant known size, an unknown size, or a variable size*.
+    // *Variable-length arrays (VLAs) were introduced in C99, not covered here.
 
+    // Array indexing done with the subscript operator[]
+    // Anything you can do with array subscripting, you can also do with pointers
+    // Indexing starts from 0
+    // C does no bounds checking; it is your responsibility to prevent this.
+    // Most times when going out of bounds it is due to being off by 1;
+    // typically the program crashes with a segmentation fault.
+
+    // Several ways to initialize an array:
+    char str[] = "hello"; // -> char[6]: 'h', 'e', 'l', 'l', 'o', '\0'
+                          // \0 is the null-terminator for strings that
+                          // signifies their end. Often need to consider
+                          // this character when using strings in functions
+    int nums[] = { 2, 4, 8, 16, 32 }; // -> int[5]
+    int muns[5] = { 3, 9, 27 }; // Partial initialization is ok too
+    int my_nums[10]; // Ok to declare first and initialize later
+    
+    // Set array values using the subscript operator
+    for(int i = 0; i < 10; ++i) {
+        my_nums[i] = i*4;
+    }
+
+    // See array's contents
+    for(int i = 0; i < 6; ++i) printf("%c", str[i]);
+    printf(" from char[]\n");
+    for(int i = 0; i < 5; ++i) printf("%d ", nums[i]);
+    printf(" (nums[5])\n");
+    for(int i = 0; i < 5; ++i) printf("%d ", muns[i]);
+    printf(" (muns[5])\n");
+    // We didn't initialize every value in muns! This is risky, as there
+    // could be *anything* at those uninitialized memory addresses; 
+    // typically in a debug build, these values are initialized to 0, but
+    // this is not guaranteed.
+    for(int i = 0; i < 10; ++i) printf("%d ", my_nums[i]);
+    printf("\n\n");
+
+    // Arrays are pointers?
+    printf("Are arrays pointers?\n");
+    int* ptr = nums;
+    printf("int* ptr = nums\nptr  == %p\nnums == %p\n", (void*) ptr, (void*) nums);
+    // Subscripting appears to be shorthand for pointer arithmetic
+    printf("&ptr[2] == %p\n ptr+2  == %p\n\n", (void*) &ptr[2], (void*) (ptr+2));
+    printf("nums[2] == *(nums+2): %d == %d\n", nums[2], *(nums+2));
+    // Notice how the addresses jump by i * sizeof(int)
+
+    // As formal function parameters, arrays are equivalent to pointers.
+    // Arrays can't be formal function parameters per se; they are allowed for
+    // convenience/clarity but are turned into pointers by the compiler
+    // (But you can still operate on that pointer like an array in the function)
+    // This conversion is not recursive, so if you pass an array of arrays
+    // to a function expecting a pointer-to-a-pointer, you may run into trouble.
+
+    // 0 is the only case where pointers and integers are interchangeable
+    // The constant NULL is implementation-defined, but it is often the integer
+    // 0, or (void*) 0. As of C23 (if your compiler supports it), NULL can
+    // (and should), where possible, be replaced with nullptr, which is
+    // (void*) 0 for all implementations.
+
+    // Arrays are not pointers!
+    char message_arr[] = "hello"; // Individual characters can be changed
+    char* message_ptr = "hello"; // Points to string constant - chars can't be changed
+    printf("message_arr[] == message_ptr: %d\n\n", message_arr == message_ptr); // 0
+
+    // For multi-dimensional arrays, the typical approach is to use arrays of pointers
+    // But arrays of arrays are valid too:
+    int arrOfArrs[2][3] = {
+        {1, 2, 3},
+        {4, 5, 6}
+    };
+    // Notice it's [rows][cols] aka row-major; some languages are col-major
+    // "Really" this is a 1D array whose elements are also arrays
+    // You will want to make sure any functions you pass a 2D array to includes
+    // the number of cols to prevent going out of bounds
+    printf("Addresses of elements in arrOfArrs:\n");
+    for(int i = 0; i < 2; ++i) {
+        for(int j = 0; j < 3; ++j) {
+            printf("Address of arrOfArrs[%d][%d]: %p\n", i, j, (void*) &arrOfArrs[i][j]);
+        }
+    }
+    printf("\n");
+
+    // Arrays of pointers means each pointer (row) can have a different length,
+    // which may be useful.
+    int* arrOfPtrs[] = { muns, nums, my_nums };
+    int lengths[] = { 3, 5, 10 }; // lengths of ptrs in arrOfPtrs
+
+    // Unlike multi-dimensional arrays, the memory addresses are not contiguous
+    printf("Addresses of elements in arrOfPtrs:\n");
+    for (int i = 0; i < sizeof(arrOfPtrs) / sizeof(arrOfPtrs[0]); ++i) {
+        for (int j = 0; j < lengths[i]; ++j) {
+            printf("Address of arrOfPtrs[%d][%d]: %p\n", j, i, (void*) &(arrOfPtrs[i][j]));
+        }
+    }
+    // Notice sizeof(arrOfPtrs) / sizeof(arrOfPtrs[0]) - effectively gets us the
+    // length of the array. Only applicable to array types.
+
+    // Arrays are not modifiable lvalues; they can't appear on the lhs of 
+    // the assignment operator unless they are members of structs
+    //nums = muns; // error: assignment to expression with array type
+
+    // Arrays are not pointers! 
+    // Array indexing == pointer arithmetic
+    // See this page for more details: https://www.c-faq.com/aryptr/index.html
+    // Referencing an array object in an expression implicitly "decays" to a pointer
+    // during compilation with 3 exceptions:
+    // 1. The array is the operand of sizeof
+    // 2. The array is the operand of &
+    // 3. The array is a char array initialized by a string literal
 }
 
+#include <stdlib.h>
 
-// arrays are not pointers stuff
-// https://www.c-faq.com/aryptr/index.html
+void memory() {
+    // The size of the stack is limited by default (limits memory usage).
+
+    // Passing pointers to local variables that are needed after popping off 
+    // the stack results in a dangling pointer - what if we need that data?
+
+    // What if we need a very large variable that takes up a lot of space, 
+    // or severely limits our free space in the stack?
+
+    // These are perfect opportunities to use dynamically-allocated memory,
+    // which is placed on the heap. There are several functions available for 
+    // this. We will only cover the basics here.
+
+    // It is crucial that all dynamically-allocated memory is later freed,
+    // or else you have created a memory leak. This is most especially a 
+    // problem in long-lived programs, where the memory usage grows over time
+    // and eventually crashes.
+
+    // Allocate memory - malloc, calloc, realloc
+    const int array_size = 1024 * sizeof(int);
+    int* nums = malloc(array_size);
+    // You may see people cast the result of malloc, since it returns void*.
+    // This is not recommended, as it is repetitive and it can cause subtle
+    // bugs. It is also not necessary; void* is implicitly promoted to any
+    // other pointer type.
+    
+    // ALWAYS check the result of the requested memory allocation
+    if(nums == NULL) {
+        fprintf(stderr, "Failed to allocate memory for nums\n");
+        exit(1);
+    }
+    // else not usually done but may be useful in cases of logging/debugging
+    else {
+        fprintf(stdout, "Successfully allocated %d bytes of memory for nums\n", array_size);
+    }
+
+    // Recommended best practice: use the variable you're declaring in the
+    // malloc call rather than repeating yourself. Prevents errors for when
+    // you refactor down the line.
+    int* muns = malloc(sizeof *muns * array_size);
+    if(muns == NULL) {
+        fprintf(stderr, "Failed to allocate memory for muns\n");
+        exit(1);
+    }
+    else {
+        fprintf(stdout, "Successfully allocated %d bytes of memory for muns\n", array_size);
+    }
+
+    // Free the memory once we're done with it. Management becomes challenging
+    // when heap variables may be needed by other functions, determining when
+    // they are no longer needed and where to free them can be difficult.
+    free(nums);
+    free(muns);
+}
 
 
