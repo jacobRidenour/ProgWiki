@@ -539,6 +539,7 @@ void arrays() {
 
 #include <stdlib.h>
 
+// Introduce memory allocation / freeing
 void memory() {
     // The size of the stack is limited by default (limits memory usage).
 

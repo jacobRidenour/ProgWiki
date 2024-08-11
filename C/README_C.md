@@ -140,6 +140,20 @@ Some symbols that are used may be defined in existing library files. If they are
 
 The final addresses of the blocks (code, data) in object files are not known at generation time, so they usually assume an address base of 0. The linker relocates and adjusts these addresses to avoid overlaps.
 
+## Objects
+
+C is not an object-oriented language, but the standard and reference pages frequently refer to `objects`, which are regions of data storage in a program - your typical variables - which have a number of attributes:
+
+* size (get with `sizeof` operator)
+* alignment requirement (get with `alignof` operator)
+* storage duration (automatic, static, dynamically allocated, thread-local)
+* lifetime (same as storage duration or temporary)
+* effective type<sup>†</sup>
+* value<sup>†</sup>
+* identifier (optional)
+
+<sup>†</sup> See Expressions
+
 ## Expressions
 
 Expressions have 2 independent properties: a [Type](https://en.cppreference.com/w/c/language/type) and a [Value](https://en.cppreference.com/w/c/language/value_category).
@@ -207,24 +221,6 @@ Types may be aliased using `typedef type alias` and scoped as desired.
       * Address-of operator, even after dereferencing
 * **function designator** - function declarations used in any context besides with the address-of operator
 
-## Operator Precedence & Associativity
-
-Original (and possibly more up to date) reference: [cppreference: C Operator Precedence](https://en.cppreference.com/w/c/language/operator_precedence)
-
-
-| Precedence | Operator | Description | Associativity |
-| ---------- | -------- | ----------- | ------------- |
-| 1  | `++` `--`<br>`()`<br>`[]`<br>`.`<br>`->`<br>`(type){list}` | Postfix increment/decrement<br>Function call<br>Array subscripting<br>Struct/union member access<br>Struct/union member access thru pointer<br>Compound literal<sub>(C99)</sub> | Left-to-Right |
-| 2  | `++` `--`<br>`+` `-`<br>`!` `~`<br>`(type)`<br>`*`<br>`&`<br>`sizeof`<br>`_Alignof` | Prefix increment/decrement<br>Unary plus/minus<br>Logical NOT/bitwise NOT<br>Cast<br>Dereferebce<br>Address-of<br>Size-of<br>Alignment requirement<sub>(C11)</sub> | Right-to-left |
-| 3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12 | `*` `/` `%`<br>`+` `-`<br>`<<` `>>`<br>`<` `<=` `>` `>=`<br>`==` `!=`<br>`&`<br>`^`<br>`\|`<br>`&&`<br>`\|\|` | Multiplication, division, remainder<br>Addition, subtraction<br>Bitwise left/right shift<br>Relational operators < ≤ > ≥<br>Relational = ≠<br>Bitwise AND<br>Bitwise XOR<br>Bitwise OR<br>Logical AND<br>Logical OR | Left-to-right |
-| 13 | `?:` | Ternary conditional | Right-to-Left |
-| 14 | `=`<br>`+=` `-=`<br> `*=` `/=` `%=`<br>`<<=` `>>=`<br>`&=` `^=` `\|=` | Assignment<br>Compound Assignment<br><br><br><br> | Right-to-Left |
-| 15 | `,` | Comma | Left-to-right |
-
-Gotcha: notice that logical AND is given higher precedence than logical OR; this probably originates from the operations * and +, but to be accurate boolean algebra, they should be given equal precedence.
-
-`typeof` operators (`typeof` and `typof_unqual`) were added in C23. They provide the type name representing the type of the operand (a type or expression, like `sizeof`), not including any implicit conversions. It functions very similarly to `decltype` in C++ (but with a different name for compatibility's sake).
-
 ## Storage-Class Specifiers
 
 Storage duration and linkage type specifier, used with types and functions
@@ -253,8 +249,31 @@ Type qualifiers may be combined. For instance, if you have hardware that writes 
 
 ## Alignment
 
+Alignment refers to the number of bytes between successive addresses for objects of this type; it must always be a (positive) power of 2. Types may have padding to meet alignment requirements. The smallest/weakest alignment, 1, applies to the types `un/signed/char`; the largest/strongest alignment is implementation-defined but equivalent to that of the type `max_align_t`<sub>(C11)</sub>, defined in `<stdalign.h>`. Objects may be given a larger (extended) alignment requirement if their compiler supports it.
+
+Typical use cases for alignment are avoiding cache misses, false sharing for concurrently-accessed data, and meeting specific hardware requirements.
+
+* `alignof(type)` (`_Alignof` before C23) returns the alignment requirement of the provided type.
+* `alignas(type|expression)` (`_Alignas` before C23) set the alignment requirement of the provided type. 
+  * `alignas` may not be used on struct declarations but may be used in member declarations.
+
+## Operator Precedence & Associativity
+
+Original (and possibly more up to date) reference: [cppreference: C Operator Precedence](https://en.cppreference.com/w/c/language/operator_precedence)
 
 
+| Precedence | Operator | Description | Associativity |
+| ---------- | -------- | ----------- | ------------- |
+| 1  | `++` `--`<br>`()`<br>`[]`<br>`.`<br>`->`<br>`(type){list}` | Postfix increment/decrement<br>Function call<br>Array subscripting<br>Struct/union member access<br>Struct/union member access thru pointer<br>Compound literal<sub>(C99)</sub> | Left-to-Right |
+| 2  | `++` `--`<br>`+` `-`<br>`!` `~`<br>`(type)`<br>`*`<br>`&`<br>`sizeof`<br>`_Alignof` | Prefix increment/decrement<br>Unary plus/minus<br>Logical NOT/bitwise NOT<br>Cast<br>Dereferebce<br>Address-of<br>Size-of<br>Alignment requirement<sub>(C11)</sub> | Right-to-left |
+| 3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12 | `*` `/` `%`<br>`+` `-`<br>`<<` `>>`<br>`<` `<=` `>` `>=`<br>`==` `!=`<br>`&`<br>`^`<br>`\|`<br>`&&`<br>`\|\|` | Multiplication, division, remainder<br>Addition, subtraction<br>Bitwise left/right shift<br>Relational operators < ≤ > ≥<br>Relational = ≠<br>Bitwise AND<br>Bitwise XOR<br>Bitwise OR<br>Logical AND<br>Logical OR | Left-to-right |
+| 13 | `?:` | Ternary conditional | Right-to-Left |
+| 14 | `=`<br>`+=` `-=`<br> `*=` `/=` `%=`<br>`<<=` `>>=`<br>`&=` `^=` `\|=` | Assignment<br>Compound Assignment<br><br><br><br> | Right-to-Left |
+| 15 | `,` | Comma | Left-to-right |
+
+Gotcha: notice that logical AND is given higher precedence than logical OR; this probably originates from the operations * and +, but to be accurate boolean algebra, they should be given equal precedence.
+
+`typeof` operators (`typeof` and `typof_unqual`) were added in C23. They provide the type name representing the type of the operand (a type or expression, like `sizeof`), not including any implicit conversions. It functions very similarly to `decltype` in C++ (but with a different name for compatibility's sake).
 
 ## Memory Layout
 
@@ -346,7 +365,20 @@ Attributes are used to add extra information (metadata) to various language enti
 
 ## Assertions
 
-## VS/Code Setup
+`static_assert`, formerly `_Static_assert`<sub>(C11)</sub>; statically assert an expression to be true (!= 0) at compile time. Fail with an optional message otherwise.
+
+```C
+static_assert(2+2==4, "2+2 is not 4!");
+```
+
+## VS Code Setup
+
+### Windows
+
+
+
+### Linux
+
 
 ## Build Systems
 
