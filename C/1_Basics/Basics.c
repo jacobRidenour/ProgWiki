@@ -12,16 +12,20 @@ void operators();
 void statements();
 void storage_class_specifiers(); void static_demo();
 void memory();
+void aggregates(); 
+void enums();
 
 // Example of a function definition. After the (parameters), the entire function
 // is contained between brackets {}.
 int main(int argc, char* argv[]) {
     // Each statement (usually a line) ends with a semicolon.
-    /*types(); maths(); pointers(); arrays(); */
-    //operators();
-    //statements();
-    //storage_class_specifiers();
+    types(); maths(); pointers(); arrays();
+    operators();
+    statements();
+    storage_class_specifiers();
     memory();
+    aggregates();
+    enums();
 }
 
 #include <limits.h> // Typically all of your #includes go at the top. limits.h
@@ -615,4 +619,147 @@ void memory() {
     free(nums);
 }
 
+#include <string.h> // for strncpy (String Copy N characters)
 
+// Structs can hold various data types. They are called records in some languages.
+// They can be declared within functions to limit their scope as necessary
+// Like an array, the data is contiguous in memory (though there may be padding
+// as necessary).
+// Structs can be forward-declared just like functions.
+// Subscripting is not valid for structs, but a pointer to a struct, after conversion,
+// is the same as a pointer to its first member
+struct Employee {
+    int id;
+    char name[50];
+    float salary;
+}; // Don't forget the semicolon (just like array initialization lists)
+
+// Structs are commonly typedef'd to hide implementation details and simplify
+// pointer syntax.
+typedef struct {
+    int id;
+    char username[30];
+    char password[30];  // Please don't store passwords as plaintext :)
+    float balance;
+} Account;
+void Account_init(Account* account, int id, const char* username, const char* password, float balance);
+
+// With typedef'd structs you get usage syntax that somewhat resembles
+// object-oriented programming (OOP), but there are limitations; you cannot
+// define functions inside structs (methods) as you would with a class.
+// There are no access specifiers - C does not support OOP!
+
+// It's a good idea to follow some kind of naming convention for struct-associated
+// functions, since C does not have namespaces or scopes for functions.
+void Account_init(Account* account, int id, const char* username, const char* password, float balance) {
+    account->id = id;
+    strncpy(account->username, username, sizeof(account->username) - 1);
+    account->username[sizeof(account->username) - 1] = '\0'; 
+    strncpy(account->password, password, sizeof(account->password) - 1);
+    account->password[sizeof(account->password) - 1] = '\0';
+    account->balance = balance;
+}
+
+// Unions are more niche than structs; the idea is, this container can hold ONE
+// of its members at a time. They all share the same memory space
+// If you assign the float, then the int, the float data is overwritten, since the
+// memory space is shared.
+
+// Outside of very memory-constrained situations, unions are useful when you don't
+// know the type of some data to be read in advance, or you need a constrained way
+// to reinterpret the same data as another type; in the latter case, since C99, 
+// when setting one member and reading from another, an implementation-defined
+// object reinterpretation (i.e. casting) occurs.
+
+// Subscripting is not valid for unions, but a pointer to a union, after conversion,
+// is the same as a pointer to any of its members. 
+
+union Data {
+    int anInt;
+    float aFloat;
+    char aChar;
+};
+
+// Introduce structs/unions
+void aggregates() {
+    // Starting in C99, structs can be initialized much like arrays
+    struct Employee emp1 = {
+        .id = 1, .name = "John Doe", .salary = 30000.0 
+    };
+
+    // Update struct members with the . operator (-> operator for pointers)
+    emp1.id = 13;
+    //emp1.name = "Jon Dough"; // error: assignment to expression with array type
+    printf("Employee emp1 is named %s\n", emp1.name);
+
+    Account acc;
+    Account_init(&acc, 16, "Bob", "Password123", 110.110);
+    printf("%s's account balance is %.2f\n", acc.username, acc.balance);
+
+    int num = 64;
+    union Data myData;
+    myData.anInt = num;
+
+    printf("Union Data (int, float, or char) initialized with int: %d; read as char: %c\n\n", num, myData.aChar);
+}
+
+// Introduce enums
+void enums() {
+    // In statements(), we used a switch statement to print the days of the week:
+    //switch(day) {
+    //     case 1:
+    //         printf("Sunday\n");
+    //         break; 
+    //     case n:
+    //         ...
+    //     default:
+    //         printf("Invalid day\n");
+    //         break;
+    // }
+    // An enum allows us to use user-defined names to use in place of
+    // integers (until C23; since C23, enums can be other integral types.
+    
+    // Starts at 0 by default. Increment by 1 for each entry.
+    // Expressions are allowed, and so are duplicate numeric values.
+    
+    typedef enum {
+        SUNDAY = 1,
+        MONDAY,     
+        TUESDAY,    
+        WEDNESDAY,  
+        THURSDAY,
+        FRIDAY,
+        SATURDAY
+    } Day;
+
+    Day today = MONDAY;
+
+    printf("Today is ");
+
+    switch(today) {
+        case SUNDAY:
+            printf("Sunday\n");
+            break; 
+        case MONDAY:
+            printf("Monday\n");
+            break;
+        case TUESDAY:
+            printf("Tuesday\n");
+            break;
+        case WEDNESDAY:
+            printf("Wednesday\n");
+            break;
+        case THURSDAY:
+            printf("Thursday\n");
+            break;
+        case FRIDAY:
+            printf("Friday\n");
+            break;
+        case SATURDAY:
+            printf("Saturday\n");
+            break;
+        default:
+            printf("Invalid day\n");
+            break;
+    }
+}
