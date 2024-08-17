@@ -1,7 +1,10 @@
 # CodingPractice
-This repository is meant to catalog my learning & experimentation with various (small) topics and documentation of them in various languages. Starting out writing the C versions; such background is referenced by other language READMEs/comments.
+This repository is meant as a catalog/reference for various aspects of different programming languages, syntax, type systems, compilation, build systems, and performing common tasks (setting up/using relevant libraries when applicable).
 
-Setup instructions for my fallible memory and to ease things for others.
+Written from the perspective of a new college graduate. Trying to lean more towards practical over theoretical.
+
+Jump to any language's README:  
+[--> C](C/README_C.md)
 
 ## Topics
 
@@ -137,8 +140,6 @@ See the [C README](C/README_C.md) for additional information on C and C++ setup.
 | [Make](https://gnuwin32.sourceforge.net/packages/make.htm) | `/GnuWin32/bin` | Build automation tool. May be necessary to build dependencies.                                                     |
 | [MinGW-w64](https://winlibs.com/)                          | `/mingw64/bin`  | Development environment for Windows apps, with ports of `gcc`, `gdb`, and more.                                    |
 | [CMake](https://cmake.org/download/)                       | `/cmake/bin`    | Build system generator; creates build files (like Makefiles, Visual Studio projects) in a compiler-independent way |
-
-Primer on Makefiles: \[[1](https://avikdas.com/2019/11/18/makefiles-from-the-ground-up.html)\] \[[2](https://avikdas.com/2019/12/16/makefiles-for-c-cpp-projects.html)\]
 
 ### Linux
 

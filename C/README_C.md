@@ -15,6 +15,42 @@ There are 3 related categories of behavior to watch out for with C (and C++) tha
 * **Unspecified behavior**: behavior, for a well-formed program construct and correct data, that depends on the implementation; in C, the standard provides 2 or more possibilities and imposes no prescription on which is chosen
    * Examples: order of evaluation for function arguments
 
+---
+---
+
+
+- [Creating a Binary](#creating-a-binary)
+  - [Preprocessor](#preprocessor)
+    - [#include](#include)
+    - [Conditional Compilation](#conditional-compilation)
+    - [Macros](#macros)
+  - [Compilation \& Assembly](#compilation--assembly)
+  - [Linker](#linker)
+- [Objects](#objects)
+- [Expressions](#expressions)
+  - [Types](#types)
+  - [Values](#values)
+- [Storage-Class Specifiers](#storage-class-specifiers)
+- [Type Qualifiers](#type-qualifiers)
+- [Alignment](#alignment)
+- [Operator Precedence \& Associativity](#operator-precedence--associativity)
+- [Memory Layout](#memory-layout)
+- [Memory Management](#memory-management)
+  - [Checking for Memory Leaks / Memory Corruption](#checking-for-memory-leaks--memory-corruption)
+    - [Windows](#windows)
+    - [Linux](#linux)
+- [Attribute Specifier Sequence](#attribute-specifier-sequence)
+  - [Details on unsequenced and reproducible](#details-on-unsequenced-and-reproducible)
+- [Assertions](#assertions)
+- [VS Code Setup](#vs-code-setup)
+  - [Windows](#windows-1)
+  - [Linux](#linux-1)
+- [Build Systems](#build-systems)
+- [External Libraries](#external-libraries)
+- [Using the Debugger](#using-the-debugger)
+
+---
+---
 
 ## Creating a Binary
 
@@ -139,6 +175,8 @@ The linker's first job is symbol resolution. Each symbol (i.e. function, variabl
 Some symbols that are used may be defined in existing library files. If they are static libraries, the referenced symbols are copied directly into the output binary. Resolution of some symbols may be deferred until runtime (dynamic linking); in this case, the binary will contain undefined symbols, plus a list of libraries that contain definitions for these symbols.
 
 The final addresses of the blocks (code, data) in object files are not known at generation time, so they usually assume an address base of 0. The linker relocates and adjusts these addresses to avoid overlaps.
+
+For more practical information on compiling C projects, refer to [Compilation.md](0_HelloWorld/Compilation.md).
 
 ## Objects
 
@@ -380,7 +418,7 @@ Note: these instructions also apply to C++ development.
 
 Generate a default `c_cpp_properties.json` by opening the command palette (`Ctrl+Shift+P`) and searching C/C++: Edit Configurations (UI). It will appear in `${workspaceFolder}/.vscode`
 
-The default will try to find your compiler (`compilerPath`), set the `c/cpp` standards, and set the `includePath` to include all files in your workspace. They may not be properly detected, in which case you'll want to make some adjustments.
+The default will try to find your compiler (`compilerPath`), set the `c/cpp` standards, and set the `includePath` to include all files in your workspace. They may not be properly detected; check the dropdown menu for compilerPath if it appears, otherwise make some manual adjustments.
 
 The [official documentation](https://code.visualstudio.com/docs/languages/cpp) has additional setup and usage details.
 
@@ -409,8 +447,8 @@ Note: these details also apply to C++ development.
 Perhaps due to its age or complexity, there are a lot of build systems available for C/C++. For any reasonably-sized project, build system generators are a popular approach easing the build and installation process across multiple machines/platforms.
 
 | Build System Generator | Supported Build Systems | Pros | Cons | Notes |
-| ---------------------- | ---- | ---- | ----- |
-| CMake | Make, Ninja, Visual Studio, Qt Creator | Widely used;<br>Domain-specific scripting language | Can be verbose;<br>Turnkey cross-platform development is tricky;<br>Version is important | Great for large projects;<br>Documentation is hit or miss. |
+| ---------------------- | ---- | ---- | ----- | ---- |
+| CMake | Make, Ninja, Visual Studio, Qt Creator | Widely used;<br>Domain-specific scripting language | Can be verbose;<br>Turnkey cross-platform development is tricky;<br>Version is important | Good for large projects;<br>Documentation is hit or miss. |
 | Meson | Ninja, Visual Studio | Speed from Ninja backend;<br>Python-like syntax | Still growing in popularity ||
 
 | Build System | Best for... | Overview | Notes |
