@@ -75,6 +75,7 @@ void types() {
     printf("unsigned, unsigned int\n");
     printf("Minimum size: 2 bytes (16 bits)\n");
     printf("Actual size:  %zu bytes (%zu bits)\n", sizeof(unsigned), 8*sizeof(unsigned));
+    // TODO: fix this
     printf("[Range]: uses g int, signed long, signed long int\n");
     printf("Minimum size: 4 bytes (32 bits)\n");
     printf("Actual size:  %zu bytes (%zu bits)\n", sizeof(long), 8*sizeof(long));
