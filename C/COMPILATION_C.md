@@ -53,7 +53,6 @@ The basic syntax is fairly ~~Pythonic~~ similar to your typical Unix shell. No q
 | `=` (recursive/lazy) | variable expanded and evaluated at each reference |
 | `:=` or `::=` (simple/immediate) | variable evaluated immediately and persists |
 
-
 ```make
 # Variable names are case-sensitive and must not contain :#= or whitespace
 CC = gcc
@@ -77,7 +76,6 @@ target: dependencies
 
 ### Variables & Wildcards
 ---
-
 
 To avoid repeating yourself for every *.c file etc., we can make use of the wildcard `%` and Make's automatic variables in rules:
 
@@ -229,16 +227,17 @@ $(error Containing path cannot contain whitespace: '$(CURDIR)')
 endif
 ```
 
-It's *probably easier* to use a build system generator for any complex or long-lived projects relative to writing portable Makefiles.
+It's *probably easier* to use a build system generator for any complex or long-lived projects relative to writing your own portable Makefiles.
 
-
+// TODO
 // parallel execution -j#  (blank for all cores)
 // note first rule is default if none specified; can explicitly set one with .DEFAULT_GOAL
 
-// wildcard, patsubst, curdir, notdir
 // include $(OBJ_DIR)/src_rules.mk
 // include $(OBJ_DIR)/lib_rules.mk
 // -> offer logical separation
+// TODO: separate debug/release builds
+// TODO: make install
 
 ### Template Makefile
 
@@ -272,7 +271,6 @@ help: # Show help for each of the Makefile recipes.
 
 ```
 
-// TODO: separate debug/release builds
-// TODO: make install
-
 `help` target from dwmkerr's [makefile-help](https://github.com/dwmkerr/makefile-help).
+
+Tags: 

@@ -176,7 +176,7 @@ Some symbols that are used may be defined in existing library files. If they are
 
 The final addresses of the blocks (code, data) in object files are not known at generation time, so they usually assume an address base of 0. The linker relocates and adjusts these addresses to avoid overlaps.
 
-For more practical information on compiling C projects, refer to [Compilation.md](0_HelloWorld/Compilation.md).
+For more practical information on compiling C projects, refer to [C Compilation](COMPILATION_C.md).
 
 ## Objects
 
@@ -409,37 +409,6 @@ Attributes are used to add extra information (metadata) to various language enti
 static_assert(2+2==4, "2+2 is not 4!");
 ```
 
-## VS Code Setup
-
-Note: these instructions also apply to C++ development.
-
-**Extensions**:
-* [C/C++ by Microsoft](vscode:extension/ms-vscode.cpptools)
-
-Generate a default `c_cpp_properties.json` by opening the command palette (`Ctrl+Shift+P`) and searching C/C++: Edit Configurations (UI). It will appear in `${workspaceFolder}/.vscode`
-
-The default will try to find your compiler (`compilerPath`), set the `c/cpp` standards, and set the `includePath` to include all files in your workspace. They may not be properly detected; check the dropdown menu for compilerPath if it appears, otherwise make some manual adjustments.
-
-The [official documentation](https://code.visualstudio.com/docs/languages/cpp) has additional setup and usage details.
-
-### Windows
-
-The extension first searches for the Visual Studio compiler `cl`, and it should automatically find the necessary header files. If it's not detected you may need to add it yourself:
-
-```JSON
-"compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/{year}/BuildTools/VC/Tools/MSVC/{14.xx}/bin/Hostx64/x64/cl.exe",
-```
-
-If you are instead using MinGW-w64, it might look something like this:
-
-```JSON
-"compilerPath": "C:/MinGW-w64/mingw64/bin/gcc.exe",
-```
-
-### Linux
-
-Compiler path should be detected automatically. Make adjustments if using a non-standard location for your compiler.
-
 ## Build Systems
 
 Note: these details also apply to C++ development.
@@ -456,6 +425,8 @@ Perhaps due to its age or complexity, there are a lot of build systems available
 | MSBuild | Windows environments | XML-based project files | Most useful on a Windows environment |
 | Make | Small-medium projects | Target-oriented tasks | Can use on Windows;<br>Often cumbersome with large projects;<br>Can be used to automate other tasks besides building software |
 | Ninja | Need fast, incremental builds | Recommended to use with build system generators | Originally developed by Google as a replacement for Make |
+
+The basics of Make are covered in [C compilation](COMPILATION_C.md).
 
 ## External Libraries
 

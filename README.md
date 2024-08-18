@@ -13,20 +13,21 @@ Jump to any language's README:
     <td valign="top">
       <strong>Operators</strong>
       <ul>
-        <li>Math operators (+ - * / % sqrt **)</li>
+        <li>Numerical operators (+ - * / % sqrt **)</li>
         <li>Increment/decrement (++ --)</li>
         <li>Bitwise operators (& | ~ !)</li>
         <li>Compound operators</li>
-        <li>Logic operators (&gt; &lt; ==)</li>
-        <li>Operator precedence</li>
+        <li>Logical operators (&gt; &lt; ==)</li>
+        <li>Operator associativity & precedence</li>
       </ul>
     </td>
     <td valign="top">
       <strong>Type system</strong>
       <ul>
         <li>Numeric types</li>
-        <li>Records</li>
-        <li>Qualifiers (const, static)</li>
+        <li>Aggregate types</li>
+        <li>Type qualifiers</li>
+        <li>Storage-class specifiers</li>
         <li>Pointers, references</li>
         <li>Type conversion & casting</li>
         <li>Copying/cloning</li>
@@ -38,9 +39,9 @@ Jump to any language's README:
       <strong>Conditionals</strong>
       <ul>
         <li>Definition of true/false</li>
-        <li>if/else, do/while, for</li>
-        <li>switch/case</li>
-        <li>break, continue, goto</li>
+        <li>Selection statements</li>
+        <li>Iteration statements</li>
+        <li>Jump statements</li>
       </ul>
     </td>
     <td valign="top">
@@ -66,7 +67,7 @@ Jump to any language's README:
          <li>Strings (print/format, concat, case, sort, split)</li>
          <li>Write to/read from the console, file, binary file</li>
          <li>Traverse the file system</li>
-         <li>Prase JSON, XML, CSV</li>
+         <li>Parse JSON, XML, CSV</li>
          <li>Regular expressions</li>
          <li>Built-in/common logging techniques</li>
          <li>Date & time recording, manipulation, formatting</li>
@@ -105,9 +106,8 @@ Jump to any language's README:
 
 <strong>Language External</strong>
 <ul>
-   <li>Language features</li>
+   <li>Language description</li>
    <li>Creating a Binary</li>
-   <li>VS/Code setup</li>
    <li>Build systems</li>
    <li>External Libraries</li>
    <li>Using the Debugger</li>
@@ -124,15 +124,10 @@ Jump to any language's README:
 <sup>† Seriously!</sup>
 
 ## VS/Code Setup
-Change Terminal to Bash:
 
-| VSCode | VS2022 (Windows only) |
-| ------ | --------------------- |
-| Command Palette (Ctrl+Shift+P)<br>Terminal: Select Default Profile | Tools -> Options -> Environment -> Terminal -> Add;<br>Arguments: `--login -i -l` |
+Language-specific setup for VS/Code in [VSCODE.md](VSCODE.md).
 
 ## C/C++ Essentials
-See the [C README](C/README_C.md) for additional information on C and C++ setup.
-
 ### Windows
 
 | Program | Add to PATH | Rationale |
