@@ -102,6 +102,7 @@ User-defined variables are substituted with $(parentheses). Automatic variables 
 | `$@` | name of the target of this recipe |
 | `$<` | name of the first dependency |
 | `$^` | names of all dependencies, whitespace-delimited |
+| `$*` | the string matching the `%` wildcard (stem) |
 
 #### The `wildcard` function
 ---
@@ -142,6 +143,25 @@ We want to use logical separation in our Makefile and retain arbitrary directory
 
 ```make
 TODO: test includes
+
+.INCLUDE : file1 file2 ...
+.INCLUDE : 
+
+```
+
+// When make encounters a rule like this in a makefile, it reads in the contents of the given files (in order from left to right) and uses their contents as if they had appeared in the current makefile. For example, suppose the file macrodef contains a set of macro definitions. Then: 
+
+```make
+.INCLUDE : file1 file2 ...
+.INCLUDE : macrodef
+```
+
+// obtains those macro definitions and processes them as if they actually appeared at this point in the makefile. It is possible to store includable files under other directories. To do this, you use another special target: 
+
+```make
+.INCLUDEDIRS: dir 2 dir2 ...
+
+
 ```
 
 ### Implicit Rules
@@ -189,14 +209,6 @@ clean:
     rm -f *.o programName
 ```
 
-
-
-
-
-
-
-
-
 ### Dependency Management
 
 
@@ -236,15 +248,31 @@ Skeleton for small projects
 ifneq (1,$(words $(CURDIR)))
 $(error Containing path cannot contain whitespace: '$(CURDIR)')
 endif
+
+SHELL := bash
 .RECIPEPREFIX = >
 .PHONY: clean help
 default: help
 
-SHELL = /bin/bash
+SRCS = $(wildcard *.c)
+OBJS = $(SRCS:.c=.o)
+OUT := a.out
+
+CC := gcc
+CFLAGS := -Wall -Werror -Wcast-align=strict -Wpedantic
+
+# LDFLAGS := library/dirs
+LDLIBS := -lm
+
+release: $(OBJS) # Create a Release (optimized) build
+> $(CC) $(SRCS) $(CFLAGS) $(LDLIBS) -o $(OUT)
 
 help: # Show help for each of the Makefile recipes.
 > @grep -E '^[a-zA-Z0-9 -]+:.*#'  Makefile | sort | while read -r l; do printf "\033[1;32m$$(echo $$l | cut -f 1 -d':')\033[00m:$$(echo $$l | cut -f 2- -d'#')\n"; done
 
 ```
+
+// TODO: separate debug/release builds
+// TODO: make install
 
 `help` target from dwmkerr's [makefile-help](https://github.com/dwmkerr/makefile-help).

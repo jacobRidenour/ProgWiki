@@ -1,68 +1,70 @@
-# Binaries
+### Binaries
+# Executables
 *.exe
+*.out
+
+# Objects
+*.o
+*.obj
+
+# Libraries
+*.a
+*.dll
+*.dylib
+*.lib
+*.so
+*.so.*
+
+# Build directories
 [Bb]in*/
 [Bb]uild*/ 
-a.out
+[Dd]ebug*/
+[Rr]elease*/
+[Tt]arget*/
+x64*/
+x86*/
 
-# Python
-*.pyc
+### Python
+# Cache
 __pycache__*/
+*.pyc
+
+# Virtual Environments
 [Vv]env*/
 .[Vv]env*/
 
-# Rust
-.cargo-lock
-.rustc_info.json
-*.d
-*.fingerprint*/
-*.lock
-*.toml
-CACHEDIR.TAG
-[Dd]eps*/
-[Ee]xamples*/
-[Ii]ncremental*/
-[Tt]arget*/
-
-# React
-.DS_*
-*.log
-logs
-**/*.backup.*
-**/*.back.*
-node_modules
-bower_components
-*.sublime*
-psd
-thumb
-sketch
-
-# VS Code Files/Folders
-CppProperties.json
-.vscode*/
-
-# VS Files/Folders
-*.exe.recipe
+### Visual Studio
+.vs/
+[Bb]uild[Ll]og.*
+*.[Cc]ache
 *.idb
 *.ilk
 *.iobj
 *.ipdb
 *.lastbuildstate
 *.log
-*.obj
 *.pdb
 *.sln
 *.tlog
 *.vcxproj
 *.vcxproj.filters
 *.vcxproj.user
-.vs*/
-[Dd]ebug*/
-[Rr]elease*/
-x64*/
-x86*/
 
-# Other
-.vs/
+### VS Code
+.vscode/*
+!.vscode/launch.json
+!.vscode/settings.json
+!.vscode/tasks.json
+
+### Windows
+[Dd]esktop.ini
+$RECYCLE.BIN/
+Thumbs.db
+*.lnk
+*.msi
+
+### Other
 .obsidian/
+_tags/
 [Oo]ld/
 

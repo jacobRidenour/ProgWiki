@@ -1,6 +1,6 @@
 # C
 
-The C programming language features ahead of time (AOT) compilation, and supports imperative and procedural programming. It is statically typed, with weak type safety and no memory safety.
+The C programming language features ahead of time (AOT) compilation, and supports procedural (imperative) programming. Its type system is static, manifest, and nominal.
 
 Function parameters are passed by value (copied), except for arrays, which are passed as pointers.
 
@@ -461,4 +461,4 @@ Perhaps due to its age or complexity, there are a lot of build systems available
 
 ## Using the Debugger
 
-
+Tags: [[imperative language]] [[procedural language]] [[compiled language]] [[statically typed]] [[manifest types]] [[nominally typed]] [[pass-by-value]]
