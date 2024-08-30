@@ -1,7 +1,7 @@
 #include <stdio.h> 
 
 #include "Dictionary.h"
-#include "DictionaryTest.h" // TODO: implement/call
+#include "DictionaryTest.h"
 
 int main(int argc, char* argv[]) {
     Dictionary* countryCodes = dictionaryInit();
