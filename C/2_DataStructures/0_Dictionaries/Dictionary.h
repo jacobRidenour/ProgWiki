@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 
 /******************************************************************************
 * Dictionary/Map
@@ -148,6 +149,7 @@ void dictionaryInsert(Dictionary* dict, const char* key, const char* value) {
         return;
     }
     
+    bool updateSize = true;
     unsigned long index = dictionaryHash(key);
     DictNode* currentNode = dict->table[index];
 
@@ -156,6 +158,7 @@ void dictionaryInsert(Dictionary* dict, const char* key, const char* value) {
         if (strcmp(currentNode->key, key) == 0) {
             free(currentNode->value);
             currentNode->value = strdup(value);
+            updateSize = false;
         }
         currentNode = currentNode->next;
     }
@@ -165,7 +168,7 @@ void dictionaryInsert(Dictionary* dict, const char* key, const char* value) {
     DictNode* newNode = dictNodeInit(key, value);
     newNode->next = dict->table[index];
     dict->table[index] = newNode;
-    dict->size++;  
+    if(updateSize) dict->size++;  
 }
 
 /******************************************************************************
@@ -215,7 +218,7 @@ char* dictionaryGet(Dictionary* dict, const char* key) {
 ******************************************************************************/
 void dictionaryRemove(Dictionary* dict, const char* key) {
     if(key == NULL || strlen(key) == 0) {
-        fprintf(stderr, "Error: attempted to add empty key. Dictionary not modified.\n");
+        fprintf(stderr, "Error: attempted to remove empty key. Dictionary not modified.\n");
         return;
     }
 
@@ -294,7 +297,7 @@ unsigned long dictionaryCapacity(Dictionary* dict) {
 * parameters: 
 *  - dict : Dictionary*
 *   
-* returns: none
+* returns: char** ; array containing dict's keys
 * 
 * description: returns an array containing all keys in the Dictionary* dict;
 *              updates count param to reflect the array size
@@ -306,12 +309,14 @@ char** dictionaryKeys(Dictionary* dict) {
         return NULL;
     }
 
+    // make keys array
     char** keys = malloc(dict->size * sizeof(char*));
     if (keys == NULL) {
         fprintf(stderr, "Failed to allocate memory for keys array\n");
         return NULL;
     }
 
+    // populate it 
     unsigned long keyIndex = 0;
     for (unsigned long i = 0; i < DICT_CAPACITY; ++i) {
         DictNode* currentNode = dict->table[i];
@@ -374,7 +379,6 @@ void dictionaryToString(Dictionary* dict) {
 
 
 // TODO new functions:
-// clear() -> destroy this dict return a fresh one
 // copy() -> create a copy of this dict
 
 #endif /* DICTIONARY_H */

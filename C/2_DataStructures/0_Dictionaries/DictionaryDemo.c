@@ -20,4 +20,6 @@ int main(int argc, char* argv[]) {
     printf("Country code for Tuvalu: %s\n", dictionaryGet(countryCodes, "Tuvalu"));
 
     dictionaryDestroy(countryCodes);
+
+    runDictionaryTests();
 }
