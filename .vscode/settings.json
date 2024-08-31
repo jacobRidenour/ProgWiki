@@ -2,6 +2,7 @@
     "files.associations": {
         "dictionary.h": "c",
         "dictionarytest.h": "c",
-        "printtestresults.h": "c"
+        "printtestresults.h": "c",
+        "stdbool.h": "c"
     }
 }

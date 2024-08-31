@@ -55,7 +55,7 @@ unsigned long dictionaryHash(const char* key) {
 Dictionary* dictionaryInit() {
     Dictionary* dict = malloc(sizeof(Dictionary));
     if (dict == NULL) {
-        fprintf(stderr, "Failed to allocate memory for Dictionary\n");
+        fprintf(stderr, "ERROR: failed to allocate memory for Dictionary.\n");
         return NULL;
     }
 
@@ -78,13 +78,13 @@ Dictionary* dictionaryInit() {
 *
 * returns: DictNode*
 * 
-* description: initializes the dictionary, setting all table indices to NULL
+* description: initializes the Dictionary, setting all table indices to NULL
 * 
 ******************************************************************************/
 DictNode* dictNodeInit(const char* key, const char* value) {
     DictNode* node = malloc(sizeof(DictNode));
     if (node == NULL) {
-        fprintf(stderr, "Failed to allocate memory for DictNode\n");
+        fprintf(stderr, "ERROR: failed to allocate memory for DictNode.\n");
         return NULL;
     }
 
@@ -107,7 +107,7 @@ DictNode* dictNodeInit(const char* key, const char* value) {
 ******************************************************************************/
 void dictionaryDestroy(Dictionary* dict) {
     if (dict == NULL) {
-        fprintf(stderr, "Error in dictionaryDestroy(): dictionary is NULL.\n");
+        fprintf(stderr, "ERROR: attempted to destroy NULL Dictionary*.\n");
         return;
     }
 
@@ -140,12 +140,12 @@ void dictionaryDestroy(Dictionary* dict) {
 ******************************************************************************/
 void dictionaryInsert(Dictionary* dict, const char* key, const char* value) {
     if (dict == NULL) {
-        fprintf(stderr, "Error in dictionaryInsert(): dictionary is NULL.\n");
+        fprintf(stderr, "ERROR: attempted to insert key into NULL Dictionary*.\n");
         return;
     }
 
     if(key == NULL || strlen(key) == 0) {
-        fprintf(stderr, "Error: attempted to add empty key. Dictionary not modified.\n");
+        fprintf(stderr, "ERROR: attempted to insert empty key into Dictionary.\n");
         return;
     }
     
@@ -186,7 +186,7 @@ void dictionaryInsert(Dictionary* dict, const char* key, const char* value) {
 ******************************************************************************/
 char* dictionaryGet(Dictionary* dict, const char* key) {
     if (dict == NULL) {
-        fprintf(stderr, "Error in dictionaryGet(): dictionary is NULL.\n");
+        fprintf(stderr, "ERROR: attempted to get value from NULL Dictionary*.\n");
         return NULL;
     }
 
@@ -218,7 +218,7 @@ char* dictionaryGet(Dictionary* dict, const char* key) {
 ******************************************************************************/
 void dictionaryRemove(Dictionary* dict, const char* key) {
     if(key == NULL || strlen(key) == 0) {
-        fprintf(stderr, "Error: attempted to remove empty key. Dictionary not modified.\n");
+        fprintf(stderr, "ERROR: attempted to remove empty key from Dictionary.\n");
         return;
     }
 
@@ -263,7 +263,7 @@ void dictionaryRemove(Dictionary* dict, const char* key) {
 ******************************************************************************/
 unsigned long dictionarySize(Dictionary* dict) {
     if (dict == NULL) {
-        fprintf(stderr, "Error in dictionarySize(): dictionary is NULL.\n");
+        fprintf(stderr, "ERROR: attempted to retrieve size of NULL Dictionary*.\n");
         return 0;
     }
 
@@ -284,7 +284,7 @@ unsigned long dictionarySize(Dictionary* dict) {
 ******************************************************************************/
 unsigned long dictionaryCapacity(Dictionary* dict) {
     if (dict == NULL) {
-        fprintf(stderr, "Error in dictionaryCapacity(): dictionary is NULL.\n");
+        fprintf(stderr, "ERROR: attempted to retrieve capacity of NULL Dictionary*.\n");
         return 0;
     }
 
@@ -305,14 +305,14 @@ unsigned long dictionaryCapacity(Dictionary* dict) {
 ******************************************************************************/
 char** dictionaryKeys(Dictionary* dict) {
     if (dict == NULL) {
-        fprintf(stderr, "Error in dictionaryKeys(): dictionary is NULL.\n");
+        fprintf(stderr, "ERROR: attempted to retrieve key from NULL Dictionary*.\n");
         return NULL;
     }
 
     // make keys array
     char** keys = malloc(dict->size * sizeof(char*));
     if (keys == NULL) {
-        fprintf(stderr, "Failed to allocate memory for keys array\n");
+        fprintf(stderr, "ERROR: failed to allocate memory for Dictionary keys array\n");
         return NULL;
     }
 
@@ -343,13 +343,13 @@ char** dictionaryKeys(Dictionary* dict) {
 ******************************************************************************/
 char** dictionaryValues(Dictionary* dict) {
     if (dict == NULL) {
-        fprintf(stderr, "Error in dictionaryKeys(): dictionary is NULL.\n");
+        fprintf(stderr, "ERROR: attempted to retrieve values from NULL Dictionary*.\n");
         return NULL;
     }
 
     char** values = malloc(dict->size * sizeof(char*));
     if (values == NULL) {
-        fprintf(stderr, "Failed to allocate memory for values array\n");
+        fprintf(stderr, "ERROR: failed to allocate memory for Dictionary values array\n");
         return NULL;
     }
 
@@ -365,8 +365,17 @@ char** dictionaryValues(Dictionary* dict) {
     return values;
 }
 
-
-// todo, update to only include indices with values
+/******************************************************************************
+* dictionaryToString
+*
+* parameters: 
+*  - dict : Dictionary*
+*   
+* returns: none
+* 
+* description: prints each key value pair in dict, one per line
+* 
+******************************************************************************/
 void dictionaryToString(Dictionary* dict) {
     for (unsigned long i = 0; i < DICT_CAPACITY; ++i) {
         DictNode* currentNode = dict->table[i];
@@ -376,9 +385,5 @@ void dictionaryToString(Dictionary* dict) {
         }
     }
 }
-
-
-// TODO new functions:
-// copy() -> create a copy of this dict
 
 #endif /* DICTIONARY_H */

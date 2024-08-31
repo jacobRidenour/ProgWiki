@@ -51,7 +51,7 @@ Jump to any language's README:
         <li>Dictionaries/Maps, Sets, Tuples</li>
         <li>Arrays/vectors, linked lists</li>
         <li>Multidimensional arrays</li>
-        <li>Hash tables, hash maps</li>
+        <li>Hash tables</li>
         <li>Stacks, queues, deques</li>
         <li>Graphs, Trees</li>
       </ul>
