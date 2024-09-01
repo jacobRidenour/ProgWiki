@@ -44,7 +44,7 @@ void TestsSummaryPrintHeader(const char* testName) {
     results.successes = 0;
     results.failures = 0;
 
-    printf("********************************************************\n");
+    printf("\n********************************************************\n");
     printf("BEGIN tests for %s\n\n", testName);
 }
 

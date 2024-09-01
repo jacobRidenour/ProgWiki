@@ -3,6 +3,7 @@
         "dictionary.h": "c",
         "dictionarytest.h": "c",
         "printtestresults.h": "c",
-        "stdbool.h": "c"
+        "stdbool.h": "c",
+        "array": "cpp"
     }
 }

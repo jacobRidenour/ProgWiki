@@ -1,7 +1,7 @@
 #include <stdio.h> 
 
 #include "Array.h"
-// #include "ArrayTest.h"
+#include "ArrayTest.h"
 
 int main(int argc, char* argv[]) {
     Array* array = arrayInit(5);
@@ -27,5 +27,5 @@ int main(int argc, char* argv[]) {
 
     arrayDestroy(array);
 
-    //runArrayTests();
+    runArrayTests();
 }
