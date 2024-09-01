@@ -26,6 +26,6 @@ int main(int argc, char* argv[]) {
     printf("After clear, size: %lu\n", arraySize(array));
 
     arrayDestroy(array);
-    return 0;
+
     //runArrayTests();
 }

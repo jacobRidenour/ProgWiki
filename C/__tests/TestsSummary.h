@@ -5,6 +5,13 @@
 
 #ifdef _WIN32
 #include <windows.h>
+#define COLOR_GREEN SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN)
+#define COLOR_RED SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED)
+#define COLOR_RESET SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
+#else
+#define COLOR_GREEN "\033[0;32m"
+#define COLOR_RED "\033[0;31m"
+#define COLOR_RESET "\033[0m"
 #endif
 
 /*******************************************************************************
@@ -46,66 +53,58 @@ void TestsSummaryPrintFooter(const char* testName) {
     int total = results.successes + results.failures;
     double passRate = ((double)results.successes / total) * 100;
 
-#ifdef _WIN32
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-#endif
-
     printf("\n%s Tests: ", testName);
 
 #ifdef _WIN32
-    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+    COLOR_GREEN;
 #else
-    printf("\033[0;32m");  // Green
+    printf(COLOR_GREEN);
 #endif
     printf("%d Passed", results.successes);
 
 #ifdef _WIN32
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+    COLOR_RESET;
 #else
-    printf("\033[0;31m");  // Red
+    printf(COLOR_RESET);
 #endif
-    printf(", %d Failed", results.failures);
+    printf(", ");
 
 #ifdef _WIN32
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+    COLOR_RED;
 #else
-    printf("\033[0m");  // Reset color to default
+    printf(COLOR_RED);
+#endif
+    printf("%d Failed", results.failures);
+
+#ifdef _WIN32
+    COLOR_RESET;
+#else
+    printf(COLOR_RESET);
 #endif
     printf(" (");
 
-    // Apply color for passRate
 #ifdef _WIN32
-    if (results.failures == 0) {
-        SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
-    }
-    else {
-        SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-    }
+    if (results.failures == 0) COLOR_GREEN;
+    else COLOR_RED;
 #else
-    if (results.failures == 0) {
-        printf("\033[0;32m");  // Green
-    }
-    else {
-        printf("\033[0;31m");  // Red
-    }
+    if (results.failures == 0) printf(COLOR_GREEN);
+    else printf(COLOR_RED);
 #endif
     printf("%.2f%%", passRate);
 
 #ifdef _WIN32
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+    COLOR_RESET;
 #else
-    printf("\033[0m");
+    printf(COLOR_RESET);
 #endif
-
     printf(")\n");
 
     printf("\nEND tests for %s\n", testName);
-    printf("********************************************************\n");
+    printf("********************************************************\n\n");
 
     results.successes = 0;
     results.failures = 0;
 }
-
 
 void TestsSummaryPrintResults(const char* testName, int successes, int failures) {
     results.successes += successes;
@@ -114,49 +113,39 @@ void TestsSummaryPrintResults(const char* testName, int successes, int failures)
     int total = successes + failures;
     double passRate = ((double)successes / total) * 100;
 
-#ifdef _WIN32
-    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-#endif
-
     printf("%s Test Summary: (", testName);
 
 #ifdef _WIN32
-    if (failures == 0) {
-        SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
-    }
-    else {
-        SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
-    }
+    if (failures == 0) COLOR_GREEN;
+    else COLOR_RED;
     printf("%.2f%%", passRate);
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+    COLOR_RESET;
 #else
-    if (failures == 0) {
-        printf("\033[0;32m%.2f%%\033[0m", passRate);  // Green
-    } else {
-        printf("\033[0;31m%.2f%%\033[0m", passRate);  // Red
-    }
+    if (failures == 0) printf(COLOR_GREEN);
+    else printf(COLOR_RED);
+    printf("%.2f%%", passRate);
+    printf(COLOR_RESET);
 #endif
-
     printf(")\n");
 
 #ifdef _WIN32
-    SetConsoleTextAttribute(hConsole, FOREGROUND_GREEN);
+    COLOR_GREEN;
 #else
-    printf("\033[0;32m");  // Green
+    printf(COLOR_GREEN);
 #endif
     printf("%d passed\n", successes);
 
 #ifdef _WIN32
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED);
+    COLOR_RED;
 #else
-    printf("\033[0;31m");  // Red
+    printf(COLOR_RED);
 #endif
     printf("%d failed\n", failures);
 
 #ifdef _WIN32
-    SetConsoleTextAttribute(hConsole, FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+    COLOR_RESET;
 #else
-    printf("\033[0m");  // Reset color to default
+    printf(COLOR_RESET);
 #endif
 }
 

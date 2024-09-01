@@ -253,7 +253,7 @@ bool arrayPopBack(Array* array) {
 }
 
 /******************************************************************************
-* array
+* arrayClear
 *
 * parameters: 
 *  - array : Array*
@@ -265,7 +265,7 @@ bool arrayPopBack(Array* array) {
 ******************************************************************************/
 void arrayClear(Array* array) {
     if (array == NULL) {
-        fprintf(stderr, "Error in arrayClear(): array is NULL.\n");
+        fprintf(stderr, "ERROR: attempted to clear NULL Array*.\n");
         return;
     }
     array->size = 0;
