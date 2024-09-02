@@ -377,6 +377,7 @@ char** dictionaryValues(Dictionary* dict) {
 * 
 ******************************************************************************/
 void dictionaryToString(Dictionary* dict) {
+    printf("{ ");
     for (unsigned long i = 0; i < DICT_CAPACITY; ++i) {
         DictNode* currentNode = dict->table[i];
         while (currentNode != NULL) {
@@ -384,6 +385,7 @@ void dictionaryToString(Dictionary* dict) {
             currentNode = currentNode->next;
         }
     }
+    printf(" }\n");
 }
 
 #endif /* DICTIONARY_H */

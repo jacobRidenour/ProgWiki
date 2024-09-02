@@ -260,7 +260,7 @@ bool arrayPopBack(Array* array) {
 *   
 * returns: none
 * 
-* description: 
+* description: sets the array's size to 0
 * 
 ******************************************************************************/
 void arrayClear(Array* array) {

@@ -30,7 +30,7 @@ void runArrayTests() {
     testArrayPopBack();
     testArrayClear();
     testArrayFrontBack();
-    //testArraySizeCapacity();
+    testArraySizeCapacity();
 
     TestsSummaryPrintFooter("Array");
 }

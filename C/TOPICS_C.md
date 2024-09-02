@@ -32,13 +32,13 @@
 | Subtopic                   | Covered in       | Complete?  |
 | -------------------------- | ---------------- | ---------- |
 | Iterate over iterable type | 1_Basics         | ✅         |
-| Dictionaries/maps          | 2_DataStructures (Dictionary) | ✅         |
+| Dictionaries/maps          | 2_DataStructures (Dictionary) | ✅ |
 | Sets                       |                  | ❎         |
 | Tuples                     |                  | ❎         |
-| Arrays/Vectors             |                  | ❎         |
+| Arrays/Vectors             | 2_DataStructures (Array) | ✅ |
 | Linked lists               |                  | ❎         |
 | Multidimensional arrays    |                  | ❎         |
-| Hash tables                | 2_DataStructures (Dictionary) | ✅         |
+| Hash tables                | 2_DataStructures (Dictionary) | ✅ |
 | Stacks                     |                  | ❎         |
 | Queues                     |                  | ❎         |
 | Deques                     |                  | ❎         |
