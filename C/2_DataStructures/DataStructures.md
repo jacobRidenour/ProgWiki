@@ -1,3 +1,5 @@
+# Data Structures
+
 Basic implementations of some data structures in C. **Use at your own risk.**
 
 What is this for?

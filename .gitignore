@@ -1,4 +1,4 @@
-### Binaries
+# ** Binaries **************************************************************** #
 # Executables
 *.exe
 *.out
@@ -24,7 +24,7 @@
 x64*/
 x86*/
 
-### Python
+# ** Python ****************************************************************** #
 # Cache
 __pycache__*/
 *.pyc
@@ -33,7 +33,7 @@ __pycache__*/
 [Vv]env*/
 .[Vv]env*/
 
-### Visual Studio
+# ** Visual Studio *********************************************************** #
 .vs/
 [Bb]uild[Ll]og.*
 *.[Cc]ache
@@ -50,21 +50,19 @@ __pycache__*/
 *.vcxproj.filters
 *.vcxproj.user
 
-### VS Code
+# ** VS Code ***************************************************************** #
 .vscode/*
-!.vscode/launch.json
+.vscode/launch.json
 !.vscode/settings.json
 !.vscode/tasks.json
 
-### Windows
+# ** Windows ***************************************************************** #
 [Dd]esktop.ini
 $RECYCLE.BIN/
 Thumbs.db
 *.lnk
 *.msi
 
-### Other
+# ** Others ****************************************************************** #
 .obsidian/
-_tags/
 [Oo]ld/
-
