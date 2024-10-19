@@ -3,7 +3,7 @@
 #include <ctype.h>
 #include <stdlib.h>
 
-int char_compare(const void* a, const void* b) {
+int charCompare(const void* a, const void* b) {
     return ( *(char *)a - *(char *)b );
 }
 
@@ -29,7 +29,7 @@ int main() {
     char str[strlen(dest)];
     strcpy(str, dest);
     // -- Bring your own comparison function to qsort
-    qsort(str, strlen(str), sizeof(char), char_compare);
+    qsort(str, strlen(str), sizeof(char), charCompare);
     printf("Sorted string: '%s'\n", str);
 
     // Splitting strings with some delimiter
