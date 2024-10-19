@@ -2,6 +2,8 @@
 
 Most of what you'll typically need for I/O is in `<stdio.h>`. Reference [here](https://en.cppreference.com/w/c/io).
 
+For functions in this file, `const`s and `restrict`s omitted for space.
+
 ## File I/O
 
 The pattern for handling files is similar to memory allocation's "one malloc, one free" - one open, one close.
@@ -34,7 +36,7 @@ Add `+` to set to update mode, which allows for both reading and writing. Add `x
 
 Reading (`*get*`)
 
-| Function                                              | Effect                                                                                                                                       |
+| Function                                              | Usage                                                                                                                                        |
 | ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
 | `int fgetc(FILE* stream)`<br>`int getc(FILE* stream)` | Read a char from `stream`<br>else return `EOF`                                                                                               |
 | `char* fgets(char* str, int n, FILE* stream)`         | Read up to `n-1` chars from `stream`;<br>place them in `str` and null-terminate.<br>Stop at newline (put in `str`) or `EOF`                  |
@@ -43,7 +45,7 @@ Reading (`*get*`)
 
 Writing (`*put*`)
 
-| Function                                                              | Effect                                                                                                                               |
+| Function                                                              | Usage                                                                                                                                |
 | --------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | `int fputc(int ch, FILE* stream)`<br>`int putc(int ch, FILE* stream)` | Write `ch` to `stream`, return it on success;<br>else return `EOF`                                                                   |
 | `int fputs(char* str, FILE* stream)`                                  | Write `str` to  `stream`; return >=0 on success;<br>else return `EOF`                                                                |
@@ -53,13 +55,68 @@ Writing (`*put*`)
 
 **Formatted I/O**
 
-<>
-## Format Specifiers
+Reading (`*scan*`)
 
-Commonly used with `*printf`-style functions.
+| Function                                      | Usage              |
+| --------------------------------------------- | ------------------ |
+| `int scanf(char* format, ...)`                | Read from `stdin`  |
+| `int fscanf(FILE* stream, char* format, ...)` | Read from `stream` |
+| `int sscanf(char* buff, char* format, ...)`   | Read from `buff`   |
+`v`-prepended versions of these functions take `va_list` (variadic functions), letting the list of args be populated at runtime instead of compile time.
 
-Format specifiers follow this format:
-`%[flags][width][.precision][length]specifier`
+Writing (`*print*`)
+
+| Function                                                       | Usage                                                                       |
+| -------------------------------------------------------------- | --------------------------------------------------------------------------- |
+| `int printf(char* format, ...)`                                | Write to `stdout`                                                           |
+| `int fprintf(FILE* stream, char* format, ...)`                 | Write to `stream`                                                           |
+| `int sprintf(char* buff, char* format, ...)`                   | Write to `buff`                                                             |
+| `int snprintf(char* buff, size_t buffsize, char* format, ...)` | Write to `buff`, writing t most `buffsize`-1 bytes, and null-terminating it |
+`v`-prepended versions of these functions take `va_list` (variadic functions), letting the list of args be populated at runtime instead of compile time.
+## Input Format Specifiers
+
+`scan*` format specifiers follow this format:
+`%[*][width][length]conversionSpecifier`
+
+`*` (optional) indicates that the data is read from the stream and ignored
+`[width]`  (optional) specifies the maximum number of chars to read in to this arg
+
+The length specifier modifies the size (in bytes) of the conversion specifier, reflecting a different type. Be mindful of type conversions. `u` as shorthand for `unsigned` where possible.
+
+| conversion specifier →<br>length specifier ↓ | `d`, `i `      | `u`, `o`, `x` | `f`, `e`,<br>`g`, `a` | `c`, `s`,<br>`[]`, `[^]` | `p`      | `n`            |
+| -------------------------------------------- | -------------- | ------------- | --------------------- | ------------------------ | -------- | -------------- |
+| none                                         | `int*`         | `uint*`       | `float*`              | `char*`                  | `void**` | `int*`         |
+| `hh`                                         | `signed char*` | `uchar*`      |                       |                          |          | `signed char*` |
+| `h`                                          | `short*`       | `ushort*`     |                       |                          |          | `short*`       |
+| `l`                                          | `long*`        | `ulong*`      | `double*`             | `wchar_t*`               |          | `long*`        |
+| `ll`                                         | `long long*`   | `ulong long*` |                       |                          |          | `long long*`   |
+| `j`                                          | `intmax_t*`    | `uintmax_t*`  |                       |                          |          | `intmax_t*`    |
+| `z`                                          | `size_t*`      | `size_t*`     |                       |                          |          | `size_t*`      |
+| `t`                                          | `ptrdiff_t*`   | `ptrdiff_t*`  |                       |                          |          | `ptrdiff_t*`   |
+| `L`                                          |                |               | `long double*`        |                          |          |                |
+
+| Conversion specifier                           | Type         | Data read into arg                                                         |
+| ---------------------------------------------- | ------------ | -------------------------------------------------------------------------- |
+| `d`,`i`                                        | int          | decimal                                                                    |
+| `u`                                            | unsigned int | decimal                                                                    |
+| `o`                                            | unsigned int | octal                                                                      |
+| `x`                                            | unsigned int | hex                                                                        |
+| `f`<sup>C99</sup>, `e`, `g`, `a`<sup>C99</sup> | float        | float                                                                      |
+| `c`                                            | char         | char + width. No `\0` appended.                                            |
+| `s`                                            | char\[\]     | chars, stop at whitespace. `\0` appended.                                  |
+| `p`                                            | pointer      | address                                                                    |
+| `n`                                            | int*         | none, arg holds number of chars read in up to this point                   |
+| `%`                                            | --           | %                                                                          |
+| `[chars]`                                      | scanset      | read until encountering a char not in the scanset (or up to `[width]`)     |
+| `^[chars]`                                     | !scanset     | read until encountering a char in the negated scanset (or up to `[width]`) |
+Signs (`+-`) are allowed to precede numeric types. Decimal points and `e/E` optional for floating-point types.
+
+Scansets are a basic pattern matching tool, not to be confused with regex, though the syntax for some patterns is the same. Scansets don't have quantifiers nor can they handle complex structures, nor do they have concepts of character classes or special characters (e.g. whitespace).
+
+## Output Format Specifiers
+
+`print*` format specifiers follow this format:
+`%[flags][width][.precision][length]conversionSpecifier`
 
 Flags are optional.
 
@@ -85,23 +142,37 @@ Precision is optional.
 | `.<number>` | for ints, minimum digits to print, pad with 0s;<br>for floats, number of decimal place digits to print<br>for specifier `g`, max significant digits to print<br>for strings, max chars to print<br>don't truncate if longer |
 | `.*`        | dynamic precision; `<number>` argument is placed before the specifier                                                                                                                                                       |
 
-Specifiers are used for specific types or general numeric formatting:
+Length may be necessary for the type you want to output. Very similar to the input format table; note the separation of `c` and `s`. 
 
-| Specifier | Use with     | Output                                                |
-| --------- | ------------ | ----------------------------------------------------- |
-| `d`,`i`   | int          | decimal                                               |
-| `u`       | unsigned int | decimal                                               |
-| `o`       | unsigned int | octal                                                 |
-| `x`, `X`  | unsigned int | hex, HEX                                              |
-| `f`, `F`  | float        | float, case affects NaN                               |
-| `e`, `E`  | float        | scientific notation with e, E                         |
-| `g`, `G`  | float        | shortest of `e` or `f`                                |
-| `a`, `A`  | float        | hex, HEX                                              |
-| `c`       | char         | char                                                  |
-| `s`       | char\[\]     | char\[\] (string)                                     |
-| `p`       | pointer      | address                                               |
-| `n`       | int*         | none, arg holds number of chars printed to this point |
-| `%`       | --           | %                                                     |
+| conversion specifier →<br>length specifier ↓ | `d`, `i `     | `u`, `o`,<br>`x`, `X` | `f`, `F`, `e`, `E`,<br>`g`, `G`, `a`, `A` | `c`      | `s`        | `p`      | `n`            |
+| -------------------------------------------- | ------------- | --------------------- | ----------------------------------------- | -------- | ---------- | -------- | -------------- |
+| none                                         | `int`         | `uint`                | `float`                                   | `int`    | `char*`    | `void**` | `int*`         |
+| `hh`                                         | `signed char` | `uchar`               |                                           |          |            |          | `signed char*` |
+| `h`                                          | `short`       | `ushort`              |                                           |          |            |          | `short*`       |
+| `l`                                          | `long`        | `ulong`               | `double`                                  | `wint_t` | `wchar_t*` |          | `long*`        |
+| `ll`                                         | `long long`   | `ulong long`          |                                           |          |            |          | `long long*`   |
+| `j`                                          | `intmax_t`    | `uintmax_t`           |                                           |          |            |          | `intmax_t*`    |
+| `z`                                          | `size_t`      | `size_t`              |                                           |          |            |          | `size_t*`      |
+| `t`                                          | `ptrdiff_t`   | `ptrdiff_t`           |                                           |          |            |          | `ptrdiff_t*`   |
+| `L`                                          |               |                       | `long double`                             |          |            |          |                |
+
+Conversion specifiers denote the basic types or general numeric formatting:
+
+| Conversion Specifier   | Minimum width | Output format                                         |
+| ---------------------- | ------------- | ----------------------------------------------------- |
+| `d`,`i`                | int           | decimal                                               |
+| `u`                    | unsigned int  | decimal                                               |
+| `o`                    | unsigned int  | octal                                                 |
+| `x`, `X`               | unsigned int  | hex, HEX                                              |
+| `f`, `F`<sup>C99</sup> | float         | float, case affects NaN                               |
+| `e`, `E`               | float         | scientific notation with e, E                         |
+| `g`, `G`               | float         | shortest of `e` or `f`                                |
+| `a`, `A`<sup>C99</sup> | float         | hex, HEX                                              |
+| `c`                    | char          | char                                                  |
+| `s`                    | char\[\]      | char\[\] (string)                                     |
+| `p`                    | pointer       | address                                               |
+| `n`                    | int*          | none, arg holds number of chars printed to this point |
+| `%`                    | --            | %                                                     |
 
 
 

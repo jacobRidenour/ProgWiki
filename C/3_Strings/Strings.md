@@ -28,7 +28,7 @@ Notice that the `dest, src` pattern is backwards from what you typically see fro
 
 Non-string specific functions (`mem*`) - can be used for generic memory manipulation, and can also be useful for strings (probably why they're in `<string.h>`).
 
-`const`s omitted for space.
+`const`s and `restrict`s omitted for space.
 
 | Function                                                                                                                                     | Usage                                                                                                                                                                            |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
