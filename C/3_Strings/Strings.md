@@ -1,18 +1,22 @@
 # Strings
 
-In C, strings are arrays of characters that end with a null-termination character, `\0`.
+In C, strings are arrays of characters that end with a null-termination character, `\0` - a specific layout of data rather than a type of their own. This character is included in the string's length.
 
 ```C
 char str[] = "hello, world"; // char[13]
 ```
 
-String literals are implicitly null-terminated to signify the end of the string. In all other cases, null-termination of a string must be done explicitly.
+String literals are implicitly null-terminated. In all other cases, null-termination of a string should be done explicitly. String-associated standard library functions typically null-terminate the result for you (space-allowing).
 
 ```C
 char str[6] = {'H', 'e', 'l', 'l', 'o', '\0'};
 ```
 
-Most of the standard library's string functions will handle null termination *if used correctly*. If you don't need every last bit of performance and want to be safe, it's recommended to use the "n"-functions, so named because they have an extra argument for the length of the destination buffer.
+Without the `\0` in the above, `str` would be an array of characters and not a string.
+
+Most of the standard library's string functions expect null-terminated strings; assume this unless otherwise explicitly stated. Often, string functions that include an argument for the number of bytes to copy into the output buffer (`n`) are of the format `strn*(dest, src, n)`.
+
+Not including the `\0` typically leads to undefined behavior with string functions. 
 
 ## String Functions
 
@@ -26,8 +30,8 @@ Non-string specific functions (`mem*`) - can be used for generic memory manipula
 
 | Function                                                                                                                                     | Usage                                                                                                                                                                |
 | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `char* strcpy(char* dest, char* src)`<br>`char* strncpy(char* dest, char* src, size_t n)`<br>`void* memcpy(void* dest, void* src, size_t n)` | Copy (first `n` bytes of) `src` into `dest`                                                                                                                          |
-| `void* memccpy(void* dest, void*src, int c, size_t n)`<sup>C23</sup>                                                                         | Copy <= `n` bytes from `src` to `dest`, stopping at `c`.<br>Return position of `c` in `dest` + 1 or `NULL`                                                           |
+| `char* strcpy(char* dest, char* src)`<br>`char* strncpy(char* dest, char* src, size_t n)`<br>`void* memcpy(void* dest, void* src, size_t n)` | Copy (first `n` bytes of) `src` into `dest`<br>Note: `strncpy` doesn't null-terminate if `dest` is filled                                                            |
+| `void* memccpy(void* dest, void* src, int c, size_t n)`<sup>C23</sup>                                                                        | Copy <= `n` bytes from `src` to `dest`, stopping at `c`.<br>Return position of `c` in `dest` + 1 or `NULL`                                                           |
 | `void* memmove(void* dest, void* src, size_t n)`                                                                                             | Copy `n` bytes from `src` to `dest`, where `src` and `dest`'s memory may overlap                                                                                     |
 | `void* memset(void* dest, int c, size_t n)`                                                                                                  | Set first `n` bytes in `dest` to `c`                                                                                                                                 |
 | `char* strcat(char* dest, char* src)`<br>`char* strncat(char* dest, char* src, size_t n)`                                                    | Append (first `n` bytes of) `src` onto `dest`                                                                                                                        |

@@ -48,11 +48,11 @@
 ## Strings & Files
 | Subtopic                           | Covered in | Complete? |
 | ---------------------------------- | ---------- | --------- |
-| Strings: print/format              |            | ❎         |
-| Strings: concatenation             |            | ❎         |
-| Strings: adjust case               |            | ❎         |
-| Strings: sorting                   |            | ❎         |
-| Strings: splitting                 |            | ❎         |
+| Strings: print/format              | 4_BasicIO | ❎         |
+| Strings: concatenation             | 3_Strings | ✅         |
+| Strings: adjust case               | 3_Strings | ✅         |
+| Strings: sorting                   | 3_Strings | ✅         |
+| Strings: splitting                 | 3_Strings | ✅         |
 | IO: console                        |            | ❎         |
 | IO: text files                     |            | ❎         |
 | IO: binary files                   |            | ❎         |
