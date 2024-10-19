@@ -6,6 +6,8 @@ Function parameters are passed by value (copied), except for arrays, which are p
 
 C has been standardized since 1989. The content in this folder will reflect C from ANSI C (1989) up through the features included in the 2017 standard, C17.
 
+C is essentially an abstraction of assembly. Its standard library is mostly a wrapper for system calls.
+
 There are 3 related categories of behavior to watch out for with C (and C++) that can cause unintuitive bugs (definitions adapted from [here](https://stackoverflow.com/questions/2397984/undefined-unspecified-and-implementation-defined-behavior) and [here](https://en.cppreference.com/w/c/language/behavior)):
 
 * **Implementation-defined behavior**: behavior, for a well-formed program construct and correct data, that depends on the implementation and that each implementation documents

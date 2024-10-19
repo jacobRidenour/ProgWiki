@@ -3,6 +3,8 @@
 #include <ctype.h>
 #include <stdlib.h>
 
+#include <locale.h>
+
 int charCompare(const void* a, const void* b) {
     return ( *(char *)a - *(char *)b );
 }
@@ -54,4 +56,12 @@ int main() {
         printf("[%d]: %s\n", i+1, tokens[i]);
         free(tokens[i]);
     }
+
+    // Emoji
+    // You can sometimes print emoji with printf but not always
+    // e.g. combinations or skin tone modifiers won't show up correctly
+    setlocale(LC_ALL, ""); // otherwise emoji won't print
+    char emoji[] = "😊🚀🌍👴🏼"; // wchar_t can also be used but 🤧
+    printf("\nemoji: %s\n", emoji); // don't mix printf with wprintf
+    // Be careful with boundaries / indexing with multibyte chars
 }
