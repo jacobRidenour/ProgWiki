@@ -62,7 +62,7 @@ Reading (`*scan*`)
 | `int scanf(char* format, ...)`                | Read from `stdin`  |
 | `int fscanf(FILE* stream, char* format, ...)` | Read from `stream` |
 | `int sscanf(char* buff, char* format, ...)`   | Read from `buff`   |
-`v`-prepended versions of these functions take `va_list` (variadic functions), letting the list of args be populated at runtime instead of compile time.
+`v`-prepended versions of these functions take a `va_list` instead of receiving a variable number of args (`...`), letting the list of args be populated at runtime instead of compile time<sup>C11</sup>.
 
 Writing (`*print*`)
 
@@ -72,7 +72,7 @@ Writing (`*print*`)
 | `int fprintf(FILE* stream, char* format, ...)`                 | Write to `stream`                                                           |
 | `int sprintf(char* buff, char* format, ...)`                   | Write to `buff`                                                             |
 | `int snprintf(char* buff, size_t buffsize, char* format, ...)` | Write to `buff`, writing t most `buffsize`-1 bytes, and null-terminating it |
-`v`-prepended versions of these functions take `va_list` (variadic functions), letting the list of args be populated at runtime instead of compile time.
+`v`-prepended versions of these functions take `va_list` instead of receiving a variable number of args (`...`), letting the list of args be populated at runtime instead of compile time<sup>C11</sup>.
 ## Input Format Specifiers
 
 `scan*` format specifiers follow this format:
