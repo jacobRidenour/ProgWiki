@@ -5,16 +5,24 @@ IO: binary files
 */
 
 #include <stdio.h>
+#include <string.h>
+#include <stdbool.h>
 
-void consoleIO();
+// For parsing text
+#include "FormattedText.h"
+#include "UnformattedText.h"
+
+int consoleIO();
+int fileIO(bool formatted);
 
 int main() {
     consoleIO();
+    fileIO(true);
 }
 
 // (Formatted) console IO
 // todo unformatted? nah
-void consoleIO() {
+int consoleIO() {
     char nameBuff[50];
     
     // Read a string from the console into a variable
@@ -38,4 +46,11 @@ void consoleIO() {
     }
 
     printf("Hello, %s! You are %d years old.\n", nameBuff, age);
+    return 0;
+}
+
+int fileIO(bool formatted) {
+    if(formatted) return readFormattedText();
+    // else return readUnformattedText();
+    return 0;
 }
