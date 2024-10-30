@@ -16,7 +16,7 @@ int consoleIO();
 int fileIO(bool formatted);
 
 int main() {
-    consoleIO();
+    //consoleIO();
     fileIO(true);
 }
 
