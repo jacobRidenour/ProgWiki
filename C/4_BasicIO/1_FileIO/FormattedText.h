@@ -50,7 +50,8 @@ void trimNewline(char* line); // helper function
 
 int readFormattedText() {
     FILE* file = fopen("../../../_common/formatted.txt", "r");
-    if (!file) {
+    if (!file)
+    {
         perror("Error opening file");
         return 1;
     }
@@ -59,58 +60,16 @@ int readFormattedText() {
     EventLog events[MAX_ENTRIES];
     ErrorDetail errors[MAX_ENTRIES];
     int serverIndex = 0, eventIndex = 0, errorIndex = 0;
-
     char line[MAX_LINE_LENGTH];
-
-    // Process sections
     
-    //line[strcspn(line, "\n")] = '\0';  // Removes the trailing newline character
-    //printf("LINE %d: %s\n", lineNum, line);
-    // if(lineNum >0) {
-    //     printf("LINE %d: ", lineNum);
-    //     for (int i = 0; line[i] != '\0'; i++) {
-    //         printf("%02X ", (unsigned char)line[i]);
-    //     }
-    //     printf("\n");
-    // }
-    //lineNum++;
-
-    int lineNum = 1;
-    while (fgets(line, MAX_LINE_LENGTH, file)) {
-        lineNum++;
-        //printf("LINE %d: %s\n", lineNum, line);
-        if (strstr(line, "--- Server Information")) {
-            if (serverIndex >= MAX_ENTRIES) {
-                fprintf(stderr, "Unable to read more Server Information. Skipping.\n");
-                continue;
-            }
-            else {
-                if (fgets(line, MAX_LINE_LENGTH, file)) {
-                    parseServerInfo(file, servers, &serverIndex, line);
-                }
-            }
-        }
-        else if (strstr(line, "--- Event Logs")) {
-            if (eventIndex >= MAX_ENTRIES) {
-                fprintf(stderr, "Unable to read more Event Logs. Skipping.\n");
-                continue;
-            }
-            else {
-                if (fgets(line, MAX_LINE_LENGTH, file)) {
-                    parseEventLogs(file, events, &eventIndex, line);
-                }
-            }
-        }
-        else if (strstr(line, "--- Error Details")) {
-            if (serverIndex >= MAX_ENTRIES) {
-                fprintf(stderr, "Unable to read more Error Details. Skipping.\n");
-                continue;
-            }
-            else {
-                if (fgets(line, MAX_LINE_LENGTH, file)) {
-                    parseErrorDetails(file, errors, &errorIndex, line);
-                }
-            }
+    // Process each section
+    while (fgets(line, MAX_LINE_LENGTH, file))
+    {
+        if (strstr(line, "--- Server Information"))
+        {
+            parseServerInfo(file, servers, &serverIndex, line);
+            parseEventLogs(file, events, &eventIndex, line);
+            parseErrorDetails(file, errors, &errorIndex, line);
         }
     }
 
@@ -123,89 +82,110 @@ int readFormattedText() {
     return 0;
 }
 
-void parseServerInfo(FILE* file, ServerInfo* servers, int* serverIndex, char* firstLine) {
+void parseServerInfo(FILE* file, ServerInfo* servers, int* serverIndex, char* firstLine)
+{
     char line[MAX_LINE_LENGTH];
+    char prevLine[MAX_LINE_LENGTH];
     strncpy(line, firstLine, MAX_LINE_LENGTH);
     bool isFirstLine = true;
 
-    while (true) {
+    while (true)
+    {
         trimNewline(line);        
 
-        // New section, don't parse this line
-        if (!isFirstLine && (strncmp(line, "---", 3) == 0)) return; 
+        // New section, make sure prevLine has its contents
+        if (!isFirstLine && (strncmp(line, "---", 3) == 0))
+        {
+            strncpy(prevLine, line, MAX_LINE_LENGTH);
+            strncpy(line, prevLine, MAX_LINE_LENGTH);
+            return;
+        }
 
-        if (strstr(line, "[ServerID]")) {
+        if (strstr(line, "[ServerID]"))
+        {
             char* idStr = strstr(line, "]") + 1;
             servers[*serverIndex].serverId = (int)strtol(idStr, NULL, 10);
         }
-        else if (strstr(line, "Location:")) {
+        else if (strstr(line, "Location:"))
+        {
             char* locStr = strstr(line, ":") + 2;
             strncpy(servers[*serverIndex].location, locStr, sizeof(servers[*serverIndex].location) - 1);
         }
-        else if (strstr(line, "IP:")) {
+        else if (strstr(line, "IP:"))
+        {
             char* ipStr = strstr(line, ":") + 2;
             strncpy(servers[*serverIndex].ip, ipStr, sizeof(servers[*serverIndex].ip) - 1);
         }
-        else if (strstr(line, "OS:")) {
+        else if (strstr(line, "OS:"))
+        {
             char* osStr = strstr(line, ":") + 2;
             strncpy(servers[*serverIndex].os, osStr, sizeof(servers[*serverIndex].os) - 1);
         }
-        else if (strstr(line, "Status:")) {
+        else if (strstr(line, "Status:"))
+        {
             char* statusStr = strstr(line, ":") + 2;
             strncpy(servers[*serverIndex].status, statusStr, sizeof(servers[*serverIndex].status) - 1);
             (*serverIndex)++;
         }
 
         // if EOF || end of section
-        if (!fgets(line, MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) {
-            return;
-        }
+        if (!fgets(line, MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) return;
         isFirstLine = false;
     }
 }
 
-void parseEventLogs(FILE* file, EventLog* events, int* eventIndex, char* firstLine) {
+void parseEventLogs(FILE* file, EventLog* events, int* eventIndex, char* firstLine)
+{
     char line[MAX_LINE_LENGTH];
+    char prevLine[MAX_LINE_LENGTH];
     strncpy(line, firstLine, MAX_LINE_LENGTH);
     bool isFirstLine = true;
 
-    // New section, don't parse this line
-    if (!isFirstLine && (strncmp(line, "---", 3) == 0)) return; 
+    if (!isFirstLine && (strncmp(line, "---", 3) == 0)) {
+        strncpy(prevLine, line, MAX_LINE_LENGTH);
+        strncpy(line, prevLine, MAX_LINE_LENGTH);
+        return;
+    }
 
-    while (true) {
+    while (true)
+    {
         trimNewline(line);
 
-        if (strstr(line, "[EventID]")) {
-            char* idStr = strstr(line, "EVT") + 3;  // Move to the ID number after "EVT"
+        if (strstr(line, "[EventID]"))
+        {
+            char* idStr = strstr(line, "EVT") + 3;
             events[*eventIndex].eventId = (int)strtol(idStr, NULL, 10);
         }
-        else if (strstr(line, "ServerID:")) {
+        else if (strstr(line, "ServerID:"))
+        {
             char* serverIdStr = strstr(line, ":") + 2;
             events[*eventIndex].serverId = (int)strtol(serverIdStr, NULL, 10);
         }
-        else if (strstr(line, "Timestamp:")) {
+        else if (strstr(line, "Timestamp:"))
+        {
             char* timestampStr = strstr(line, ":") + 2;
             strncpy(events[*eventIndex].timestamp, timestampStr, sizeof(events[*eventIndex].timestamp) - 1);
         }
-        else if (strstr(line, "Type:")) {
+        else if (strstr(line, "Type:"))
+        {
             char* typeStr = strstr(line, ":") + 2;
             strncpy(events[*eventIndex].type, typeStr, sizeof(events[*eventIndex].type) - 1);
         }
-        else if (strstr(line, "Message:")) {
+        else if (strstr(line, "Message:"))
+        {
             char* messageStr = strstr(line, ":") + 2;
             strncpy(events[*eventIndex].message, messageStr, sizeof(events[*eventIndex].message) - 1);
             (*eventIndex)++;
         }
 
         // if EOF || end of section
-        if (!fgets(line, MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) {
-            return;
-        }
+        if (!fgets(line, MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) return;
         isFirstLine = false;
     }
 }
 
-void parseErrorDetails(FILE* file, ErrorDetail* errors, int* errorIndex, char* firstLine) {
+void parseErrorDetails(FILE* file, ErrorDetail* errors, int* errorIndex, char* firstLine)
+{
     char line[MAX_LINE_LENGTH];
     strncpy(line, firstLine, MAX_LINE_LENGTH);
     bool isFirstLine = true;
@@ -216,45 +196,52 @@ void parseErrorDetails(FILE* file, ErrorDetail* errors, int* errorIndex, char* f
     while (true) {
         trimNewline(line); 
 
-        if (strstr(line, "[ErrorID]")) {
+        if (strstr(line, "[ErrorID]"))
+        {
             char* idStr = strstr(line, "ERR") + 3;
             errors[*errorIndex].errorId = (int)strtol(idStr, NULL, 10);
         }
-        else if (strstr(line, "ServerID:")) {
+        else if (strstr(line, "ServerID:"))
+        {
             char* serverIdStr = strstr(line, ":") + 2;
             errors[*errorIndex].serverId = (int)strtol(serverIdStr, NULL, 10);
         }
-        else if (strstr(line, "Timestamp:")) {
+        else if (strstr(line, "Timestamp:"))
+        {
             char* timestampStr = strstr(line, ":") + 2;
             strncpy(errors[*errorIndex].timestamp, timestampStr, sizeof(errors[*errorIndex].timestamp) - 1);
         }
-        else if (strstr(line, "Severity:")) {
+        else if (strstr(line, "Severity:"))
+        {
             char* severityStr = strstr(line, ":") + 2;
             strncpy(errors[*errorIndex].severity, severityStr, sizeof(errors[*errorIndex].severity) - 1);
         }
-        else if (strstr(line, "ErrorCode:")) {
+        else if (strstr(line, "ErrorCode:"))
+        {
             char* errorCodeStr = strstr(line, ":") + 2;
             strncpy(errors[*errorIndex].errorCode, errorCodeStr, sizeof(errors[*errorIndex].errorCode) - 1);
         }
-        else if (strstr(line, "Description:")) {
+        else if (strstr(line, "Description:"))
+        {
             char* descriptionStr = strstr(line, ":") + 2;
             strncpy(errors[*errorIndex].description, descriptionStr, sizeof(errors[*errorIndex].description) - 1);
         }
-        else if (strstr(line, "Suggested Action:")) {
+        else if (strstr(line, "Suggested Action:"))
+        {
             char* actionStr = strstr(line, ":") + 2;
             strncpy(errors[*errorIndex].suggestedAction, actionStr, sizeof(errors[*errorIndex].suggestedAction) - 1);
             (*errorIndex)++;
         }
 
         // if EOF || end of section
-        if (!fgets(line, MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) {
-            return;
-        }
+        if (!fgets(line, MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) return;
+
         isFirstLine = false;
     }
 }
 
-void trimNewline(char* str) {
+void trimNewline(char* str)
+{
     size_t len = strlen(str);
 
     #ifdef WIN32
