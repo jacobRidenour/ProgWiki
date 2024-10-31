@@ -8,7 +8,7 @@ Jump to any language's README:
 
 ## Topics
 
-<table>
+<table style="width: 100%;">
   <tr>
     <td style="width: 50%; vertical-align: top;">
       <strong>Operators</strong>
@@ -57,9 +57,6 @@ Jump to any language's README:
       </ul>
     </td>
   </tr>
-</table>
-
-<table>
   <tr>
     <td style="width: 50%; vertical-align: top;">
       <strong>Strings/Files</strong>
@@ -103,7 +100,6 @@ Jump to any language's README:
     </td>
   </tr>
 </table>
-
 
 <strong>Language External</strong>
 <ul>
