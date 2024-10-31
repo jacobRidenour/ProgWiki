@@ -10,7 +10,7 @@ Jump to any language's README:
 
 <table>
   <tr>
-    <td valign="top">
+    <td style="width: 50%; vertical-align: top;">
       <strong>Operators</strong>
       <ul>
         <li>Numerical operators (+ - * / % sqrt **)</li>
@@ -21,7 +21,7 @@ Jump to any language's README:
         <li>Operator associativity & precedence</li>
       </ul>
     </td>
-    <td valign="top">
+    <td style="width: 50%; vertical-align: top;">
       <strong>Type system</strong>
       <ul>
         <li>Numeric types</li>
@@ -35,7 +35,7 @@ Jump to any language's README:
     </td>
   </tr>
   <tr>
-    <td valign="top">
+    <td style="width: 50%; vertical-align: top;">
       <strong>Conditionals</strong>
       <ul>
         <li>Definition of true/false</li>
@@ -44,7 +44,7 @@ Jump to any language's README:
         <li>Jump statements</li>
       </ul>
     </td>
-    <td valign="top">
+    <td style="width: 50%; vertical-align: top;">
       <strong>Data Structures</strong>
       <ul>
         <li>Iterate over iterable type</li>
@@ -61,7 +61,7 @@ Jump to any language's README:
 
 <table>
   <tr>
-    <td valign="top">
+    <td style="width: 50%; vertical-align: top;">
       <strong>Strings/Files</strong>
       <ul>
          <li>Strings (print/format, concat, case, sort, split)</li>
@@ -73,7 +73,7 @@ Jump to any language's README:
          <li>Date & time recording, manipulation, formatting</li>
       </ul>
     </td>
-    <td valign="top">
+    <td style="width: 50%; vertical-align: top;">
       <strong>Functions, Objects, Memory</strong>
       <ul>
          <li>Passing & returning semantics</li>
@@ -87,14 +87,14 @@ Jump to any language's README:
     </td>
   </tr>
   <tr>
-    <td valign="top">
+    <td style="width: 50%; vertical-align: top;">
       <strong>Multithreading</strong>
       <ul>
          <li>Threading/multiprocessing syntax</li>
          <li>Conditions, mutexes, synchronization</li>
       </ul>
     </td>
-    <td valign="top">
+    <td style="width: 50%; vertical-align: top;">
       <strong>Networking</strong>
       <ul>
          <li>Send HTTP requests, handle responses</li>
@@ -103,6 +103,7 @@ Jump to any language's README:
     </td>
   </tr>
 </table>
+
 
 <strong>Language External</strong>
 <ul>
