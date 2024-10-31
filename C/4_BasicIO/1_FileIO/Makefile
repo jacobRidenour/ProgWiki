@@ -21,6 +21,9 @@ LDLIBS := -lm
 demo: $(OBJS) # Create a Release (optimized) build
 > $(CC) $(SRCS) $(CFLAGS) $(INCLUDES) $(LDLIBS) -o $(OUT)
 
+debug: $(OBJS) # Create a Debug build
+> $(CC) $(SRCS) $(CFLAGS) -g $(INCLUDES) $(LDLIBS) -o $(OUT)
+
 %.o: %.c # Create object files from source files
 > $(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@
 
