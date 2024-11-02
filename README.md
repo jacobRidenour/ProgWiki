@@ -150,7 +150,7 @@ Note that Visual Studio comes with the C standard library/headers; you gain acce
 
 For C/C++ this repository focuses on the Make, CMake, and MSBuild build systems.
 
-The `build-essential` package on Linux typically includes `gcc`, `g++`, `make`, 
+The `build-essential` package on Linux typically includes `gcc`, `g++`, `make`, and a C library (typically `libc`)
 
 ## Python Setup
 
@@ -171,10 +171,15 @@ python -m pip --version
 python -m pip install --upgrade pip setuptools wheel
 ```
 
-// C++
-// Python
-// Ruby
-// JS/TS
-// Rust
+// Plans:  
+// C++  
+// Python  
+// Ruby  
+// Lua  
+// HTML/CSS basics 😷  
+// JS/TS (vanilla)  
+// Go  
+// Rust  
+// C#  
 
-// git clear ignored files: git rm -r --cached . && git add . && git commit -am "Remove ignored files"
+// git clear ignored files: git rm -r --cached . && git add . && git commit -am "Remove ignored files"  

@@ -6,6 +6,8 @@
 #include <string.h>
 #include <stdbool.h>
 
+#include "util.h"
+
 /******************************************************************************
 * FormattedText.h
 *
@@ -14,8 +16,8 @@
 *
 ******************************************************************************/
 
-#define MAX_LINE_LENGTH 256
-#define MAX_ENTRIES 10
+#define FORMATTED_H_MAX_LINE_LENGTH 256
+#define FORMATTED_H_MAX_ENTRIES 7
 
 typedef struct {
     int serverId;
@@ -48,22 +50,23 @@ void parseEventLogs(FILE* file, EventLog* events, int* eventIndex, char* firstLi
 void parseErrorDetails(FILE* file, ErrorDetail* errors, int* errorIndex, char* firstLine);
 void trimNewline(char* line); // helper function
 
-int readFormattedText() {
+int readFormattedText()
+{
     FILE* file = fopen("../../../_common/formatted.txt", "r");
     if (!file)
     {
-        perror("Error opening file");
+        perror("Error opening file\n");
         return 1;
     }
 
-    ServerInfo servers[MAX_ENTRIES];
-    EventLog events[MAX_ENTRIES];
-    ErrorDetail errors[MAX_ENTRIES];
+    ServerInfo servers[FORMATTED_H_MAX_ENTRIES];
+    EventLog events[FORMATTED_H_MAX_ENTRIES];
+    ErrorDetail errors[FORMATTED_H_MAX_ENTRIES];
     int serverIndex = 0, eventIndex = 0, errorIndex = 0;
-    char line[MAX_LINE_LENGTH];
+    char line[FORMATTED_H_MAX_LINE_LENGTH];
     
     // Process each section
-    while (fgets(line, MAX_LINE_LENGTH, file))
+    while (fgets(line, FORMATTED_H_MAX_LINE_LENGTH, file))
     {
         if (strstr(line, "--- Server Information"))
         {
@@ -73,7 +76,8 @@ int readFormattedText() {
         }
     }
 
-    printf("\n--- Summary of Results ---");
+    printf("\nFormatted Text processing summary");
+    printf("\n=================================");
     printf("\nEntries for Server Information: %d", serverIndex);
     printf("\nEntries for Event Logs: %d", eventIndex);
     printf("\nEntries for Error Details: %d\n", errorIndex);
@@ -84,9 +88,9 @@ int readFormattedText() {
 
 void parseServerInfo(FILE* file, ServerInfo* servers, int* serverIndex, char* firstLine)
 {
-    char line[MAX_LINE_LENGTH];
-    char prevLine[MAX_LINE_LENGTH];
-    strncpy(line, firstLine, MAX_LINE_LENGTH);
+    char line[FORMATTED_H_MAX_LINE_LENGTH];
+    char prevLine[FORMATTED_H_MAX_LINE_LENGTH];
+    strncpy(line, firstLine, FORMATTED_H_MAX_LINE_LENGTH);
     bool isFirstLine = true;
 
     while (true)
@@ -96,11 +100,10 @@ void parseServerInfo(FILE* file, ServerInfo* servers, int* serverIndex, char* fi
         // New section, make sure prevLine has its contents
         if (!isFirstLine && (strncmp(line, "---", 3) == 0))
         {
-            strncpy(prevLine, line, MAX_LINE_LENGTH);
-            strncpy(line, prevLine, MAX_LINE_LENGTH);
+            strncpy(prevLine, line, FORMATTED_H_MAX_LINE_LENGTH);
+            strncpy(line, prevLine, FORMATTED_H_MAX_LINE_LENGTH);
             return;
         }
-
         if (strstr(line, "[ServerID]"))
         {
             char* idStr = strstr(line, "]") + 1;
@@ -126,24 +129,29 @@ void parseServerInfo(FILE* file, ServerInfo* servers, int* serverIndex, char* fi
             char* statusStr = strstr(line, ":") + 2;
             strncpy(servers[*serverIndex].status, statusStr, sizeof(servers[*serverIndex].status) - 1);
             (*serverIndex)++;
+            if (*serverIndex >= FORMATTED_H_MAX_ENTRIES)
+            {
+                fprintf(stderr, "ERROR: Unable to parse more Server Information. Exiting.\n");
+                exit(1);
+            }
         }
 
         // if EOF || end of section
-        if (!fgets(line, MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) return;
+        if (!fgets(line, FORMATTED_H_MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) return;
         isFirstLine = false;
     }
 }
 
 void parseEventLogs(FILE* file, EventLog* events, int* eventIndex, char* firstLine)
 {
-    char line[MAX_LINE_LENGTH];
-    char prevLine[MAX_LINE_LENGTH];
-    strncpy(line, firstLine, MAX_LINE_LENGTH);
+    char line[FORMATTED_H_MAX_LINE_LENGTH];
+    char prevLine[FORMATTED_H_MAX_LINE_LENGTH];
+    strncpy(line, firstLine, FORMATTED_H_MAX_LINE_LENGTH);
     bool isFirstLine = true;
 
     if (!isFirstLine && (strncmp(line, "---", 3) == 0)) {
-        strncpy(prevLine, line, MAX_LINE_LENGTH);
-        strncpy(line, prevLine, MAX_LINE_LENGTH);
+        strncpy(prevLine, line, FORMATTED_H_MAX_LINE_LENGTH);
+        strncpy(line, prevLine, FORMATTED_H_MAX_LINE_LENGTH);
         return;
     }
 
@@ -176,18 +184,23 @@ void parseEventLogs(FILE* file, EventLog* events, int* eventIndex, char* firstLi
             char* messageStr = strstr(line, ":") + 2;
             strncpy(events[*eventIndex].message, messageStr, sizeof(events[*eventIndex].message) - 1);
             (*eventIndex)++;
+            if (*eventIndex >= FORMATTED_H_MAX_ENTRIES)
+            {
+                fprintf(stderr, "ERROR: Unable to parse more Event Logs. Exiting.\n");
+                exit(1);
+            }
         }
 
         // if EOF || end of section
-        if (!fgets(line, MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) return;
+        if (!fgets(line, FORMATTED_H_MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) return;
         isFirstLine = false;
     }
 }
 
 void parseErrorDetails(FILE* file, ErrorDetail* errors, int* errorIndex, char* firstLine)
 {
-    char line[MAX_LINE_LENGTH];
-    strncpy(line, firstLine, MAX_LINE_LENGTH);
+    char line[FORMATTED_H_MAX_LINE_LENGTH];
+    strncpy(line, firstLine, FORMATTED_H_MAX_LINE_LENGTH);
     bool isFirstLine = true;
 
     // Keep this logic in case we expand formatted.txt later
@@ -231,35 +244,18 @@ void parseErrorDetails(FILE* file, ErrorDetail* errors, int* errorIndex, char* f
             char* actionStr = strstr(line, ":") + 2;
             strncpy(errors[*errorIndex].suggestedAction, actionStr, sizeof(errors[*errorIndex].suggestedAction) - 1);
             (*errorIndex)++;
+            if (*errorIndex >= FORMATTED_H_MAX_ENTRIES)
+            {
+                fprintf(stderr, "ERROR: Unable to parse more Error Details. Exiting.\n");
+                exit(1);
+            }
         }
 
         // if EOF || end of section
-        if (!fgets(line, MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) return;
+        if (!fgets(line, FORMATTED_H_MAX_LINE_LENGTH, file) || strncmp(line, "---", 3) == 0) return;
 
         isFirstLine = false;
     }
 }
-
-void trimNewline(char* str)
-{
-    size_t len = strlen(str);
-
-    #ifdef WIN32
-    // newline is 2 chars: \r\n
-    // Find your predefined macros (MSVC):
-    // $ 
-    if (len > 1 && str[len - 1] == '\n' && str[len - 2] == '\r')
-        str[len - 2] = '\0';
-    else if (len > 0 && str[len - 1] == '\n')
-        str[len - 1] = '\0';
-    #elif defined (linux)
-    // newline is just \n
-    // Find your predefined macros (gcc):
-    // $ gcc -dM -E - < /dev/null
-    if (len > 0 && str[len - 1] == '\n') 
-        str[len - 1] = '\0';
-    #endif 
-}
-
 
 #endif /* FORMATTEDTEXT_H */

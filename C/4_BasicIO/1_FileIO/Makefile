@@ -13,7 +13,7 @@ OUT := a.out
 
 CC := gcc
 CFLAGS := -Wall -Werror -Wcast-align=strict -Wpedantic
-INCLUDES := -I$(realpath ../../__tests)
+INCLUDES := -I$(realpath ../../__tests) -I$(realpath ../../__util)
 
 # LDFLAGS := library/dirs
 LDLIBS := -lm

@@ -53,9 +53,9 @@
 | Strings: adjust case               | 3_Strings | ✅         |
 | Strings: sorting                   | 3_Strings | ✅         |
 | Strings: splitting                 | 3_Strings | ✅         |
-| IO: console                        |            | ❎         |
-| IO: text files                     |            | ❎         |
-| IO: binary files                   |            | ❎         |
+| IO: console                        | 4_BasicIO | ❎         |
+| IO: text files                     | 4_BasicIO | ❎         |
+| IO: binary files                   | 4_BasicIO | ❎         |
 | Parse: JSON                        |            | ❎         |
 | Parse: XML                         |            | ❎         |
 | Parse: CSV                         |            | ❎         |
@@ -80,7 +80,7 @@
 ## Multithreading
 | Subtopic        | Covered in | Complete? |
 | --------------- | ---------- | --------- |
-| Syntax          |            | ❎         |
+| Patterns        |            | ❎         |
 | Conditions      |            | ❎         |
 | Mutexes         |            | ❎         |
 | Synchronization |            | ❎         |
