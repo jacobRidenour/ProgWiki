@@ -9,14 +9,13 @@
 // Binary file IO
 #include "BinaryIO.h"
 
-//void consoleIO();
-void binaryIO(bool formatted);
-
 int main()
 {
+    // Console IO (special case of file IO)
+    consoleIO();
     // File IO
-    //readFormattedText();
-    //readUnformattedText();
+    readFormattedText();
+    readUnformattedText();
     // Binary IO
     readFormattedBinary();
     readUnformattedBinary();

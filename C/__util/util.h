@@ -93,4 +93,25 @@ bool dateIsValid(int year, int month, int day)
     return isValid;
 }
 
+/******************************************************************************
+* charlenUtf8
+*
+* parameters: 
+*  - c : unsigned char
+*   
+* returns: size_t
+* 
+* description: determines if the byte c is the start of a UTF-8 character, 
+* which may be 1-4 bytes
+* 
+******************************************************************************/
+size_t charlenUtf8(unsigned char c)
+{
+    if ((c & 0x80) == 0x00) return 1; // 1-byte (ASCII)
+    else if ((c & 0xE0) == 0xC0) return 2;
+    else if ((c & 0xF0) == 0xE0) return 3;
+    else if ((c & 0xF8) == 0xF0) return 4;
+    return 1;
+}
+
 #endif /* UTIL_H */
