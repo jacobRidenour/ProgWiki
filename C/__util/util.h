@@ -2,6 +2,7 @@
 #define UTIL_H
 
 #include <stdio.h>
+#include <stdbool.h>
 
 /*******************************************************************************\
 * util                                                                         *
@@ -41,6 +42,55 @@ void trimNewline(char* str)
     if (len > 0 && str[len - 1] == '\n') 
         str[len - 1] = '\0';
     #endif 
+}
+
+/******************************************************************************
+* dateIsValid
+*
+* parameters: 
+*  - year : int ; an int holding a year
+*  - month : int ; an int holding the month
+*  - day : int ; an int holding the day
+*   
+* returns: bool
+* 
+* description: determines if the provided year, month, and day correspond to 
+* a valid ISO date
+* 
+******************************************************************************/
+bool dateIsValid(int year, int month, int day)
+{
+    bool isValid = true;
+
+    // ISO date limitation
+    if (year < 0 || year > 9999) return false;
+
+    if (month < 1 || month > 12) return false;
+
+    if (day < 1 || day > 31) return false;
+
+    if (month == 4 || month == 6 || month == 9 || month == 11)
+    {
+        if (day > 30) return false;
+    }
+
+    if (month == 2)
+    {
+        // leap year: divisible by 4 but not 100, unless also divisible by 400
+        // e.g. 2000 was a leap year, but 1900 wasn't
+        bool isLeapYear = (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
+
+        if (isLeapYear)
+        {
+            if (day > 29) return false;
+        }
+        else
+        {
+            if (day > 28) return false;
+        }
+    }
+
+    return isValid;
 }
 
 #endif /* UTIL_H */

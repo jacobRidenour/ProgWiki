@@ -16,12 +16,12 @@ IO: binary files
 int consoleIO();
 int fileIO(bool formatted);
 
-int main() {
+int main()
+{
     consoleIO();
-    //fileIO(true);
-    //fileIO(false);
+    fileIO(true);
+    fileIO(false);
 }
-
 
 int fileIO(bool formatted)
 {
