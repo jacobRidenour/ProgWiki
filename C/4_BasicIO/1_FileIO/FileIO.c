@@ -1,31 +1,23 @@
-/*
-IO: console     
-IO: text files  
-IO: binary files 
-*/
-
 #include <stdio.h>
-#include <string.h>
 #include <stdbool.h>
 
-// For parsing text
+// Console IO
 #include "ConsoleIO.h"
+// File IO
 #include "FormattedText.h"
 #include "UnformattedText.h"
+// Binary file IO
+#include "BinaryIO.h"
 
-int consoleIO();
-int fileIO(bool formatted);
+//void consoleIO();
+void binaryIO(bool formatted);
 
 int main()
 {
-    consoleIO();
-    fileIO(true);
-    fileIO(false);
-}
-
-int fileIO(bool formatted)
-{
-    if(formatted) return readFormattedText();
-    else return readUnformattedText();
-    return 0;
+    // File IO
+    //readFormattedText();
+    //readUnformattedText();
+    // Binary IO
+    readFormattedBinary();
+    readUnformattedBinary();
 }

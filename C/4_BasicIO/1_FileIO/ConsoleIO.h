@@ -22,14 +22,13 @@ typedef struct {
     int year;
 } Date;
 
-
 void getStringInput(char* buffer, size_t size, const char* prompt);
 long long getIntInput(const char* prompt); // wider than they need to be just 'cuz
 long double getFloatInput(const char* prompt);
 char getCharInput(const char* prompt);
 Date getDateInput(const char* prompt);
 
-int consoleIO()
+void consoleIO()
 {
     char name[100];
     getStringInput(name, sizeof name, "Enter your full name (max 100 chars): ");
@@ -46,8 +45,6 @@ int consoleIO()
     printf("\nHeight: %.2Lf meters", height);
     printf("\nFavorite letter: %c", letter);
     printf("\nDate of Birth: %04d-%02d-%02d\n", dob.year, dob.month, dob.day);
-
-    return 0;
 }
 
 void getStringInput(char* buffer, size_t size, const char* prompt)

@@ -56,7 +56,7 @@ int readFormattedText()
     if (!file)
     {
         perror("Error opening file\n");
-        return 1;
+        return 0;
     }
 
     ServerInfo servers[FORMATTED_H_MAX_ENTRIES];
@@ -83,7 +83,7 @@ int readFormattedText()
     printf("\nEntries for Error Details: %d\n", errorIndex);
 
     fclose(file);
-    return 0;
+    return 1;
 }
 
 void parseServerInfo(FILE* file, ServerInfo* servers, int* serverIndex, char* firstLine)

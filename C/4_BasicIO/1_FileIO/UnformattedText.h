@@ -56,6 +56,7 @@ int readUnformattedText()
             feedbacks[i].date[0] ? feedbacks[i].date : "No Date",
             feedbacks[i].stars);
     }
+    printf("\n");
 
 
     fclose(file);
