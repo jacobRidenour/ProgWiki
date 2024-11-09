@@ -13,13 +13,16 @@ OUT := a.out
 
 CC := gcc
 CFLAGS := -Wall -Werror -Wcast-align=strict -Wpedantic
-INCLUDES := -I$(realpath ../../__tests)
+INCLUDES := -I$(realpath ../../__tests) -I$(realpath ../../__util)
 
 # LDFLAGS := library/dirs
 LDLIBS := -lm
 
 demo: $(OBJS) # Create a Release (optimized) build
 > $(CC) $(SRCS) $(CFLAGS) $(INCLUDES) $(LDLIBS) -o $(OUT)
+
+debug: $(OBJS) # Create a Debug build
+> $(CC) $(SRCS) $(CFLAGS) -g $(INCLUDES) $(LDLIBS) -o $(OUT)
 
 %.o: %.c # Create object files from source files
 > $(CC) -c $(CFLAGS) $(INCLUDES) $< -o $@

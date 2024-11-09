@@ -36,7 +36,7 @@
 | Sets                       |                  | ❎         |
 | Tuples                     |                  | ❎         |
 | Arrays/Vectors             | 2_DataStructures (Array) | ✅ |
-| Linked lists               |                  | ❎         |
+| Linked lists               | 2_DataStructures | ✅         |
 | Multidimensional arrays    |                  | ❎         |
 | Hash tables                | 2_DataStructures (Dictionary) | ✅ |
 | Stacks                     |                  | ❎         |
@@ -48,22 +48,24 @@
 ## Strings & Files
 | Subtopic                           | Covered in | Complete? |
 | ---------------------------------- | ---------- | --------- |
-| Strings: print/format              | 4_BasicIO | ❎         |
+| Strings: print/format              | 4_BasicIO | ✅         |
 | Strings: concatenation             | 3_Strings | ✅         |
 | Strings: adjust case               | 3_Strings | ✅         |
 | Strings: sorting                   | 3_Strings | ✅         |
 | Strings: splitting                 | 3_Strings | ✅         |
-| IO: console                        | 4_BasicIO | ❎         |
-| IO: text files                     | 4_BasicIO | ❎         |
-| IO: binary files                   | 4_BasicIO | ❎         |
+| IO: console                        | 4_BasicIO | ✅         |
+| IO: text files                     | 4_BasicIO | ✅         |
+| IO: binary files                   | 4_BasicIO | ✅         |
 | Parse: JSON                        |            | ❎         |
 | Parse: XML                         |            | ❎         |
 | Parse: CSV                         |            | ❎         |
 | Regular Expressions                |            | ❎         |
-| Built-in/common logging techniques |            | ❎         |
+| Built-in/common logging techniques | 4_BasicIO | ❎         |
 | Date/time: recording               |            | ❎         |
 | Date/time: manipulation            |            | ❎         |
 | Date/time: formatting              |            | ❎         |
+
+Logging in C: inspired by [log.c](https://github.com/rxi/log.c); if interested use [microlog](https://github.com/an-dr/microlog) instead.
 
 ## Functions, Objects, Memory
 | Subtopic                      | Covered in | Complete? |
