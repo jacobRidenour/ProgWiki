@@ -32,13 +32,13 @@
 | Subtopic                   | Covered in       | Complete?  |
 | -------------------------- | ---------------- | ---------- |
 | Iterate over iterable type | 1_Basics         | ✅         |
-| Dictionaries/maps          | 2_DataStructures (Dictionary) | ✅ |
+| Dictionaries/maps          | 2_DataStructures/0_Dictionary | ✅ |
 | Sets                       |                  | ❎         |
 | Tuples                     |                  | ❎         |
-| Arrays/Vectors             | 2_DataStructures (Array) | ✅ |
-| Linked lists               | 2_DataStructures | ✅         |
+| Arrays/Vectors             | 2_DataStructures/1_Array | ✅ |
+| Linked lists               | 2_DataStructures/2_LinkedList | ✅         |
 | Multidimensional arrays    |                  | ❎         |
-| Hash tables                | 2_DataStructures (Dictionary) | ✅ |
+| Hash tables                | 2_DataStructures/0_Dictionary | ✅ |
 | Stacks                     |                  | ❎         |
 | Queues                     |                  | ❎         |
 | Deques                     |                  | ❎         |
@@ -46,24 +46,24 @@
 | Trees                      |                  | ❎         |
 
 ## Strings & Files
-| Subtopic                           | Covered in | Complete? |
-| ---------------------------------- | ---------- | --------- |
-| Strings: print/format              | 4_BasicIO  | ✅        |
-| Strings: concatenation             | 3_Strings  | ✅        |
-| Strings: adjust case               | 3_Strings  | ✅        |
-| Strings: sorting                   | 3_Strings  | ✅        |
-| Strings: splitting                 | 3_Strings  | ✅        |
-| IO: console                        | 4_BasicIO  | ✅        |
-| IO: text files                     | 4_BasicIO  | ✅        |
-| IO: binary files                   | 4_BasicIO  | ✅        |
-| Parse: JSON                        |            | ❎        |
-| Parse: XML                         |            | ❎        |
-| Parse: CSV                         |            | ❎        |
-| Regular Expressions                |            | ❎        |
-| Built-in/common logging techniques | 4_BasicIO  | ✅        |
-| Date/time: recording               |            | ❎        |
-| Date/time: manipulation            |            | ❎        |
-| Date/time: formatting              |            | ❎        |
+| Subtopic                           | Covered in                | Complete? |
+| ---------------------------------- | ------------------------- | --------- |
+| Strings: print/format              | 4_BasicIO                 | ✅        |
+| Strings: concatenation             | 3_Strings                 | ✅        |
+| Strings: adjust case               | 3_Strings                 | ✅        |
+| Strings: sorting                   | 3_Strings                 | ✅        |
+| Strings: splitting                 | 3_Strings                 | ✅        |
+| IO: console                        | 4_BasicIO/1_FileIO        | ✅        |
+| IO: text files                     | 4_BasicIO/1_FileIO        | ✅        |
+| IO: binary files                   | 4_BasicIO/1_FileIO        | ✅        |
+| Parse: JSON                        | 4_BasicIO/3_CommonParsing | ❎        |
+| Parse: XML                         | 4_BasicIO/3_CommonParsing | ❎        |
+| Parse: CSV                         | 4_BasicIO/3_CommonParsing | ❎        |
+| Regular Expressions                | 4_BasicIO/4_Regex         | ❎        |
+| Built-in/common logging techniques | 4_BasicIO/2_Logging       | ✅        |
+| Date/time: recording               | 4_BasicIO/5_DateTime      | ❎        |
+| Date/time: manipulation            | 4_BasicIO/5_DateTime      | ❎        |
+| Date/time: formatting              | 4_BasicIO/5_DateTime      | ❎        |
 
 Logging in C: inspired by [log.c](https://github.com/rxi/log.c); if interested use [microlog](https://github.com/an-dr/microlog) instead.
 
