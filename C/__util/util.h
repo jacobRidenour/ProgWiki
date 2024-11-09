@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 #include <stdbool.h>
+#include <limits.h>
+#include <string.h>
 
 /*******************************************************************************\
 * util                                                                         *
@@ -112,6 +114,33 @@ size_t charlenUtf8(unsigned char c)
     else if ((c & 0xF0) == 0xE0) return 3;
     else if ((c & 0xF8) == 0xF0) return 4;
     return 1;
+}
+
+/******************************************************************************
+* printBinary
+*
+* parameters: 
+*  - n : BINARY_WIDTH_TYPE
+*   
+* returns: none
+* 
+* description: prints the binary representation of n, based on the width of
+* BINARY_WIDTH_TYPE, e.g. unsigned char, short, int, long long
+* 
+******************************************************************************/
+#define BINARY_WIDTH_TYPE unsigned char
+void printBinary(BINARY_WIDTH_TYPE n) 
+{
+    unsigned int bitWidth = sizeof(BINARY_WIDTH_TYPE) * CHAR_BIT;
+
+    for (int i = bitWidth - 1; i >= 0; --i) 
+    {
+        printf("%d", (n >> i) & 1);
+        if (i % 4 == 0 && i != 0) 
+        {
+            printf(" ");
+        }
+    }
 }
 
 #endif /* UTIL_H */

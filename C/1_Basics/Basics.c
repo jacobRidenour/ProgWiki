@@ -1,5 +1,7 @@
 #include <stdio.h>
 
+#include "util.h"
+
 // Source files are read top-to-bottom. If we are going to reference a type or 
 // function defined in this file before its definition, we need to declare it.
 // Declarations consist of the function's return type, name, parameters (which
@@ -9,6 +11,7 @@
 void types(); // equivalent to void types(void);
 void maths(); void pointers(); void arrays();
 void operators();
+void bitwise();
 void statements();
 void storage_class_specifiers(); void static_demo();
 void memory();
@@ -21,6 +24,7 @@ int main(int argc, char* argv[]) {
     // Each statement (usually a line) ends with a semicolon.
     types(); maths(); pointers(); arrays();
     operators();
+    bitwise();
     statements();
     storage_class_specifiers();
     memory();
@@ -155,13 +159,47 @@ void operators() {
     printf("x = %d, y = %.2lf, z = %d\n", x, y, z);
 }
 
+// bitwise operators
+void bitwise() {
+    unsigned char a = 12;
+    unsigned char b = 25;
+
+    printf("\na is %u --------> ", a);
+    printBinary(a);
+
+    printf("\nb is %u --------> ", b);
+    printBinary(b);
+
+    // Be warned; operands are promoted to unsigned/int before the operation is performed.
+    // Often goes unnoticed outside of the NOT operator
+
+    // AND
+    printf("\na & b is %3u ---> ", a & b);
+    printBinary(a & b);
+    // OR
+    printf("\na | b is %3u ---> ", a | b);
+    printBinary(a | b); 
+    // XOR
+    printf("\na ^ b is %3u ---> ", a ^ b);
+    printBinary(a ^ b);
+    // NOT
+    printf("\n~a is %3u ------> ", (unsigned char) ~a);
+    printBinary(~a);
+    // Left shift
+    printf("\na << 2 is %3u --> ", a << 2);
+    printBinary(a << 2);
+    // Right shift
+    printf("\na >> 2 is %3u --> ", a >> 2);
+    printBinary(a >> 2);
+}
+
 // Introduce statements
 void statements() {
     int x = 1;
 
     // Compound Statements (aka blocks) - enclosed by braces
     if(x) {
-        printf("if(x) block entered");
+        printf("\nif(x) block entered");
         printf("\n");
     }
     // Blocks create scopes; local variables that are declared here are not accessible
