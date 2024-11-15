@@ -1,6 +1,7 @@
 variable names: `camelCase`  
 internal variable names: `_camelCase`  
 function names: `camelCase`  
+internal function names: `__camelCase`
 
 structs: `PascalCase`  
 struct-associated functions: `camelCaseStructNameFunctionName`

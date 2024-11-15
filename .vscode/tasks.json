@@ -13,7 +13,7 @@
                 "$gcc"
             ],
             "options": {
-                "cwd": "${workspaceFolder}/C/4_BasicIO/1_FileIO"
+                "cwd": "${workspaceFolder}/C/4_BasicIO/3_CommonParsing"
             }
         }
     ]

@@ -29,21 +29,21 @@
 | Jump statements          | 1_Basics   | ✅        |
 
 ## Data Structures
-| Subtopic                   | Covered in       | Complete?  |
-| -------------------------- | ---------------- | ---------- |
-| Iterate over iterable type | 1_Basics         | ✅         |
-| Dictionaries/maps          | 2_DataStructures/0_Dictionary | ✅ |
-| Sets                       |                  | ❎         |
-| Tuples                     |                  | ❎         |
-| Arrays/Vectors             | 2_DataStructures/1_Array | ✅ |
+| Subtopic                   | Covered in                    | Complete?  |
+| -------------------------- | ----------------------------- | ---------- |
+| Iterate over iterable type | 1_Basics                      | ✅         |
+| Dictionaries/maps          | 2_DataStructures/0_Dictionary | ✅         |
+| Sets                       |                               | ❌         |
+| Tuples                     |                               | ❌         |
+| Arrays/Vectors             | 2_DataStructures/1_Array      | ✅         |
 | Linked lists               | 2_DataStructures/2_LinkedList | ✅         |
-| Multidimensional arrays    |                  | ❎         |
-| Hash tables                | 2_DataStructures/0_Dictionary | ✅ |
-| Stacks                     |                  | ❎         |
-| Queues                     |                  | ❎         |
-| Deques                     |                  | ❎         |
-| Graphs                     |                  | ❎         |
-| Trees                      |                  | ❎         |
+| Multidimensional arrays    |                               | ❌         |
+| Hash tables                | 2_DataStructures/0_Dictionary | ✅         |
+| Stacks                     |                               | ❌         |
+| Queues                     |                               | ❌         |
+| Deques                     |                               | ❌         |
+| Graphs                     |                               | ❌         |
+| Trees                      |                               | ❌         |
 
 ## Strings & Files
 | Subtopic                           | Covered in                | Complete? |
@@ -56,14 +56,14 @@
 | IO: console                        | 4_BasicIO/1_FileIO        | ✅        |
 | IO: text files                     | 4_BasicIO/1_FileIO        | ✅        |
 | IO: binary files                   | 4_BasicIO/1_FileIO        | ✅        |
-| Parse: JSON                        | 4_BasicIO/3_CommonParsing | ❎        |
-| Parse: XML                         | 4_BasicIO/3_CommonParsing | ❎        |
-| Parse: CSV                         | 4_BasicIO/3_CommonParsing | ❎        |
-| Regular Expressions                | 4_BasicIO/4_Regex         | ❎        |
+| Parse: JSON                        | 4_BasicIO/3_CommonParsing | ❌        |
+| Parse: XML                         | 4_BasicIO/3_CommonParsing | ❌        |
+| Parse: CSV                         | 4_BasicIO/3_CommonParsing | ❌        |
+| Regular Expressions                | 4_BasicIO/4_Regex         | ❌        |
 | Built-in/common logging techniques | 4_BasicIO/2_Logging       | ✅        |
-| Date/time: recording               | 4_BasicIO/5_DateTime      | ❎        |
-| Date/time: manipulation            | 4_BasicIO/5_DateTime      | ❎        |
-| Date/time: formatting              | 4_BasicIO/5_DateTime      | ❎        |
+| Date/time: recording               | 4_BasicIO/5_DateTime      | ❌        |
+| Date/time: manipulation            | 4_BasicIO/5_DateTime      | ❌        |
+| Date/time: formatting              | 4_BasicIO/5_DateTime      | ❌        |
 
 Logging in C: inspired by [log.c](https://github.com/rxi/log.c); if interested use [microlog](https://github.com/an-dr/microlog) instead.
 
@@ -71,7 +71,7 @@ Logging in C: inspired by [log.c](https://github.com/rxi/log.c); if interested u
 | Subtopic                      | Covered in | Complete? |
 | ----------------------------- | ---------- | --------- |
 | Passing & returning semantics | 1_Basics   | ✅        |
-| Error handling                | 1_Basics   | ❎        |
+| Error handling                | 1_Basics   | ❌        |
 | Abstract classes              | N/A        | 🚫        |
 | Inheritance & polymorphism    | N/A        | 🚫        |
 | Access specifiers             | N/A        | 🚫        |
@@ -82,14 +82,14 @@ Logging in C: inspired by [log.c](https://github.com/rxi/log.c); if interested u
 ## Multithreading
 | Subtopic        | Covered in | Complete? |
 | --------------- | ---------- | --------- |
-| Patterns        |            | ❎        |
-| Conditions      |            | ❎        |
-| Mutexes         |            | ❎        |
-| Synchronization |            | ❎        |
+| Patterns        |            | ❌        |
+| Conditions      |            | ❌        |
+| Mutexes         |            | ❌        |
+| Synchronization |            | ❌        |
 
 ## Networking
 | Subtopic              | Covered in | Complete? |
 | --------------------- | ---------- | --------- |
-| Send HTTP requests    |            | ❎        |
-| Handle HTTP responses |            | ❎        |
-| Socket programming    |            | ❎        |
+| Send HTTP requests    |            | ❌        |
+| Handle HTTP responses |            | ❌        |
+| Socket programming    |            | ❌        |
