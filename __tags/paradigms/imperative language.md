@@ -1,0 +1,1 @@
+programming paradigm where programs contain commands for the computer to perform (describe the how, step-by-step)

@@ -1,0 +1,1 @@
+type system wherein type compatibility is determined by explicit declarations and named types. Compare to [[structurally typed]]

@@ -1,0 +1,1 @@
+programming language that is turned into machine code line-by-line by an interpreter

@@ -1,0 +1,1 @@
+type system wherein type compatibility is based on the structure and properties of types rather than explicit naming. Compare to [[nominally typed]]

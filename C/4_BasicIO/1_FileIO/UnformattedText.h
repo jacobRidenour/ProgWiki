@@ -4,7 +4,7 @@
 /******************************************************************************
 * UnformattedText.h
 *
-* For reading and parsing the contents of _common/unformatted.txt, as an example
+* For reading and parsing the contents of __common/unformatted.txt, as an example
 * of parsing loosely formatted data from a text file 
 *
 ******************************************************************************/
@@ -27,7 +27,7 @@ void parseFeedback(char* line, Feedback* feedback);
 
 int readUnformattedText()
 {
-    FILE* file = fopen("../../../_common/unformatted.txt", "r");
+    FILE* file = fopen("../../../__common/unformatted.txt", "r");
     if (!file)
     {
         perror("Error opening file\n");

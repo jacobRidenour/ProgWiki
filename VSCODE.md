@@ -4,8 +4,8 @@
 
 Change Terminal to Bash:
 
-| VSCode | VS2022 (Windows only) |
-| ------ | --------------------- |
+| VSCode                                                             | VS2022 (Windows only)                                                             |
+| ------------------------------------------------------------------ | --------------------------------------------------------------------------------- |
 | Command Palette (Ctrl+Shift+P)<br>Terminal: Select Default Profile | Tools -> Options -> Environment -> Terminal -> Add;<br>Arguments: `--login -i -l` |
 
 ## C/C++

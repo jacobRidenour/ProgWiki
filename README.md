@@ -179,6 +179,7 @@ python -m pip install --upgrade pip setuptools wheel
 // HTML/CSS basics 😷  
 // JS/TS (vanilla)  
 // Go  
+// Haskell  
 // Rust  
 // C#  
 

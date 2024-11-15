@@ -31,6 +31,6 @@ int main()
         .userData = NULL
     };
 
-    parseCsvFile("../../../_common/data.csv", &cfg);
+    parseCsvFile("../../../__common/data.csv", &cfg);
     
 }

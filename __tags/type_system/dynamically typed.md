@@ -1,0 +1,1 @@
+type system wherein type checking is performed at execution time. Compare to [[statically typed]]

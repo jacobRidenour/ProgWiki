@@ -1,0 +1,1 @@
+type system wherein variable types are automatically deduced based on usage. Compare to [[manifest types]]

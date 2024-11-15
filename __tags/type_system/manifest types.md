@@ -1,0 +1,1 @@
+type system wherein variable types are explicitly declared in the code. Compare to [[inferred types]]

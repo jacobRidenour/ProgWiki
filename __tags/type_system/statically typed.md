@@ -1,0 +1,1 @@
+type system wherein type checking is performed at compile time. Types must be explicitly defined/inferred. Compare to [[dynamically typed]]

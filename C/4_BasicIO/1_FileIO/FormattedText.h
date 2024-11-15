@@ -11,7 +11,7 @@
 /******************************************************************************
 * FormattedText.h
 *
-* For reading and parsing the contents of _common/formatted.txt, as an example
+* For reading and parsing the contents of __common/formatted.txt, as an example
 * of parsing formatted data from a text file 
 *
 ******************************************************************************/
@@ -52,7 +52,7 @@ void trimNewline(char* line); // helper function
 
 int readFormattedText()
 {
-    FILE* file = fopen("../../../_common/formatted.txt", "r");
+    FILE* file = fopen("../../../__common/formatted.txt", "r");
     if (!file)
     {
         perror("Error opening file\n");
