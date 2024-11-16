@@ -1,4 +1,5 @@
-# CodingPractice
+# Programming Wiki
+
 This repository is meant as a catalog/reference for various aspects of different programming languages, syntax, type systems, compilation, build systems, and performing common tasks (setting up/using relevant libraries when applicable).
 
 Written from the perspective of a new college graduate. Trying to lean more towards practical over theoretical.
@@ -124,63 +125,30 @@ Jump to any language's README:
 
 Language-specific setup for VS/Code in [VSCODE.md](VSCODE.md).
 
-## C/C++ Essentials
-### Windows
+## Language Essentials
 
-| Program | Add to PATH | Rationale |
-| ------- | ----------- | --------- |
-| [Make](https://gnuwin32.sourceforge.net/packages/make.htm) | `/GnuWin32/bin` | Build automation tool. May be necessary to build dependencies.                                                     |
-| [MinGW-w64](https://winlibs.com/)                          | `/mingw64/bin`  | Development environment for Windows apps, with ports of `gcc`, `gdb`, the GNU C standard library, and more.                                    |
-| [CMake](https://cmake.org/download/)                       | `/cmake/bin`    | Build system generator; creates build files (like Makefiles, Visual Studio projects) in a compiler-independent way |
+Language-specific tools, rationale, links found in [TOOLS.md](TOOLS.md).
 
-Note that Visual Studio comes with the C standard library/headers; you gain access to the legacy Microsoft Visual C++ C Runtime (MSVCRT). The C99-compliant Universal C Runtime (UCRT) ships with the OS since Windows 10. The Visual Studio installer
-(Microsoft C Runtime Library (CRT)). The installer can also nab you the Windows SDK, providing Windows API access.
+## Plans
 
-### Linux
+In no particular order.
 
-| Program  | Rationale                                             |
-| -------- | ----------------------------------------------------- |
-| gcc      | GNU compiler collection; C/C++ compilers (gcc, g++)   |
-| gdb      | GNU debugger (supports C/C++ among others)            |
-| make     | See above                                             |
-| binutils | Tools such as the linker, assembler, and binary tools |
-| libc6-dev | C standard library / headers
-| valgrind | Memory debugging, memory leak detection               |
-| cmake    | See above                                             |
+**C and C++** - widely influential powerhouses that are still useful today; good foundations
 
-For C/C++ this repository focuses on the Make, CMake, and MSBuild build systems.
+**Python** - dynamic types, popular and useful for scripting and data science
 
-The `build-essential` package on Linux typically includes `gcc`, `g++`, `make`, and a C library (typically `libc`)
+**Ruby** - dynamic types, opinionated; most especially for comparison with Python 
 
-## Python Setup
+**Lua** - dynamic types, lightweight, fast, simple to embed in other applications
 
-See Python/README_PYTHON.md for more information.
+**HTML/CSS** - not languages; but the basics are important for...
 
-Download and install [Python](https://www.python.org/downloads/).
+**JavaScript/TypeScript** - vanilla-focused; it's ubiquitous and I don't know it well
 
-- During the installation, be sure to check "Add Python to PATH".
-- Also be sure to add (PythonDirectory)/Scripts to PATH.
-- Visual Studio natively supports Python projects.
-- In VSCode, get the Python Extension Pack from the Marketplace, or minimally Python, Python Indent, and Python Environment Manager.
+**Go** - see what the fuss is about, high praise for its networking capabilities
 
-Make sure you can run python and pip from the command line and they're up to date. In a command prompt of your choice:
+**Haskell** - functional programming paradigm
 
-```
-python --version
-python -m pip --version
-python -m pip install --upgrade pip setuptools wheel
-```
+**Rust** - functional influence and memory safety
 
-// Plans:  
-// C++  
-// Python  
-// Ruby  
-// Lua  
-// HTML/CSS basics 😷  
-// JS/TS (vanilla)  
-// Go  
-// Haskell  
-// Rust  
-// C#  
-
-// git clear ignored files: git rm -r --cached . && git add . && git commit -am "Remove ignored files"  
+**C#** - just want to learn more. Popular.

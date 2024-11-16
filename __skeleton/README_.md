@@ -24,7 +24,7 @@ Function parameters are passed by {passingSemantics}.
 
 ## Memory Layout
 
-## Memory MAnagement
+## Memory Management
 
 ## VS Code Setup
 
