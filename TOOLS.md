@@ -34,5 +34,13 @@ The `build-essential` package on Linux typically includes `gcc`, `g++`, `make`, 
 
 ## Haskell Essentials
 ### Windows
+
+TODO
+
 ### Linux
+
+| Program       | Rationale               |
+| ------------- | ----------------------- |
+| ghc           | FOSS Haskell Compiler   |
+| cabal-install | Haskell package manager |
 

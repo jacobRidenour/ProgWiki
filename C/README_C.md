@@ -56,10 +56,17 @@ There are 3 related categories of behavior to watch out for with C (and C++) tha
 
 ## Creating a Binary
 
-There are 3 main programs involved in creating a binary, such as an executable, from C source code. They are the preprocessor, the compiler, and the linker. When we build a C program, all three of these steps occur sequentially by default.
+There are 3 main programs involved in creating a binary, such as an executable, from C source code.
+
+They are:  
+* the preprocessor,
+* the compiler, and
+* the linker.
+
+When we build a C program, all three of these steps occur sequentially by default.
 
 Any references to compiler flags here are referring to the GNU C compiler `gcc`.
-![Compilation process for C.](__images/c-compilation-process.png)
+![Compilation process for C.](../__images/compilation-c.png)
 
 ### Preprocessor
 ---
