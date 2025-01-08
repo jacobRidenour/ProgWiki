@@ -31,6 +31,8 @@ x86*/
 .stack-work*/
 [Ss]tack.yaml
 [Ss]tack.yaml.lock
+*.cabal
+!Haskell/projectName.cabal
 
 # ** Python ****************************************************************** #
 # Cache

@@ -1,19 +1,18 @@
 cabal-version:       2.2
 
-name:                aHelloWorld
+name:                projectName
 version:             0.1.0.0
 -- synopsis:
 -- description:
 homepage:            https://github.com/jacobRidenour/ProgWiki
 license:             BSD-3-Clause
-license-file:        LICENSE
-author:              Jacob Ridenour
-maintainer:          ask
+license-file:        
+author:              
+maintainer:          
 copyright:           none
 category:            Educational
 build-type:          Simple
-extra-source-files:  README.md
-                     CHANGELOG.md
+extra-source-files:  
 
 executable aHelloWorld
   hs-source-dirs:      src

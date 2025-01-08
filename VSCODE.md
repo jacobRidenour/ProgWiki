@@ -41,4 +41,10 @@ Compiler path should be detected automatically. Make adjustments if using a non-
 
 Install the Haskell extension, it will ask you to install GHCup (recommended). Follow the instructions [here](https://www.haskell.org/ghcup/). We will want to add `~/.ghcup` to `PATH` (Linux).
 
-The build system/package manager being used is called Stack. Add your basic information to Stack's global config file at `~/.stack/config.yaml`
+The build system/package manager being used is called Stack. Add your basic information to Stack's global config file at `~/.stack/config.yaml`. For simple projects that won't have a `README` or `LICENSE` etc make sure those files aren't referenced in the `<projectName>.cabal` file or the build will fail.
+
+Create a project: `stack new <projectName> <template>`
+e.g. `stack new aHelloWorld simple`
+
+Build a project: `cd dir/with/project.cabal`  ;   `stack build --copy-bins`
+
