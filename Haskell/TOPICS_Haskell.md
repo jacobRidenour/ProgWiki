@@ -1,5 +1,7 @@
 []()Track coverage of topics and example programs for the ${language} programming language
 
+Flesh out/update.
+
 ## Operators
 | Subtopic                            | Covered in         | Complete? |
 | ----------------------------------- | ------------------ | --------- |

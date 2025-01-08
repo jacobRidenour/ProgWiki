@@ -37,3 +37,8 @@ If you are instead using MinGW-w64, it might look something like this:
 
 Compiler path should be detected automatically. Make adjustments if using a non-standard location for your compiler.
 
+## Haskell
+
+Install the Haskell extension, it will ask you to install GHCup (recommended). Follow the instructions [here](https://www.haskell.org/ghcup/). We will want to add `~/.ghcup` to `PATH` (Linux).
+
+The build system/package manager being used is called Stack. Add your basic information to Stack's global config file at `~/.stack/config.yaml`
