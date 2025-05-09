@@ -4,7 +4,12 @@ Essential tools for various languages.
 
 (TOC)
 
-## C/C++
+## Version Control
+
+TODO: setup Git for Windows, generalized linux setup
+// config/other files to tweak ?
+
+## C/C++ Essentials
 ### Windows
 
 | Program | Add to PATH | Rationale |
