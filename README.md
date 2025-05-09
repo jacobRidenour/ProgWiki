@@ -6,6 +6,7 @@ Written from the perspective of a new college graduate. Trying to lean more towa
 
 Jump to any language's README:  
 [--> C](C/README_C.md)
+[--> Haskell](Haskell/README_Haskell.md)
 
 ## Topics
 
