@@ -1,14 +1,18 @@
 # Programming Wiki
 
-This repository is meant as a catalog/reference for various aspects of different programming languages, syntax, type systems, compilation, build systems, and performing common tasks (setting up/using relevant libraries when applicable).
+This repository is meant as a catalog/reference for various aspects of different programming languages, syntax, type systems, compilation, build systems, and performing common tasks (setting up/using relevant libraries when applicable), as well as broadly-applicable tools, such as git.
 
 Written from the perspective of a new college graduate. Trying to lean more towards practical over theoretical.
 
 Jump to any language's README:  
-[--> C](C/README_C.md)
-[--> Haskell](Haskell/README_Haskell.md)
+[--> C](C/README_C.md)  
+[--> C++](C/README_C++.md)  
+[--> Haskell](Haskell/README_Haskell.md)  
 
-## Topics
+Jump to any tool's README:  
+[--> git](Tools/Git/README_git.md)
+
+## Language Topics
 
 <table style="width: 100%;">
   <tr>
