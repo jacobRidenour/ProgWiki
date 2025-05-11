@@ -132,7 +132,11 @@ Language-specific setup for VS/Code in [VSCODE.md](VSCODE.md).
 
 ## Language Essentials
 
-Language-specific tools, rationale, links found in [TOOLS.md](TOOLS.md).
+General and language-specific tools, rationale, links found in [TOOLS.md](TOOLS.md).
+
+## Style
+
+My personal language-specific style preferences are found in each language's `STYLE_<LANGUAGE>.md`. Sometimes influenced by the language's documentation/style, sometimes not. Included for my own copypasting and reference in case they're helpful.
 
 ## Plans
 
