@@ -14,7 +14,7 @@ C++ has been standardized since 1998. Its development began in 1979 at Bell Labs
 
 Implementation-defined, undefined, and unspecified behavior are as alive in C++ as they are in C. The [README for C](../C/README_C.md) provides a lot of background information for understanding C++.
 
-<sup>† C ressurrected the `auto` keyword for type inference in the C23 standard.</sup>
+<sup>†</sup> C ressurrected the `auto` keyword for type inference in the C23 standard.
 
 > ⚠️ **Note**  
 > C++ is **not** a superset of C!
@@ -106,7 +106,7 @@ C++ supports all of the types that C does, but expands on them.
 
 - user-defined types (Classes, structs with member functions, templates)
 - references (T&, T&&)
-- consexpr types, incomplete types with templating
+- constexpr types, incomplete types with templating
 - enumerations (enum class)
 - function types with cv/ref qualifiers (elaborate)
 - type deduction mechanisms (auto, decltype, template argument deducation)
@@ -114,13 +114,47 @@ C++ supports all of the types that C does, but expands on them.
 
 ### Values
 
-C++ preserves lvalues and rvalues from C, but expands them into additional types, which are essential in move semantics, overload resolution, and lifetime extension rules:
+C++ preserves [lvalues and rvalues from C](../C/README_C.md#Values), but [expands them into additional types](https://en.cppreference.com/w/cpp/language/value_category)<sup>†</sup>, which are essential in move semantics, overload resolution, and lifetime extension rules, described below.
 
-- lvalue
-- xvalue
-- prvalue
-- glvalue
-- rvalue
+Beginning in C++11, two independent properties of expressions began to be used to define value categories.
+
+- has identity: can compare addresses of the objects or functions they identiy (in/directly) to determine whether 2 expressions refer to the same entity  
+- can be moved from: can bind move semantics-implementing functions (move constructor/assignment, overloads) to the expression.  
+
+// && move, & copy
+
+
+
+
+
+
+
+///
+
+
+
+
+| Category    | Meaning                         | Has identity (can bind to `T&`) | Can be moved from (can bind to `T&&`) | Common example(s) |
+| ----------- | ------------------------------- | ---------------- | ----------------- | ----------------- |
+| **lvalue**  | named object / persistent value,<br>a glvalue that's not an xvalue | ✅ | ❌ | variable's name, `*ptr`, `arr[i]` |
+| **xvalue**  | eXpiring value, can be moved from | ❌ | ✅ | `std::move(x)`, `std::string() + ""` |
+| **prvalue** | Pure rvalue (temporary, not an object yet) | ❌ | ✅ | `42`, `3.14`, `std::string("abc")` |
+| **glvalue** | Generalized lvalue (lvalue or value) | - | - | common in overload resolution |
+
+
+///
+
+| Category    | Meaning                         | Can bind to `T&` | Can bind to `T&&` | Common example(s) |
+| ----------- | ------------------------------- | ---------------- | ----------------- | ----------------- |
+| **lvalue**  | named object / persistent value,<br>a glvalue that's not an xvalue | ✅ | ❌ | variable's name, `*ptr`, `arr[i]` |
+| **xvalue**  | eXpiring value, can be moved from | ❌ | ✅ | `std::move(x)`, `std::string() + ""` |
+| **glvalue** | Generalized lvalue (lvalue or value) | - | - | common in overload resolution |
+| **prvalue** | Pure rvalue (temporary, not an object yet) | ❌ | ✅ | `42`, `3.14`, `std::string("abc")` |
+
+
+///
+
+<sup>†</sup> Check the history section for how they have evolved. I am mostly focusing on "modern" C++ (C++11 and beyond).
 
 In addition, C++ distinguishes between value categories (expression-related) and value kinds (object vs. function vs. reference)
 
